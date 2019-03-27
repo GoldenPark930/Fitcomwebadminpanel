@@ -1,0 +1,16 @@
+﻿@model LinksMediaCorpEntity.LevelTeamVM
+<tr>  
+    
+    <td>@Html.DisplayFor(m => Model.TeamName)</td>
+    <td>@Html.DisplayFor(m => Model.EmailId)</td>
+    <td>@Html.DisplayFor(m => Model.PhoneNumber)</td>
+    <td>@Html.DisplayFor(m => Model.Users)</td>
+    <td>@Html.DisplayFor(m => Model.Premium)</td>
+    <td>
+        @Html.HiddenFor(m => Model.LevelTeamId)    
+        <a class="DeleteLevelTeam" id="DeleteLevelTeam">
+            <span>Delete Team</span>
+        </a>   
+        @*@Html.ActionLink("Delete", "DeleteLevelTeam", "Reporting", new { id = Model.LevelTeamId }, new { @class = "delete-btn", onclick = "return confirm('Are you sure you want to delete this Level Team?');" })*@
+    </td>
+</tr>

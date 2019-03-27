@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.ServiceBus.dll</id>
+    <version>1.0.0</version>
+    <title>Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.ServiceBus.dll</title>
+    <authors>antlin</authors>
+    <owners>antlin</owners>
+    <licenseUrl>http://license_url_here_or_delete_this_line/</licenseUrl>
+    <projectUrl>http://project_url_here_or_delete_this_line/</projectUrl>
+    <iconUrl>http://icon_url_here_or_delete_this_line/</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package description</description>
+    <summary />
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2014</copyright>
+    <tags>Tag1 Tag2</tags>
+    <dependencies>
+      <dependency id="WindowsAzure.ServiceBus" version="1.8" />
+    </dependencies>
+  </metadata>
+</package>

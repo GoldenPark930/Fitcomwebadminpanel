@@ -1,0 +1,86 @@
+﻿@using System.Collections.Generic
+@Styles.Render("~/Content/challenge")
+@Scripts.Render("~/bundles/ui")
+@Scripts.Render("~/Content/stylesheet")
+@{
+    ViewBag.Title = "UploadExerciseVideos";
+    Layout = "~/Views/Shared/_FitComLayout.cshtml";
+    var message = TempData["AlertMessage"] ?? string.Empty;
+    <script type="text/javascript">
+
+        $('#Home_li').removeClass("active");
+        $('#Reporing_li').removeClass('active');
+        $('#chalenges_submenu').removeClass("inner-menu");
+        $('#programs_submenu').removeClass("inner-menu");
+        $('#activities_submenu').removeClass('inner-menu');
+        $('#trainers_submenu').removeClass("inner-menu");
+        $('#users_submenu').removeClass('inner-menu');
+        $('#Reporing_li').addClass('active');
+        $('#teams_submenu').removeClass("inner-menu");
+        $('#exerciseview_submenu').addClass("inner-menu");
+        var message = '@message';
+        if (message)
+            alert(message);
+
+    </script>
+}
+@model LinksMediaCorpEntity.ViewExercisesData
+ <div id="page-wrapper"> 
+   
+    <div class="create-challenge">
+        <div class="UploadProgress">
+
+        </div>
+        <h3>
+            Upload New Exercise Videos         
+
+            </h3>
+        <div class="challenge-content">
+            <div class="step">
+                <h5>
+                    Exercise Videos Upload
+                    </h5>
+        
+                <!-- start step -->
+                <div class="step-des">
+
+                    <form accept-charset="UTF-8" method='post' enctype="multipart/form-data" id="frmFileUpload">
+
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-3 col-lg-3 col-xs-3">
+                                <label>Exercise Videos and Excel file:</label>
+                            </div>
+                            <div class="col-md-10 col-lg-10 col-xs-10">
+                                <div class="actions">
+                                    <div class="col-md-10 ation-btn-container">
+                                        <a class="btn btn-primary file-btn col-md-4 col-lg-4 col-xs-4">
+                                            <input type="file" name="file" multiple id="uploadExerciseFile" value="Choose a file" accept=".csv,video/mp4,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                          ><br>
+                                        </a>
+                                        <input type="button" id="btnUpload" class="submit" name="btnExerciseUpload" value="Upload to Sprout Server">
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </form>
+                    <!-- progress bar -->
+
+                </div>
+                
+
+
+            </div>
+            <div  id ="FailUploadHistorySection"class="step">
+                <h5>
+                    Fail Uploaded Exercise Videos History
+                    <input type="button" style="float:right;padding:0px;" class="submit" id="ShowFailUploadHistory" value="Refresh">                  
+                </h5>
+                @Html.Partial("_ExerciseUploalFailHistory", Model)
+                </div>
+            </div>
+            </div>
+        </div>
+        <script src="~/Scripts/BusinessLogic/ExerciseUploadBL.js"></script>

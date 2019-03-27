@@ -1,0 +1,61 @@
+﻿@{
+    LinksMediaCorpEntity.ViewTrainers trainers = new LinksMediaCorpEntity.ViewTrainers();
+
+    var gridTrainer = new WebGrid(Model, canPage: true, rowsPerPage: 10, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridTrainerDetail1");
+    gridTrainer.Pager(WebGridPagerModes.NextPrevious);
+}
+<div id="Trainer_1" class="reporting-table"> 
+    @if (Model.Count > 0)
+    {
+        <div id="gridTrainerDetail1" class="report-table-content panel-body">
+            @gridTrainer.GetHtml(tableStyle: "full-table"
+                , mode: WebGridPagerModes.All,
+                firstText: "<< First",
+                previousText: "< Prev",
+                nextText: "Next >",
+                lastText: "Last >>",
+                headerStyle: "",
+                alternatingRowStyle: "alt",
+                selectedRowStyle: "select",
+                columns: gridTrainer.Columns(
+                new WebGridColumn
+                {
+                    Format =
+                    @<text>
+                        <div class="fleft btn-txt-user">
+
+                            @Html.ActionLink("Edit", "UpdateTrainer", "Reporting", new { id = item.TrainerId }, new { })
+                        </div><div class="fleft btn-txt-user">
+                            @Html.ActionLink("Delete", "DeleteTrainer", "Reporting", new { id = item.TrainerId }, new { @class = "delete-btn", onclick = "return confirm('Are you sure you want to delete this item?');" })
+                        </div>
+
+                    </text>
+                },
+
+                                                                                  gridTrainer.Column("TrainerName", header: "Name"),
+                                                                                  gridTrainer.Column("TopThreeSpecialization", header: "Specialization"),
+                                                                                  gridTrainer.Column("TrainerType", header: "Trainer Type"),
+                                                                                  gridTrainer.Column("TeamName", header: "Team Name"),
+                                                                                  gridTrainer.Column("PremiumMemberStatus", header: "Premium Member"),
+                                                                                  gridTrainer.Column("UniqueTeamId", header: "TeamId"),
+                                                                                  gridTrainer.Column("TeamCount", header: "Team Count"),
+                                                                                  gridTrainer.Column("EnteredTrainerID", header: "TrainerID"),
+                                                                                  gridTrainer.Column("Address", header: "Location"),
+                                                                                  gridTrainer.Column("Email", header: "Email"),
+                                                                                  gridTrainer.Column("PhoneNumber", header: "Phone Number"),                                                                                
+                                                                                  gridTrainer.Column("SubscriptionStatusLebel", header: "Subscription Status")
+
+                                                                                           ))
+            @*@if (gridTrainer.HasSelection)
+                {
+                    trainers = (LinksMediaCorpEntity.ViewTrainers)gridTrainer.Rows[gridTrainer.SelectedIndex].Value;
+                    <b>Id</b> @trainers.TrainerName<br />
+
+                }*@
+        </div>
+    }
+    else
+    {
+        <div class="NoRecord">No Records</div>
+    }
+</div>

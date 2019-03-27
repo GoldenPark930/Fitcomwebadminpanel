@@ -1,0 +1,43 @@
+﻿@{
+    LinksMediaCorpEntity.ViewActivitiesVM activites = new LinksMediaCorpEntity.ViewActivitiesVM();
+    var gridActivity = new WebGrid(Model, canPage: true, rowsPerPage: 10, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridActivityDetail");
+    gridActivity.Pager(WebGridPagerModes.NextPrevious);
+}
+
+@if (Model.Count > 0)
+{
+    <div id="gridActivityDetail" class="report-table-content panel-body">
+        @gridActivity.GetHtml(tableStyle: "full-table",
+                headerStyle: "",
+                alternatingRowStyle: "alt",
+                selectedRowStyle: "select",
+                 columns: gridActivity.Columns(
+                new WebGridColumn
+                {
+                    Format =
+                    @<text>
+                        <div class="fleft btn-txt-user">
+
+                            @Html.ActionLink("Edit", "UpdateActivity", "Reporting", new { id = item.ActivityId }, new { })
+                        </div><div class="fleft btn-txt-user">
+                            @Html.ActionLink("Delete", "DeleteActivity", "Reporting", new { id = item.ActivityId }, new { @class = "delete-btn", onclick = "return confirm('Are you sure you want to delete this item?');" })
+                        </div>
+
+                    </text>
+                },
+                                             gridActivity.Column("NameOfActivity", header: "Name"),
+                                             gridActivity.Column("TrainerName", header: "Trainer"),
+                                             gridActivity.Column("DateofEvent", header: "Event Date", format: (item) => string.Format("{0:dd-MMM-yyyy}", item.DateofEvent)),
+                                             gridActivity.Column("Location", header: "Location")))
+        @if (gridActivity.HasSelection)
+        {
+            activites = (LinksMediaCorpEntity.ViewActivitiesVM)gridActivity.Rows[gridActivity.SelectedIndex].Value;
+            <b>Id</b> @activites.ActivityId<br />
+
+        }
+    </div>
+}
+else
+{
+    <div class="NoRecord"></div>
+}

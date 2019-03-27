@@ -1,0 +1,60 @@
+﻿@{
+    Layout = "~/Views/Shared/_FitComLayout.cshtml";
+    ViewBag.Title = "Teams";
+    LinksMediaCorpEntity.ViewTeams teams = new LinksMediaCorpEntity.ViewTeams();
+    var message = TempData["AlertMessage"] ?? string.Empty;
+    <script type="text/javascript">
+        $('#Home_li').removeClass("active");
+        $('#Reporing_li').removeClass('active');
+        $('#chalenges_submenu').removeClass("inner-menu");
+        $('#programs_submenu').removeClass("inner-menu");
+        $('#activities_submenu').removeClass('inner-menu');
+        $('#trainers_submenu').removeClass("inner-menu");
+        $('#users_submenu').removeClass('inner-menu');
+        $('#teams_submenu').removeClass("inner-menu");
+        $('#Reporing_li').addClass('active');
+        $('#teams_submenu').addClass("inner-menu");
+    </script>
+}
+<script type="text/javascript">
+    var message = '@message';
+    if (message)
+        alert(message);
+</script>
+@model IEnumerable<LinksMediaCorpEntity.ViewTeams>
+<div id="page-wrapper">
+   <br/>
+    <div class="">
+        <div class="col-md-12 col-lg-12 col-xs-12  state-drop-down-listbox">           
+                @Html.TextBox("SearchTeam", null, new { @class = "searchinput", maxLength = "200", @placeholder = "Search By Team Name" })
+
+            </div>
+</div>
+    <div class="reporting-table">
+        <div class="panel-heading">
+            @Html.ActionLink("New", "CreateTeam", "Reporting", new { @class = "add" })
+            <h3 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse3">Teams</h3>
+        </div>
+        <div id="collapse3" class="panel-collapse collapse in">
+            @Html.Partial("_Teams", Model)
+        </div>
+    </div>
+
+    <script type="text/javascript">      
+
+        $('#SearchTeam').keyup(function (e) {          
+            if (this.value.length >= 2 || e.keyCode == 13 || e.which == 13 || e.keyCode == 8) {             
+                var searchItem = $(this).val();             
+                    $.get('@Url.Action("SearchTeam", "Reporting")' + "/" + searchItem, function (data) {
+                        $('#Team_1').replaceWith(data);
+                        if (data) {
+                           
+                        }
+                    });
+                }       
+
+        });
+
+
+    </script>
+</div>

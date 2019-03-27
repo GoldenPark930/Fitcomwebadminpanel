@@ -1,0 +1,578 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActivityTargetType" xml:space="preserve">
+    <value>Activity</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="ActivityUrl" xml:space="preserve">
+    <value>Activities</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="ChallengeOfTheDayLabel" xml:space="preserve">
+    <value>CHALLENGE OF THE DAY</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="ChallengeTargetType" xml:space="preserve">
+    <value>Challenge</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="ChallengeUrl" xml:space="preserve">
+    <value>Challenges</value>
+  </data>
+  <data name="CityNotSelected" xml:space="preserve">
+    <value>The City field is required.</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="DeleteMessage" xml:space="preserve">
+    <value>Record successfully deleted.</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="DuplicateEmail" xml:space="preserve">
+    <value>Email already exist!</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="DuplicateTeam" xml:space="preserve">
+    <value>Team already exist!</value>
+  </data>
+  <data name="DuplicateUser" xml:space="preserve">
+    <value>User already exist!</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="EmailAlreadyExist" xml:space="preserve">
+    <value>Email Id already exist.</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="IncorrectPassword" xml:space="preserve">
+    <value>Your old password is incorrect!</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Please enter valid email address</value>
+  </data>
+  <data name="InvalidHeight" xml:space="preserve">
+    <value>Please enter valid Height in Inches</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="InvalidNumeric" xml:space="preserve">
+    <value>Please enter valid numeric value</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="InvalidPasswordLength" xml:space="preserve">
+    <value>Password should be min 4 and max 10 characters in length</value>
+  </data>
+  <data name="InvalidReps" xml:space="preserve">
+    <value>Please enter valid reps</value>
+  </data>
+  <data name="InvalidToken" xml:space="preserve">
+    <value>Invalid Token</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="InvalidWeight" xml:space="preserve">
+    <value>Please enter valid Weight in lbs</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="InvalidWeightForMan" xml:space="preserve">
+    <value>*</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="InvalidZip" xml:space="preserve">
+    <value>Please enter a valid 5 digit zip code.</value>
+  </data>
+  <data name="LoginError" xml:space="preserve">
+    <value>Email or password is incorrect.</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="LoginUserName" xml:space="preserve">
+    <value>LoginUserName</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout Successfully.</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="MainUrlText" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="MyPrimaryTrainer" xml:space="preserve">
+    <value>MY PRIMARY TRAINER</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>NotAvailable</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="OneByFour" xml:space="preserve">
+    <value>1/4</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="OneByThree" xml:space="preserve">
+    <value>1/3</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="OneByTwo" xml:space="preserve">
+    <value>1/2</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="PasswordChangeSuccess" xml:space="preserve">
+    <value>Password has been changed successfully!</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="PicMessageType" xml:space="preserve">
+    <value>Pic</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="PreviousUrl" xml:space="preserve">
+    <value>PreviousUrl</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="SavetoDraft" xml:space="preserve">
+    <value>Save to Draft</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>Error on Server...</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="SessionExpired" xml:space="preserve">
+    <value>Your session has been expired.</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="SponsorChallengeLebel" xml:space="preserve">
+    <value>SPONSOR CHALLENGE</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="StateNotSelected" xml:space="preserve">
+    <value>The State field is required.</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="SubmitMessage" xml:space="preserve">
+    <value>Record successfully submitted!</value>
+  </data>
+  <data name="TargetTypeChallenge" xml:space="preserve">
+    <value>Challenge</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="TextMessageType" xml:space="preserve">
+    <value>Text</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="ThreeByFour" xml:space="preserve">
+    <value>3/4</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="TrainerNotSelected" xml:space="preserve">
+    <value>The Trainer field is required.</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="TrainerProfile" xml:space="preserve">
+    <value>~images\\Profile_Pic</value>
+  </data>
+  <data name="TrainerUrl" xml:space="preserve">
+    <value>Trainers</value>
+  </data>
+  <data name="TwoByFour" xml:space="preserve">
+    <value>2/4</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="TwoByThree" xml:space="preserve">
+    <value>2/3</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="UpdateMessage" xml:space="preserve">
+    <value>Record successfully updated.</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="UserAlreadyExist" xml:space="preserve">
+    <value>User name already exist.</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="UserTargetType" xml:space="preserve">
+    <value>User</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="UserTypeAdmin" xml:space="preserve">
+    <value>admin</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="UserTypeTrainer" xml:space="preserve">
+    <value>trainer</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="UserTypeUser" xml:space="preserve">
+    <value>user</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="UserUrl" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="VariableUnitmiles" xml:space="preserve">
+    <value>miles</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="VariableUnitminutes" xml:space="preserve">
+    <value>minutes</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="VariableUnitTypeSecond" xml:space="preserve">
+    <value>seconds</value>
+    <comment>Added by raghuraj</comment>
+  </data>
+  <data name="VideoMessageType" xml:space="preserve">
+    <value>Video</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="WrongUserPassword" xml:space="preserve">
+    <value>Email or password is incorrect.</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="MediaTypeImage" xml:space="preserve">
+    <value>Image</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="MediaTypeVideo" xml:space="preserve">
+    <value>Video</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="ErrorPwdChange" xml:space="preserve">
+    <value>Error occured during password change</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="IncorrectUserNameOrPassword" xml:space="preserve">
+    <value>Incorrect Username or Password!!</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="PhotoSuccessfullyUploaded" xml:space="preserve">
+    <value>Photo successfully uploaded.</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="ProfilePicDirectory" xml:space="preserve">
+    <value>images/profilepic/</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="PwdChangeSuccessfully" xml:space="preserve">
+    <value>Password has been changed successfully!</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="ResultPicDirectory" xml:space="preserve">
+    <value>images/result/</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="ResultVideoDirectory" xml:space="preserve">
+    <value>videos/result/</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="JpgImageExtension" xml:space="preserve">
+    <value>.Jpg</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="TeamTargetType" xml:space="preserve">
+    <value>Team</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="MyTeamTargetType" xml:space="preserve">
+    <value>MyTeam</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="ZipCodeNotExist" xml:space="preserve">
+    <value>Please enter a valid 5 digit zip code!</value>
+    <comment>Added By Arvind</comment>
+  </data>
+  <data name="VideoSuccessfullyUploaded" xml:space="preserve">
+    <value>Video successfully uploaded.</value>
+  </data>
+  <data name="FollowingsTargetType" xml:space="preserve">
+    <value>Followings</value>
+  </data>
+  <data name="FriendNotificationMsg" xml:space="preserve">
+    <value>{0} challenged you!</value>
+  </data>
+  <data name="JoinTeamNotificationMsg" xml:space="preserve">
+    <value>{0} has joined Team {1}</value>
+  </data>
+  <data name="TrainerNotificationMsg" xml:space="preserve">
+    <value>{0} challenged you!</value>
+  </data>
+  <data name="ExerciseVideoDirectory" xml:space="preserve">
+    <value>videos/exercise/</value>
+  </data>
+  <data name="EnterPassword" xml:space="preserve">
+    <value>Please enter a password!</value>
+  </data>
+  <data name="EnterUserName" xml:space="preserve">
+    <value>Please enter a username!</value>
+  </data>
+  <data name="ReEnterPassword" xml:space="preserve">
+    <value>Please re-enter password!</value>
+  </data>
+  <data name="InvalidHours" xml:space="preserve">
+    <value>Please enter valid Hour(s).</value>
+  </data>
+  <data name="InvalidMinutes" xml:space="preserve">
+    <value>Please enter valid Minute(s).</value>
+  </data>
+  <data name="InvalidSeconds" xml:space="preserve">
+    <value>Please enter valid Second(s).</value>
+  </data>
+  <data name="InvalidMS" xml:space="preserve">
+    <value>Please enter valid HS(s).</value>
+  </data>
+  <data name="InvalidTrainerTypeLength" xml:space="preserve">
+    <value>Trainer Type should be  max 16 characters in length!</value>
+  </data>
+  <data name="ExerciseThumbnailDirectory" xml:space="preserve">
+    <value>videos/exerciseThumbnails/</value>
+  </data>
+  <data name="FollowingNTMsg" xml:space="preserve">
+    <value>{0} started following you!</value>
+  </data>
+  <data name="NewsFeedBoomedMsg" xml:space="preserve">
+    <value>{0} has boomed your post.</value>
+  </data>
+  <data name="NewsFeedCommentedMsg" xml:space="preserve">
+    <value>{0} commented on your post.</value>
+  </data>
+  <data name="PostCommentReplyMsg" xml:space="preserve">
+    <value>{0} commented on your post.</value>
+  </data>
+  <data name="ProfilePostNTMsg" xml:space="preserve">
+    <value>{0} has posted on your profile.</value>
+  </data>
+  <data name="ResultBoomedMsg" xml:space="preserve">
+    <value>{0} boomed your result.</value>
+  </data>
+  <data name="ResultCommentedMsg" xml:space="preserve">
+    <value>{0} commented on your result.</value>
+  </data>
+  <data name="TrainerPostToUserMsg" xml:space="preserve">
+    <value>{0} posted something new! Check it out!</value>
+  </data>
+  <data name="ResultCommentReplyMsg" xml:space="preserve">
+    <value>{0} also commented on a result you have commented on.</value>
+  </data>
+  <data name="MoreFollowingNTMsg" xml:space="preserve">
+    <value>{0}  and {1} other {2} started following you.</value>
+  </data>
+  <data name="MoreNewsFeedBoomedMsg" xml:space="preserve">
+    <value>{0}  and {1} other {2} have boomed your post.</value>
+  </data>
+  <data name="MoreNewsFeedCommentedMsg" xml:space="preserve">
+    <value>{0}  and {1} other {2} have commented on your post.</value>
+  </data>
+  <data name="MorePostCommentReplyMsg" xml:space="preserve">
+    <value>{0}  and {1} other {2} have also commented on a post.</value>
+  </data>
+  <data name="MoreProfilePostNTMsg" xml:space="preserve">
+    <value>{0}  and {1} other {2} have posted on your profile.</value>
+  </data>
+  <data name="MoreResultBoomedMsg" xml:space="preserve">
+    <value>{0}  and {1} other {2} have boomed your result.</value>
+  </data>
+  <data name="MoreResultCommentedMsg" xml:space="preserve">
+    <value>{0}  and {1} other {2} have commented on your result.</value>
+  </data>
+  <data name="MoreResultCommentReplyMsg" xml:space="preserve">
+    <value>{0}  and {1} other {2} have also commented on a result you have commented on.</value>
+  </data>
+  <data name="NtPeople" xml:space="preserve">
+    <value>people</value>
+  </data>
+  <data name="NtPerson" xml:space="preserve">
+    <value>person</value>
+  </data>
+  <data name="ChallengeDescriptionMsg" xml:space="preserve">
+    <value>Please enter  a challenge description!</value>
+  </data>
+  <data name="ChallengeNameMsg" xml:space="preserve">
+    <value>Please enter  a challenge name!</value>
+  </data>
+  <data name="FreeFormChallengeTypeId" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="UserTypeTeam" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="TeamUrl" xml:space="preserve">
+    <value>Teams</value>
+  </data>
+  <data name="TeamDefaultText" xml:space="preserve">
+    <value> (default)</value>
+  </data>
+  <data name="InvalidNumberOfTrainingSession" xml:space="preserve">
+    <value>Please enter a number of session!</value>
+  </data>
+  <data name="InvalidTrainingSessionAmount" xml:space="preserve">
+    <value>Please enter a session amount!</value>
+  </data>
+  <data name="FreeFormChallengeWellnessId" xml:space="preserve">
+    <value>15</value>
+    <comment>Added By Irshad</comment>
+  </data>
+  <data name="FreeFormChallengeWorkoutId" xml:space="preserve">
+    <value>14</value>
+    <comment>Added By Irshad</comment>
+  </data>
+  <data name="msgat" xml:space="preserve">
+    <value>at</value>
+  </data>
+  <data name="msgOther" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="msgToday" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="msgYesterday" xml:space="preserve">
+    <value>Yesterday</value>
+  </data>
+  <data name="InvalidPasswordWhiteSpace" xml:space="preserve">
+    <value>White space not allowed in Password.</value>
+  </data>
+  <data name="ProgramUrl" xml:space="preserve">
+    <value>Programs</value>
+  </data>
+  <data name="ChallengesByTrainerUrl" xml:space="preserve">
+    <value>ChallengesByTrainerId</value>
+  </data>
+  <data name="UserSelectedPrimaryTrainer" xml:space="preserve">
+    <value>{0} has selected you as their mobile trainer.</value>
+  </data>
+  <data name="PersonalTrainerPostToUser" xml:space="preserve">
+    <value>{0} posted something new! Check it out!</value>
+  </data>
+  <data name="PhotoUploadedSuccess" xml:space="preserve">
+    <value>Photo successfully uploaded.</value>
+  </data>
+  <data name="FeaturedImagePath" xml:space="preserve">
+    <value>images/featuredpic/</value>
+  </data>
+  <data name="TrendingImagePath" xml:space="preserve">
+    <value>images/trendingpic/</value>
+  </data>
+  <data name="UserSentToReceiverMsg" xml:space="preserve">
+    <value>{0} just completed your challenge.</value>
+  </data>
+  <data name="EmailMainHeading" xml:space="preserve">
+    <value>Hi  {0} Team , &lt;br/&gt; Please find the below team commission report</value>
+  </data>
+  <data name="CommissionMonthLevel" xml:space="preserve">
+    <value>Current Month: {0}l</value>
+  </data>
+</root>

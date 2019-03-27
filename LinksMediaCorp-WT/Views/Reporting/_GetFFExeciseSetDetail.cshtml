@@ -1,0 +1,45 @@
+﻿@model LinksMediaCorpEntity.GetExeciseSetVM
+@if (Model != null)
+{
+    <div id="@(Model.ExeciseCountID)">
+        <div class="set-heading">
+            <span id="exesetTittle@(Model.ExeciseSetCountID)">@(Model.ExeciseName), Set @(Model.ExeciseSetCountID)</span>
+            @if (Model != null && !Model.IsHideBtnDelete)
+        {
+        <span class="remove-set">
+            <button id="btnsetRemove@(Model.ExeciseSetCountID)" class="remove_execiseset">X</button>
+        </span>
+        }
+        </div>
+        <label>How Many Reps:</label><input class="freeforminput FreeFormExerciseVideos1 col-md-9 col-sm-9 col-xs-9 ui-autocomplete-input ui-corner-all" id="ExecSetRep@(Model.ExeciseSetCountID)" name="ExecSetRep@(Model.ExeciseSetCountID)" type="text" value="@(Model.SetReps)" autocomplete="off">
+        <div class="or-section"><span>OR</span></div>
+        <label>How Much Time:</label><label style="width:47px;margin-right:2px;" class="lbl-txt">Hour(s)</label>
+        <input class="input " data-val="true" data-val-range="Please enter valid Hour(s)." data-val-range-max="24" data-val-range-min="0" id="SetTimeHours@(Model.ExeciseSetCountID)" maxlength="2" name="SetTimeHours@(Model.ExeciseSetCountID)" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;" type="text" value="@(Model.ResultHS)">
+        <label style="width:55px;margin-right:5px;" class="lbl-txt">Minute(s)</label>
+        <input class="input" data-val="true" data-val-range="Please enter valid Minute(s)." data-val-range-max="60" data-val-range-min="0" id="SetTimeMinute@(Model.ExeciseSetCountID)" maxlength="2" name="SetTimeMinute@(Model.ExeciseSetCountID)" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;" type="text" value="@(Model.ResultMM)">
+        <label style="width:58px;margin-right:5px;" class="lbl-txt">Second(s)</label>
+        <input class="input " data-val="true" data-val-range="Please enter valid Second(s)." data-val-range-max="60" data-val-range-min="0" id="SetTimeSecond@(Model.ExeciseSetCountID)" maxlength="2" name="SetTimeSecond@(Model.ExeciseSetCountID)" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;" type="text" value="@(Model.ResultSS)">
+        <label style="width:30px;margin-right:5px;" class="lbl-txt">HS(s)</label><input class="input" data-val="true" data-val-range="Please enter valid HS(s)." data-val-range-max="99" data-val-range-min="0" id="SetTimeHS@(Model.ExeciseSetCountID)" maxlength="2" name="SetTimeHS@(Model.ExeciseSetCountID)" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;" type="text" value="@(Model.ResultHS)">
+        <span class="active-new-chckbox pull-left" style="line-height:31px;">Auto Count Down:</span>
+        <div class="gender-option-pd" style="line-height:40px;">
+            <input id="IsSetAutoCountDown@(Model.ExeciseSetCountID)" name="IsSetAutoCountDown@(Model.ExeciseSetCountID)" @(Model.AutoCountDownYesStatus) type="checkbox" class="IsChangedExeciseName checkbox-autcountbtn" />
+
+        </div>
+        <div class="clr-both"></div>
+        <label>Description:</label>
+        <textarea class="freeformtextarea col-md-9 col-sm-9 col-xs-9" cols="20" id="ExecSetDescription@(Model.ExeciseSetCountID)" maxlength="500" name="ExecSetDescription@(Model.ExeciseSetCountID)" placeholder="Max Char limit 500" rows="2">@(Model.Execisesetdescription)</textarea>
+        <div class="clr-both">
+        </div>
+        <label>How Much Rest Time:</label>
+        <label style="width:47px;margin-right:2px;" class="lbl-txt">Hour(s)</label>
+        <input class="input " data-val="true" data-val-range="Please enter valid Hour(s)." data-val-range-max="24" data-val-range-min="0" id="RestTimeHours@(Model.ExeciseSetCountID)" maxlength="2" name="RestTimeHours@(Model.ExeciseSetCountID)" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;" type="text" value="@(Model.RestHH)">
+        <label style="width:55px;margin-right:5px;" class="lbl-txt">Minute(s)</label><input class="input " data-val="true" data-val-range="Please enter valid Minute(s)." data-val-range-max="60" data-val-range-min="0" id="RestTimeMinute@(Model.ExeciseSetCountID)" maxlength="2" name="RestTimeMinute@(Model.ExeciseSetCountID)" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;" type="text" value="@(Model.RestMM)">
+        <label style="width:58px;margin-right:5px;" class="lbl-txt">Second(s)</label><input class="input " data-val="true" data-val-range="Please enter valid Second(s)." data-val-range-max="60" data-val-range-min="0" id="RestTimeSecond@(Model.ExeciseSetCountID)" maxlength="2" name="RestTimeSecond@(Model.ExeciseSetCountID)" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;" type="text" value="@(Model.RestSS)">
+        <label style="width:30px;margin-right:5px;" class="lbl-txt">HS(s)</label><input class="input" data-val="true" data-val-range="Please enter valid HS(s)." data-val-range-max="99" data-val-range-min="0" id="RestTimeHS@(Model.ExeciseSetCountID)" maxlength="2" name="RestTimeHS@(Model.ExeciseSetCountID)" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;" type="text" value="@(Model.RestHS)">
+        <input type="hidden" id="IsNewAddedSet@(Model.ExeciseSetCountID)" value="@(Model.IsNewAddedSet)">
+        <div class="clr-both">
+        </div>
+
+
+    </div>
+}

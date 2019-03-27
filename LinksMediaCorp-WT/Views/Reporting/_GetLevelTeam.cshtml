@@ -1,0 +1,18 @@
+﻿@model IEnumerable<LinksMediaCorpEntity.LevelTeamVM>
+@foreach(var item in Model)
+{    
+<tr>
+    <td>@Html.DisplayFor(m => item.TeamName)</td>
+    <td>@Html.DisplayFor(m => item.EmailId)</td>
+    <td>@Html.DisplayFor(m => item.PhoneNumber)</td>
+    <td>@Html.DisplayFor(m => item.Users)</td>
+    <td>@Html.DisplayFor(m => item.Premium)</td>
+    <td>
+        @Html.HiddenFor(m => item.LevelTeamId)
+        <a class="DeleteLevelTeam" id="DeleteLevelTeam">
+            <span>Delete Team</span>
+        </a>   
+        @*@Html.ActionLink("Delete", "DeleteLevelTeam", "Reporting", new { id = item.LevelTeamId }, new { @class = "delete-btn", onclick = "return confirm('Are you sure you want to delete this Level Team?');" })*@
+    </td>
+</tr>
+}

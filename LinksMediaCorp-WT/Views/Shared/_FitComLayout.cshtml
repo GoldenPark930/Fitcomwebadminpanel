@@ -1,0 +1,176 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>FITCOM</title>
+    <!-- Bootstrap core CSS -->
+    @Styles.Render("~/Content/stylesheet")
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" media="only all and (min-width: 480px)" href="~/Content/css/480.css" />
+    <link rel="stylesheet" media="only all and (min-width: 768px)" href="~/Content/css/768.css" />
+    <link rel="stylesheet" media="only all and (min-width: 992px)" href="~/Content/css/992.css" />
+    <link rel="stylesheet" media="only all and (min-width: 1200px)" href="~/Content/css/1200.css" />
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/homejquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/modernizr")
+    @{
+        <script type="text/javascript">
+            $('#Home_li').removeClass("active");
+            $('#Reporing_li').removeClass('active');
+            $('#chalenges_submenu').removeClass("inner-menu");
+            $('#programs_submenu').removeClass("inner-menu");
+            $('#activities_submenu').removeClass('inner-menu');
+            $('#trainers_submenu').removeClass("inner-menu");
+            $('#users_submenu').removeClass('inner-menu');
+            $('#teams_submenu').removeClass('inner-menu');
+           
+        </script>
+    }
+</head>
+
+<body>
+    @{Html.RenderAction("_SessionExpired", "Account");}
+    <!-- start header -->
+    <div class="header margin">
+        <!-- start container -->
+        <div class="container">
+            <!-- start logo -->
+            <div class="logo"><a href="#"><img src="~/Content/images/logo.png" alt="Fitcom" /></a></div>
+            <!-- end logo -->
+            <div class="header-right">
+                <!-- start user-account -->
+                <div class="user-account">
+                    <div class="user-img"><img src="~/Content/images/user-img.png" width="32" height="32" alt="User" /></div>
+                   @if (Session["LoginUserName"] != null)
+                   { 
+                     <span>Welcome, @Session["LoginUserName"] </span>
+                   }
+                </div>
+                <!-- end user-account -->
+                @Html.ActionLink("Log Out", "LogOut", "Login")
+                <div class="clearfix"></div>
+                @{
+                    if(Session["LoginUserName"] != null && !string.IsNullOrEmpty(Session["LoginUserName"].ToString()))
+                    {
+                        <a id="lnkChangePassword" href="javascript:void(0)" onclick="loadChangePassword(1)" class="change-pass">
+                            Change Password
+                        </a>
+                    }
+                }
+                <div class="clearfix"></div>
+                @if(Session["LastLogin"] != null)
+                {
+                <span class="last-login">Last Login: @Session["LastLogin"]</span>
+                }
+            </div>
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end header -->
+    <div class="clearfix"></div>
+    <!-- start main-wrapper -->
+    <div class="main-wrapper">
+        <!-- start nav -->
+        <nav role="navigation" class="navbar-default navbar-static-side" id="slide-panel">
+            <a href="#" id="opener"><img src="~/Content/images/opener.png" width="19" height="15" alt="opener" /></a>
+            <ul id="side-menu" class="nav">
+                <li id="Home_li">
+                    @Html.ActionLink("Home", "DashBoard", "Home")
+                </li>
+
+                <li id="Reporing_li">
+                    <span href="#collapse6" class="collapsed expand" data-toggle="collapse" data-parent="#accordion"></span>
+                    <a class="report" href="@Url.Action("Main", "Reporting")">Report</a>
+
+                    <ul id="collapse6" class="collapse in">
+                        <li id="chalenges_submenu"> @Html.ActionLink("Fitness Tests", "Challenges", "Reporting")</li>
+                        <li id="workouts_submenu"> @Html.ActionLink("Workouts", "Workouts", "Reporting")</li>                        
+                        <li id="programs_submenu">@Html.ActionLink("Programs", "Programs", "Reporting")</li>
+                        <li id="activities_submenu">@Html.ActionLink("Activities", "Activities", "Reporting")</li>
+                        <li id="trainers_submenu"> @Html.ActionLink("Trainers", "Trainers", "Reporting")</li>
+                        <li id="users_submenu"> @Html.ActionLink("Users", "Users", "Reporting")</li>
+                        <li id="teams_submenu"> @Html.ActionLink("Teams", "Teams", "Reporting")</li>
+                        <li id="teamview_submenu"> @Html.ActionLink("Commissions", "TeamsView", "Reporting")</li>
+                        <li id="exerciseview_submenu"> @Html.ActionLink("Exercises", "Exercises", "Exercise")</li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <!-- end nav -->
+        <!-- start page-wrapper -->
+        @RenderBody()
+        <!-- end page-wrapper -->
+        <div class="clearfix"></div>
+    </div>
+    <div class='popup_overlay' id="carrier_popup">
+        <div class='popup_innerdiv_save' id="inner_carrier" style="text-align: center; top: 20%">
+        </div>
+    </div>
+    <div id="myLoadingElement" class="loading-outer" style="display:none;">
+        <div class="loading"></div>
+    </div>
+    <!-- end main-wrapper -->
+    <script type="text/javascript">
+        $('#Home_li').click(function () {
+            $('#Home_li').addClass("active");
+            $('#Reporing_li').removeClass('active');
+        });
+
+
+        $('#opener').on('click', function () {
+            var panel = $('#slide-panel');
+            var rightpanel = $('#page-wrapper');
+            if (panel.hasClass("visible")) {
+                panel.removeClass('visible').animate({ 'margin-left': '-200px' });
+                rightpanel.removeClass('visible').animate({ 'margin-left': '0px' });
+
+            } else {
+                panel.addClass('visible').animate({ 'margin-left': '0px' });
+                rightpanel.addClass('visible').animate({ 'margin-left': '200px' });
+            }
+            return false;
+        });
+
+        function OnFormPost(response) {
+            if (response.status == 200) {
+                alert(response.statusMsg);
+                window.location.href = $("#lnkBack").attr("href");
+            }
+            else {
+                alert(response.statusMsg);
+            }
+        }
+        function loadChangePassword(UserId) {
+            $.ajax({
+                type: "Post",
+                url: "@Url.Content("~/Account/LoadChangePassword")",
+                data: {},
+                success: function (Result) {
+                    if (Result.status == null) {
+                        if (Result)
+                            $("#inner_carrier").html(Result);
+                        $("#carrier_popup").css("display", "block");
+
+                    }
+                    else if (Result.status == 401) {
+                        alert(Result.msg);
+                        window.location.href = Result.url;
+                    }
+                    else {
+                        alert(Result.msg);
+                    }
+                },
+                error: function (Result) {
+                    alert("Error");
+                }
+            });
+        }
+
+    </script>
+
+</body>
+</html>

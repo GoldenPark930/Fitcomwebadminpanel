@@ -1,0 +1,245 @@
+﻿@model LinksMediaCorpEntity.ViewWorkoutDetailVM
+@{
+    Layout = null;
+    ViewBag.Title = "UpdateTrainerChallenge";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ViewChallenge</title>
+    @Styles.Render("~/Content/stylesheet")
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" media="only all and (min-width: 480px)" href="~/Content/css/480.css" />
+    <link rel="stylesheet" media="only all and (min-width: 768px)" href="~/Content/css/768.css" />
+    <link rel="stylesheet" media="only all and (min-width: 992px)" href="~/Content/css/992.css" />
+    <link rel="stylesheet" media="only all and (min-width: 1200px)" href="~/Content/css/1200.css" />
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/homejquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/modernizr")
+
+    @{
+        <script type="text/javascript">
+            $('#Home_li').removeClass("active");
+            $('#Reporing_li').removeClass('active');
+            $('#chalenges_submenu').removeClass("inner-menu");
+            $('#programs_submenu').removeClass("inner-menu");
+            $('#activities_submenu').removeClass('inner-menu');
+            $('#trainers_submenu').removeClass("inner-menu");
+            $('#users_submenu').removeClass('inner-menu');
+            $('#teams_submenu').removeClass('inner-menu');
+
+        </script>
+    }
+</head>
+<body>
+    <div id="page-wrapper" style="margin-left: 100px;">
+        <!-- start hidden field -->
+        <!-- end hidden field -->
+        <!-- start create-challenge -->
+        <div class="create-challenge">
+            <h3>
+                @Html.DisplayFor(m => m.ChallengeName)
+                <div class="header-link-btn">
+
+                </div>
+                <div class="clr-both"></div>
+            </h3>
+            <!-- start challenge-content -->
+            <div class="challenge-content">
+                <!-- start step -->
+                <div class="step">
+                    <h5>Challenge Detail: </h5>
+                    <!-- start step-des -->
+                    <div class="step-des step-des-new">
+                        <b>Challenge Type:</b>
+                        <span id="lblChallengeTypeName">
+                            @Html.DisplayFor(m => m.ChallengeType_Name)
+                        </span>
+                    </div>
+
+                    <div class="step-des step-des-new">
+                        <b>Described your Challenges:</b>
+                        <br />
+                        @Html.Raw(Model.ChallengeSubType_Description)
+                    </div>
+                    <div class="step-des step-des-new">
+                        <b>Challenge Category Name:</b>
+                        <fieldset title="">
+                            <legend style="width:auto;font-size:small;">
+                                <b>Challenge Category Name:</b>
+                            </legend>
+                            @{
+                                foreach (var item in Model.ChallengeCategoryNameList)
+                                {
+                                    <b>Category Name:</b>
+                                    @Html.DisplayFor(m => item)
+                                    <br />
+                                }
+
+                            }
+                        </fieldset>
+                    </div>
+                    <div class="step-des step-des-new">
+                        <b>Challenge Difficulty Level:</b>
+                        @Html.DisplayFor(m => m.DifficultyLevel)
+                    </div>
+                    <div class="step-des step-des-new">
+                        <b>Challenge Duration:</b>
+                        @Html.DisplayFor(m => m.FFChallengeDuration)
+                    </div>
+
+                    <div class="step-des step-des-new">
+                        <b>Challenge Equipment:</b>
+                        @Html.DisplayFor(m => m.Equipment)
+                    </div>
+                    <div class="step-des step-des-new">
+                        <b>Challenge Target Zone:</b>
+                        @Html.DisplayFor(m => m.TargetZone)
+                    </div>
+                    <div class="step-des step-des-new">
+                        <b>Challenge Execise Type:</b>
+                        @Html.DisplayFor(m => m.ExeciseType)
+                    </div>
+
+                    <!-- end step-des -->
+                </div>
+                <!-- end step -->
+                <!-- start step -->
+                <!-- end step -->
+                <!-- start step -->
+                <div class="step">
+                    <h5>Exercise(s):</h5>
+                    <div class="step-des step-des-new">
+                        <!-- start step-des -->
+                        @{
+
+                            int i = 0;
+                            int icount = 1;
+                            foreach (var item in Model.AvailableExerciseVideoList)
+                            {
+
+                                <div class="row-colum">
+                                    <b>Name of Exercise @icount:</b>
+                                    @Html.DisplayFor(m => item.ExerciseName)
+                                </div>
+                                <span>
+                                    <a href=@Html.DisplayFor(m => item.VedioLink) target="_blank">@Html.DisplayFor(m => item.VedioLink)</a>
+                                </span>
+                                int exeset = 1;
+                                foreach (var exedes in item.ExeciseSetRecords)
+                                {
+
+                                    <fieldset title="">
+                                        <legend style="width:auto;font-size:small;">Set @exeset</legend>
+                                        <b>Description:</b>
+                                        @Html.DisplayFor(m => exedes.Description, new { @class = "preExeciseDescs" })
+                                        <br />
+                                        <b> Set Reps:</b>
+                                        @Html.DisplayFor(m => exedes.SetReps, new { @class = "preExeciseDescs" })
+                                        <br />
+                                        <b>Set Result:</b>
+                                        @Html.DisplayFor(m => exedes.SetResult, new { @class = "preExeciseDescs" })
+                                        <br />
+                                        <b> Rest Time:</b>
+                                        @Html.DisplayFor(m => exedes.RestTime, new { @class = "preExeciseDescs" })
+                                        <br />
+                                        <b> AutoCountDown:</b>
+                                        @Html.DisplayFor(m => exedes.AutoCountDown, new { @class = "preExeciseDescs" })
+                                    </fieldset>
+                                    exeset = exeset + 1;
+                                }
+                                i = i + 1;
+                                icount = icount + 1;
+
+
+                            }
+                        }
+                    </div>
+
+
+                    <!-- end step-des -->
+                </div>
+                <!-- end step -->
+                <!-- start step -->
+                <!-- end step -->
+                <!-- start step -->
+                <!-- end step -->
+                <div class="clr-both"></div>
+                <div class="page-control-btn">
+
+                </div>
+            </div>
+            <!-- end challenge-content -->
+        </div>
+        <!-- end create-challenge -->
+        <div class="clearfix"></div>
+    </div>
+    <script type="text/javascript">
+        $('#Home_li').click(function () {
+            $('#Home_li').addClass("active");
+            $('#Reporing_li').removeClass('active');
+        });
+
+
+        $('#opener').on('click', function () {
+            var panel = $('#slide-panel');
+            var rightpanel = $('#page-wrapper');
+            if (panel.hasClass("visible")) {
+                panel.removeClass('visible').animate({ 'margin-left': '-200px' });
+                rightpanel.removeClass('visible').animate({ 'margin-left': '0px' });
+
+            } else {
+                panel.addClass('visible').animate({ 'margin-left': '0px' });
+                rightpanel.addClass('visible').animate({ 'margin-left': '200px' });
+            }
+            return false;
+        });
+
+        function OnFormPost(response) {
+            if (response.status == 200) {
+                alert(response.statusMsg);
+                window.location.href = $("#lnkBack").attr("href");
+            }
+            else {
+                alert(response.statusMsg);
+            }
+        }
+        function loadChangePassword(UserId) {
+            $.ajax({
+                type: "Post",
+                url: "@Url.Content("~/Account/LoadChangePassword")",
+                data: {},
+                success: function (Result) {
+                    if (Result.status == null) {
+                        if (Result)
+                            $("#inner_carrier").html(Result);
+                        $("#carrier_popup").css("display", "block");
+
+                    }
+                    else if (Result.status == 401) {
+                        alert(Result.msg);
+                        window.location.href = Result.url;
+                    }
+                    else {
+                        alert(Result.msg);
+                    }
+                },
+                error: function (Result) {
+                    alert("Error");
+                }
+            });
+        }
+
+    </script>
+</body>
+</html>
+
+
+
+
+<!-- start page-wrapper -->

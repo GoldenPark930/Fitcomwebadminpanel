@@ -1,0 +1,106 @@
+﻿@model LinksMediaCorpEntity.ViewProgramDetail
+@{
+    ViewBag.Title = "TrianerProgramView";
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+}
+<div id="page-wrapper">
+    <div class="create-challenge">
+        <h3>
+            @Html.DisplayFor(m => m.ChallengeName)
+            <div class="header-link-btn">
+                @Html.ActionLink("Done", "TrainerPrograms", "Reporting", new { }, new { @class = "submit" })
+            </div>
+            <div class="clr-both"></div>
+        </h3>
+        <!-- start challenge-content -->
+        <div class="challenge-content">
+            <!-- start step -->
+            <div class="step">
+                <h5>Program Detail: </h5>
+                <!-- start step-des -->
+                <div class="step-des step-des-new">
+                    <b>Program Type:</b>
+                    <span id="lblChallengeTypeName">
+                        @Html.DisplayFor(m => m.ChallengeType_Name)
+                    </span>
+                </div>
+
+                <div class="step-des step-des-new">
+                    <b>Described your Program:</b>
+                    <br />
+                    @Html.Raw(Model.ChallengeSubType_Description)
+                </div>
+                <div class="step-des step-des-new">
+                    <fieldset title="">
+                        <legend style="width:auto;font-size:small;">
+                            <b>Program Category Name:</b>
+                        </legend>
+                        @{
+                        foreach (var item in Model.ChallengeCategoryNameList)
+                        {
+                                <b>Category Name:</b>
+                                @Html.DisplayFor(m => item)
+                                <br />
+                        }
+
+                        }
+                    </fieldset>
+                </div>
+                <div class="step-des step-des-new">
+                    <b>Program Difficulty Level:</b>
+                    @Html.DisplayFor(m => m.DifficultyLevel)
+                </div>
+
+                <!-- end step-des -->
+            </div>
+            <!-- end step -->
+            <!-- start step -->
+            <div class="step">
+                <h5>Workout(s):</h5>
+                <div class="step-des step-des-new">
+                    <!-- start step-des -->
+                    @{
+
+                    int i = 0;
+                    int icount = 1;
+                    foreach (var item in Model.ProgramWeekWorkoutList)
+                    {
+                            <fieldset title="">
+                                <legend style="width:auto;font-size:small;"><b>Week @icount:</b> </legend>
+
+                                @{
+                                foreach (var pww in item.WeekWorkoutList)
+                                {
+                                        <b>Workout Name:</b>
+                                        @Html.DisplayFor(m => pww.WorkoutName);
+                                        <br />
+
+                                }
+                                }
+                            </fieldset>
+                                    i = i + 1;
+                                    icount = icount + 1;
+                                }
+                    }
+                </div>
+
+
+                <!-- end step-des -->
+            </div>
+            <!-- end step -->
+
+            <div class="clr-both"></div>
+            <div class="page-control-btn">
+
+            </div>
+        </div>
+        <!-- end challenge-content -->
+        <div class="clr-both"></div>
+        <div class="page-control-btn">
+            @Html.ActionLink("Done", "TrainerPrograms", "Reporting", new { }, new { @class = "submit" })
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+

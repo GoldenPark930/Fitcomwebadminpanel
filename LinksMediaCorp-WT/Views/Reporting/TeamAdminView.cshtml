@@ -1,0 +1,169 @@
+﻿@using System.Collections.Generic
+@Scripts.Render("~/bundles/ui")
+@Styles.Render("~/Content/challenge")
+@Scripts.Render("~/bundles/TeamView")
+@{
+    Layout = "~/Views/Shared/_TeamLayout.cshtml";
+    LinksMediaCorpEntity.ViewChallenes challenges = new LinksMediaCorpEntity.ViewChallenes();
+    ViewBag.Title = "TeamAdminView";
+    List<LinksMediaCorpEntity.DDTeams> lstPrimaryTeams = new List<LinksMediaCorpEntity.DDTeams>();
+    if (ViewBag.PrimaryTeams != null)
+    {
+        lstPrimaryTeams = ViewBag.PrimaryTeams;
+        lstPrimaryTeams = lstPrimaryTeams.GroupBy(e => new
+        {
+            TeamName = e.TeamName
+        }).Select(g => g.FirstOrDefault()).ToList();
+    }
+    List<LinksMediaCorpEntity.CommisionMonth> lstCommissionMonth = new List<LinksMediaCorpEntity.CommisionMonth>();
+    if (ViewBag.CommisionMonth != null)
+    {
+        lstCommissionMonth = ViewBag.CommisionMonth;
+    }
+
+    List<LinksMediaCorpEntity.CommisionYear> lstCommissionYear = new List<LinksMediaCorpEntity.CommisionYear>();
+    if (ViewBag.CommissionYear != null)
+    {
+        lstCommissionYear = ViewBag.CommissionYear;
+    }
+    <script type="text/javascript">      
+        $('#teamview_submenu').addClass("inner-menu");
+    </script>
+}
+@model LinksMediaCorpEntity.TeamViewData
+@Html.HiddenFor(m => m.IsShowCurrentMonth) 
+@Html.HiddenFor(m => m.PrimaryTeam) 
+<div id="page-wrapper">
+    <div class="create-challenge">
+        <div class="challenge-content">
+            <div class="step">
+                <h5>Team Commission Search </h5>
+                <!-- start step-des -->
+                @using (Html.BeginForm("TeamAdminView", "Reporting", FormMethod.Post, new { id = "myform", enctype = "multipart/form-data" }))
+                {       
+                  
+                    <div class="step-des">
+                        <div class="row txt-lbl-input">                           
+                           
+                            <div class="col-md-2 col-lg-2 col-xs-2">
+                                <span style="line-height:26px;" class="col-md-4 col-lg-4 col-xs-4"><b>Year:</b></span>
+                                @Html.DropDownList("AdminTeamSearchYear", new SelectList(lstCommissionYear, "Year", "Year", Model.SelectedYear), "Select Year", new { @class = "select col-md-8 col-lg-8 col-xs-8" })
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-xs-3">
+                                <span style="line-height:26px;" class="col-md-4 col-lg-4 col-xs-4"><b>Month:</b></span>
+                                @Html.DropDownList("SearchMonth", new SelectList(lstCommissionMonth, "Month", "Name", Model.SelectedMonth), "Select Year", new { @class = "select col-md-8 col-lg-8 col-xs-8" })
+
+                            </div>
+                            <button id="btnSeachTeamView" type="submit" class="add_field_button add-exercise add-LevelTeam col-md-2 col-lg-2 col-xs-2">Search</button>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="step" id="TeamViewReport">
+             @if (Model != null && Model.PrimaryTeamDetail != null)
+             {
+                @Html.ActionLink(" ", "ExportTeamViewCommissionExcelData", "Reporting", new { id = Model.PrimaryTeam, year = Model.SelectedYear, month = Model.SelectedMonth }, new { @class = "ExcelExport" })
+
+                <div class="step-des">
+                    <label><b>Primary Team Detail</b></label>
+                    <div id="PrimaryTeams">
+                        <table id="PrimaryTeamDetails" class="reporting-table">
+                            <thead>
+                                <tr>
+                                    <th>Team</th>
+
+                                    <th>Email Id</th>
+
+                                    <th>Phone</th>
+
+                                    <th>Users</th>
+
+                                    <th>Premium</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    @Html.HiddenFor(m => Model.PrimaryTeamDetail.LevelTeamId)
+                                    <td>@Html.DisplayFor(m => Model.PrimaryTeamDetail.TeamName)</td>
+                                    <td>@Html.DisplayFor(m => Model.PrimaryTeamDetail.EmailId)</td>
+                                    <td>@Html.DisplayFor(m => Model.PrimaryTeamDetail.PhoneNumber)</td>
+                                    <td>@Html.DisplayFor(m => Model.PrimaryTeamDetail.Users)</td>
+                                    <td>@Html.DisplayFor(m => Model.PrimaryTeamDetail.Premium)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="clr-both"></div>
+                    <br />
+                    <label><b>Level1 Team </b></label>
+                    <div id="PrimaryLevel1Teams">
+                        @Html.Partial("_PrimaryTeamView", Model.Level1TeamDetail)
+                    </div>
+                    <div class="clr-both"></div>
+                    <br />
+                    <label><b>Level2 Team</b> </label>
+                    <div id="PrimaryLevel2Teams">
+                        @Html.Partial("_PrimaryTeamView", Model.Level2TeamDetail)
+                    </div>
+                    <div class="clr-both"></div>
+                    <br />
+                    <label><b>Commissions</b></label>
+                    <table class="reporting-table">
+                        <thead>
+                            <tr>
+                                <th>*Projected</th>
+
+                                <th id="CommissionShowHide">Report Date: @Model.MonthLevel @if (Model.SelectedYear > 0){@Model.SelectedYear} </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><lebel><b>Primary Team</b></lebel></td>
+                                <td>
+                                    @Model.PrimaryTeamCommision
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td><lebel><b>Total Level 1 Teams</b></lebel></td>
+                                <td>@Model.Level1TeamsCommision</td>
+
+                            </tr>
+                            <tr>
+                                <td><lebel><b>Total Level 2 Teams</b></lebel></td>
+                                <td>@Model.Level2TeamsCommision</td>
+
+                            </tr>
+                            <tr>
+                                <td><lebel><b>Total</b></lebel></td>
+                                <td>@Model.TotalTeamCommision</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+             }
+             else
+             {
+                <div style="margin-left:40%;">
+                    <lebel> @Model.NoReportMessage </lebel>
+                    </div>
+               }
+                </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/BusinessLogic/TeamViewBL.js"></script>
+@*<script>
+    $(document).ready(function () {
+    var isShownCurrentMonth = $('#IsShowCurrentMonth').val();
+    if (isShownCurrentMonth !== undefined && isShownCurrentMonth === "False") {
+            $('#CommissionShowHide').show();
+    } else {
+            $('#CommissionShowHide').hide();
+    }
+});
+</script>*@
+
+

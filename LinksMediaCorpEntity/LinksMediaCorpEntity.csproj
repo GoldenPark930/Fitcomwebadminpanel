@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3C87BE6D-6125-4CA9-BE63-DFE407B06771}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LinksMediaCorpEntity</RootNamespace>
+    <AssemblyName>LinksMediaCorpEntity</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\RuleSets\RuleSet_Fitcom.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+    <CodeAnalysisRuleSet>..\RuleSets\RuleSet_Fitcom.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>LinksMediaCorp-WT.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+    <CodeAnalysisRuleSet>..\RuleSets\RuleSet_Fitcom.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+    <CodeAnalysisRuleSet>..\RuleSets\RuleSet_Fitcom.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\LinksMediaCorp-WT\bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.1.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IOSReceiptResponse.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebApiVM\AcceptChallengeVM.cs" />
+    <Compile Include="WebApiVM\AllChallengeFilterParameterList.cs" />
+    <Compile Include="WebApiVM\AppSubscriptionVM.cs" />
+    <Compile Include="WebApiVM\BoomVM.cs" />
+    <Compile Include="WebApiVM\CategoryResponse.cs" />
+    <Compile Include="WebApiVM\ChallegeTypeDetail.cs" />
+    <Compile Include="WebApiVM\ChallengeByUser.cs" />
+    <Compile Include="WebApiVM\ChallengeCategory.cs" />
+    <Compile Include="WebApiVM\ChallengeDetailsVM.cs" />
+    <Compile Include="WebApiVM\ChallengeDetailVM.cs" />
+    <Compile Include="WebApiVM\ChallengeFilterParam.cs" />
+    <Compile Include="WebApiVM\ChallengeFriendVM.cs" />
+    <Compile Include="WebApiVM\ChallengeIdVM.cs" />
+    <Compile Include="WebApiVM\ChallengeOfTheDayDetailVM.cs" />
+    <Compile Include="WebApiVM\ChallengeTabVM.cs" />
+    <Compile Include="WebApiVM\ChallengeUserDetails.cs" />
+    <Compile Include="WebApiVM\ChallengeViewPostVM.cs" />
+    <Compile Include="WebApiVM\ChatHistoryRequest.cs" />
+    <Compile Include="WebApiVM\ChatHistoryVM.cs" />
+    <Compile Include="WebApiVM\CommentVM.cs" />
+    <Compile Include="WebApiVM\CompletedChallengesWithPendingVM.cs" />
+    <Compile Include="WebApiVM\CompletedChallengeVM.cs" />
+    <Compile Include="WebApiVM\DeviceNotificationVM.cs" />
+    <Compile Include="WebApiVM\DeviceTokenVM.cs" />
+    <Compile Include="WebApiVM\EditPasswordVM.cs" />
+    <Compile Include="WebApiVM\ExeciseVideoDetail.cs" />
+    <Compile Include="WebApiVM\ExerciseVM.cs" />
+    <Compile Include="WebApiVM\FeaturedResponse.cs" />
+    <Compile Include="WebApiVM\FilterGlobalResultVM.cs" />
+    <Compile Include="WebApiVM\FollowerFollwingUserVM.cs" />
+    <Compile Include="WebApiVM\FollowUserVM.cs" />
+    <Compile Include="WebApiVM\FreeFormChallenges.cs" />
+    <Compile Include="WebApiVM\FriendFilterParam.cs" />
+    <Compile Include="WebApiVM\FriendVM.cs" />
+    <Compile Include="WebApiVM\GlobalChallengeVM.cs" />
+    <Compile Include="WebApiVM\IOSReceiptVM.cs" />
+    <Compile Include="WebApiVM\MainChallengeVM.cs" />
+    <Compile Include="WebApiVM\MainSearchBarParam.cs" />
+    <Compile Include="WebApiVM\MessageStreamIdVM.cs" />
+    <Compile Include="WebApiVM\MessageStreamPicVM.cs" />
+    <Compile Include="WebApiVM\MessageStreamVideoVM.cs" />
+    <Compile Include="WebApiVM\MessageVM.cs" />
+    <Compile Include="WebApiVM\MsgStremVideoIdVM.cs" />
+    <Compile Include="WebApiVM\MyTeamHomeVM.cs" />
+    <Compile Include="WebApiVM\MyTrainerAssignenmentRequest.cs" />
+    <Compile Include="WebApiVM\NoteExeciseSetVM.cs" />
+    <Compile Include="WebApiVM\NoteExeciseVM.cs" />
+    <Compile Include="WebApiVM\NotesUsedSessionVM.cs" />
+    <Compile Include="WebApiVM\NotificationMessageVM.cs" />
+    <Compile Include="WebApiVM\NotificationRequest.cs" />
+    <Compile Include="WebApiVM\NotificationSenderVM.cs" />
+    <Compile Include="WebApiVM\NotificationSettingVM.cs" />
+    <Compile Include="WebApiVM\NotificationWrapper.cs" />
+    <Compile Include="WebApiVM\NutritionVM.cs" />
+    <Compile Include="WebApiVM\OnboardingChallengeDetail.cs" />
+    <Compile Include="WebApiVM\PendingChallengeVM.cs" />
+    <Compile Include="WebApiVM\PersonalChallengeVM.cs" />
+    <Compile Include="WebApiVM\PicsVM.cs" />
+    <Compile Include="WebApiVM\PostIdVM.cs" />
+    <Compile Include="WebApiVM\PostVM.cs" />
+    <Compile Include="WebApiVM\PremimumChallengeVM.cs" />
+    <Compile Include="WebApiVM\ProfileDetailVM.cs" />
+    <Compile Include="WebApiVM\ProfilePicStreamVM.cs" />
+    <Compile Include="WebApiVM\ProfilePostVM.cs" />
+    <Compile Include="WebApiVM\ProgramChallengeRequest.cs" />
+    <Compile Include="WebApiVM\ProgramDetailVM.cs" />
+    <Compile Include="WebApiVM\ProgramVM.cs" />
+    <Compile Include="WebApiVM\ProgramWeekWorkoutVM.cs" />
+    <Compile Include="WebApiVM\PurchaseTraingSessionVM.cs" />
+    <Compile Include="WebApiVM\ReceiptRequest.cs" />
+    <Compile Include="WebApiVM\RecentResultVM.cs" />
+    <Compile Include="WebApiVM\SearchOnBoradingRequest.cs" />
+    <Compile Include="WebApiVM\SearchResponse.cs" />
+    <Compile Include="WebApiVM\SessionTeamUserVM.cs" />
+    <Compile Include="WebApiVM\ShareSubmitResultMessageVM.cs" />
+    <Compile Include="WebApiVM\SocketSentChatResponse.cs" />
+    <Compile Include="WebApiVM\SocketSentChatVM.cs" />
+    <Compile Include="WebApiVM\SponsorChallengeDetailVM.cs" />
+    <Compile Include="WebApiVM\SubmitResultVM.cs" />
+    <Compile Include="WebApiVM\TabEnum.cs" />
+    <Compile Include="WebApiVM\TeamLevelCommisionVM.cs" />
+    <Compile Include="WebApiVM\TeamsDetails.cs" />
+    <Compile Include="WebApiVM\TeamsVM.cs" />
+    <Compile Include="WebApiVM\TeamTrainerVM.cs" />
+    <Compile Include="WebApiVM\TeamUserVM.cs" />
+    <Compile Include="WebApiVM\TeamVM.cs" />
+    <Compile Include="WebApiVM\TextMessageStream.cs" />
+    <Compile Include="WebApiVM\Total.cs" />
+    <Compile Include="WebApiVM\TotalSession.cs" />
+    <Compile Include="WebApiVM\TrainerFilterParam.cs" />
+    <Compile Include="WebApiVM\TrainerLibraryCategoryRequest.cs" />
+    <Compile Include="WebApiVM\TrainerLibraryChallengeFilterParam.cs" />
+    <Compile Include="WebApiVM\TrainerLibraryChallengeVM.cs" />
+    <Compile Include="WebApiVM\TrainerLibraryMenuVM.cs" />
+    <Compile Include="WebApiVM\TrainerLibraryWorkoutListByCategory.cs" />
+    <Compile Include="WebApiVM\TrendingCategoryVM.cs" />
+    <Compile Include="WebApiVM\TrendingChallengeListResponse.cs" />
+    <Compile Include="WebApiVM\TrendingChallengeResponse.cs" />
+    <Compile Include="WebApiVM\TrendingResponse.cs" />
+    <Compile Include="WebApiVM\UsedSessionsVM.cs" />
+    <Compile Include="WebApiVM\UserAssignmentBtTrainerVM.cs" />
+    <Compile Include="WebApiVM\UserCredential.cs" />
+    <Compile Include="WebApiVM\UserCredVM.cs" />
+    <Compile Include="WebApiVM\UserIdAndUserType.cs" />
+    <Compile Include="WebApiVM\UserNotification.cs" />
+    <Compile Include="WebApiVM\UserNotificationSettingVM.cs" />
+    <Compile Include="WebApiVM\UserNotificationsVM.cs" />
+    <Compile Include="WebApiVM\UserOnBoradingInfo.cs" />
+    <Compile Include="WebApiVM\UserPersonalTrainerVM.cs" />
+    <Compile Include="WebApiVM\UserProfileVM.cs" />
+    <Compile Include="WebApiVM\UserRegistraionVM.cs" />
+    <Compile Include="WebApiVM\UserSearchVM.cs" />
+    <Compile Include="WebApiVM\UserSessionDetails.cs" />
+    <Compile Include="WebApiVM\UserTeamDetail.cs" />
+    <Compile Include="WebApiVM\UserVM.cs" />
+    <Compile Include="WebApiVM\UTCMessageVM.cs" />
+    <Compile Include="WebApiVM\VideoAndPicVM.cs" />
+    <Compile Include="WebApiVM\ViewPostVM.cs" />
+    <Compile Include="WebApiVM\WorkoutChallengeRequest.cs" />
+    <Compile Include="WebViewModel\ActivityVM.cs" />
+    <Compile Include="WebViewModel\AddExeciseSetVM.cs" />
+    <Compile Include="WebViewModel\AddFFExeciseVM.cs" />
+    <Compile Include="WebViewModel\AddProgramWeekVM.cs" />
+    <Compile Include="WebViewModel\AdminChallenge.cs" />
+    <Compile Include="WebViewModel\AdminWorkout.cs" />
+    <Compile Include="WebViewModel\Bio.cs" />
+    <Compile Include="WebViewModel\BodyPart.cs" />
+    <Compile Include="WebViewModel\ChalengeCategoryDetailView.cs" />
+    <Compile Include="WebViewModel\ChalengeCategoryDetailVM.cs" />
+    <Compile Include="WebViewModel\ChalengeSubCategoryVM.cs" />
+    <Compile Include="WebViewModel\ChallengeCategoryVM.cs" />
+    <Compile Include="WebViewModel\ChallengeOfTheDay.cs" />
+    <Compile Include="WebViewModel\ChallengesData.cs" />
+    <Compile Include="WebViewModel\ChallengeTypes.cs" />
+    <Compile Include="WebViewModel\ChangePassword.cs" />
+    <Compile Include="WebViewModel\City.cs" />
+    <Compile Include="WebViewModel\CODQueue.cs" />
+    <Compile Include="WebViewModel\CopyProgramView.cs" />
+    <Compile Include="WebViewModel\CreateAdminProgram.cs" />
+    <Compile Include="WebViewModel\CreateChallengeVM.cs" />
+    <Compile Include="WebViewModel\CreateFittnessTestVM.cs" />
+    <Compile Include="WebViewModel\CreateTeamVM.cs" />
+    <Compile Include="WebViewModel\CreateTrainerVM.cs" />
+    <Compile Include="WebViewModel\CreateUserVM.cs" />
+    <Compile Include="WebViewModel\Credentials.cs" />
+    <Compile Include="WebViewModel\CSVExerciseVM.cs" />
+    <Compile Include="WebViewModel\DashBoard.cs" />
+    <Compile Include="WebViewModel\DashBoardActivityCount.cs" />
+    <Compile Include="WebViewModel\DateOfBirthFilter.cs" />
+    <Compile Include="WebViewModel\DDTeams.cs" />
+    <Compile Include="WebViewModel\Difficulties.cs" />
+    <Compile Include="WebViewModel\Equipments.cs" />
+    <Compile Include="WebViewModel\EventDetails.cs" />
+    <Compile Include="WebViewModel\EventFeeds.cs" />
+    <Compile Include="WebViewModel\ExeciseChallengeCEVM.cs" />
+    <Compile Include="WebViewModel\ExeciseSetVM.cs" />
+    <Compile Include="WebViewModel\ExeciseUpload\ExerciseVideoResponse.cs" />
+    <Compile Include="WebViewModel\ExeciseUpload\UpdateExerciseSproutLink.cs" />
+    <Compile Include="WebViewModel\ExeciseUpload\ViewExerciseVM.cs" />
+    <Compile Include="WebViewModel\Exercise.cs" />
+    <Compile Include="WebViewModel\ExerciseSerachVM.cs" />
+    <Compile Include="WebViewModel\ExerciseStatusVM.cs" />
+    <Compile Include="WebViewModel\ExerciseType.cs" />
+    <Compile Include="WebViewModel\FeaturedActivity.cs" />
+    <Compile Include="WebViewModel\FeaturedActivityQueue.cs" />
+    <Compile Include="WebViewModel\Files.cs" />
+    <Compile Include="WebViewModel\FittnessTestChallenge.cs" />
+    <Compile Include="WebViewModel\FreeFormChallengeView.cs" />
+    <Compile Include="WebViewModel\FreeFormChallengeVM.cs" />
+    <Compile Include="WebViewModel\GetExeciseSetVM.cs" />
+    <Compile Include="WebViewModel\GetFFExeciseVM.cs" />
+    <Compile Include="WebViewModel\GetProgramWeekVM.cs" />
+    <Compile Include="WebViewModel\GetProgramWeekWorkoutVM.cs" />
+    <Compile Include="WebViewModel\HomeData.cs" />
+    <Compile Include="WebViewModel\HomeDataUpdated.cs" />
+    <Compile Include="WebViewModel\LevelTeamVM.cs" />
+    <Compile Include="WebViewModel\MainModel.cs" />
+    <Compile Include="WebViewModel\NumberOfRecord.cs" />
+    <Compile Include="WebViewModel\PicsInfo.cs" />
+    <Compile Include="WebViewModel\PostedChallengeCategory.cs" />
+    <Compile Include="WebViewModel\PostedEquipment.cs" />
+    <Compile Include="WebViewModel\PostedExerciseType.cs" />
+    <Compile Include="WebViewModel\PostedSpecializations.cs" />
+    <Compile Include="WebViewModel\PostedTargetZone.cs" />
+    <Compile Include="WebViewModel\PostedTeams.cs" />
+    <Compile Include="WebViewModel\PostedTrendingCategory.cs" />
+    <Compile Include="WebViewModel\PrimaryLevelTeamVM.cs" />
+    <Compile Include="WebViewModel\ProfileDetails.cs" />
+    <Compile Include="WebViewModel\ProgramWeekWorkout.cs" />
+    <Compile Include="WebViewModel\ProgramWeekWorkoutDetails.cs" />
+    <Compile Include="WebViewModel\ProgramWeekWorkouts.cs" />
+    <Compile Include="WebViewModel\ProgramWorkout.cs" />
+    <Compile Include="WebViewModel\RequestParameter.cs" />
+    <Compile Include="WebViewModel\SearchExeciseVM.cs" />
+    <Compile Include="WebViewModel\SearchWeekWorkoutVM.cs" />
+    <Compile Include="WebViewModel\ServiceResponse.cs" />
+    <Compile Include="WebViewModel\Specialization.cs" />
+    <Compile Include="WebViewModel\SponsorChallengeQueue.cs" />
+    <Compile Include="WebViewModel\State.cs" />
+    <Compile Include="WebViewModel\TeamCommisionRequest.cs" />
+    <Compile Include="WebViewModel\TeamSearchResponse.cs" />
+    <Compile Include="WebViewModel\TeamViewCommission.cs" />
+    <Compile Include="WebViewModel\TeamViewData.cs" />
+    <Compile Include="WebViewModel\Token.cs" />
+    <Compile Include="WebViewModel\TrainerChallenge.cs" />
+    <Compile Include="WebViewModel\TrainerInfo.cs" />
+    <Compile Include="WebViewModel\TrainerTypeVM.cs" />
+    <Compile Include="WebViewModel\TrainerViewVM.cs" />
+    <Compile Include="WebViewModel\TrendingCategory.cs" />
+    <Compile Include="WebViewModel\UpdateFittnessTestVM.cs" />
+    <Compile Include="WebViewModel\UpdateProgramWeekWorkouts.cs" />
+    <Compile Include="WebViewModel\UpdateTrainerVM.cs" />
+    <Compile Include="WebViewModel\UpdateUserVM.cs" />
+    <Compile Include="WebViewModel\UserInfo.cs" />
+    <Compile Include="WebViewModel\UserPersoanlDetailsVM.cs" />
+    <Compile Include="WebViewModel\UserResult.cs" />
+    <Compile Include="WebViewModel\UserToken.cs" />
+    <Compile Include="WebViewModel\UserTokenInfo.cs" />
+    <Compile Include="WebViewModel\ValidationFilterAttribute.cs" />
+    <Compile Include="WebViewModel\VideoInfo.cs" />
+    <Compile Include="WebViewModel\ViewActivitiesVM.cs" />
+    <Compile Include="WebViewModel\ViewChallenes.cs" />
+    <Compile Include="WebViewModel\ExeciseUpload\ViewExercisesData.cs" />
+    <Compile Include="WebViewModel\ViewProgramDetail.cs" />
+    <Compile Include="WebViewModel\ViewTeams.cs" />
+    <Compile Include="WebViewModel\ViewTrainers.cs" />
+    <Compile Include="WebViewModel\ViewWorkoutDetailVM.cs" />
+    <Compile Include="WebViewModel\WeekWorkout.cs" />
+    <Compile Include="WebViewModel\WeekWorkouts.cs" />
+    <Compile Include="WebViewModel\WorkoutResponse.cs" />
+    <Compile Include="WeekWorkoutVM.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LinksMediaCorpUtility\LinksMediaCorpUtility.csproj">
+      <Project>{14e08896-e32b-46b4-9e49-461ebc0b37dc}</Project>
+      <Name>LinksMediaCorpUtility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="LinksMediaCorp-WT.pfx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

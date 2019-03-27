@@ -1,0 +1,199 @@
+﻿@model LinksMediaCorpEntity.CreateChallengeVM
+@{
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+    ViewBag.Title = "ViewTrainerChallenge";
+    <script type="text/javascript">
+
+        $('#Reporing_li').removeClass('active');
+        $('#chalenges_submenu').removeClass("inner-menu");
+        $('#programs_submenu').removeClass("inner-menu");
+        $('#chalenges_submenu').addClass("inner-menu");
+
+
+    </script>
+
+}
+
+@Scripts.Render("~/bundles/challenge")
+@Scripts.Render("~/bundles/ui")
+
+@Styles.Render("~/Content/challenge")
+
+@Scripts.Render("~/bundles/challenge")
+
+
+<!-- start page-wrapper -->
+@using (Html.BeginForm("TrainerWorkouts", "Reporting", FormMethod.Post,
+                                                  new { enctype = "multipart/form-data" }))
+{
+    <div id="page-wrapper">
+        <!-- start hidden field -->
+        @Html.HiddenFor(m => m.ChallengeSubTypeId)
+        @Html.HiddenFor(m => m.IsMoreThenOne)
+        @Html.HiddenFor(m => m.VariableUnit)
+        @Html.HiddenFor(m => m.ResultUnitType)
+        @Html.HiddenFor(m => m.ChallengeType_Name)
+        @Html.HiddenFor(model => model.CropImageRowData)
+
+        <!-- end hidden field -->
+        <!-- start create-challenge -->
+        <div class="create-challenge">
+            <h3>
+                @Html.DisplayFor(m => m.ChallengeName)
+                <div class="header-link-btn">
+                    @Html.ActionLink("Done", "TrainerWorkouts", "Reporting", new { }, new { @class = "submit" })
+                </div>
+                <div class="clr-both"></div>
+            </h3>
+            <!-- start challenge-content -->
+            <div class="challenge-content">
+                <!-- start step -->
+                <div class="step">
+                    <h5>Challenge Type: </h5>
+                    <!-- start step-des -->
+                    <div class="step-des step-des-new">
+                        <b>Challenge Type:</b>
+                        <span id="lblChallengeTypeName">
+                            @Html.DisplayFor(m => m.ChallengeType_Name)
+                        </span>
+                    </div>
+                    @if (!(Model.ChallengeSubTypeId == 13 || Model.ChallengeSubTypeId == 14 || Model.ChallengeSubTypeId == 15))
+                    {
+                        <div class="step-des step-des-new">
+                            <b>Challenge Sub-Type:</b>
+
+                            @Html.DisplayFor(m => m.ChallengeSubType_Description)
+                        </div>
+                    }
+
+                    @if (Model.ChallengeSubTypeId == 13 || Model.ChallengeSubTypeId == 14 || Model.ChallengeSubTypeId == 15)
+                    {
+                        <div class="step-des step-des-new">
+                            <b>Described your Challenges</b>
+                            @Html.Raw(Model.Description)
+                        </div>
+                    }
+                    <!-- end step-des -->
+                </div>
+                <!-- end step -->
+                <!-- start step -->
+                <!-- end step -->
+                <!-- start step -->
+                <div class="step">
+                    <h5>Exercise(s):</h5>
+                    @if (Model.ChallengeSubTypeId == 13 || Model.ChallengeSubTypeId == 14 || Model.ChallengeSubTypeId == 15)
+                    {
+                        <div class="step-des step-des-new">
+                            <!-- start step-des -->
+                            @{
+
+                                int i = 0;
+                                int icount = 1;
+                                foreach (var item in Model.AvailableExerciseVideoList)
+                                {
+
+                                    <div class="row-colum">
+                                        <b>Name of Exercise @icount:</b>
+                                        @Html.DisplayFor(m => m.AvailableExerciseVideoList[i].ExerciseName)
+                                        <br />
+                                        <span>
+                                            <a href=@Html.DisplayFor(m => m.AvailableExerciseVideoList[i].ExerciseThumnail) target="_blank">@Html.DisplayFor(m => m.AvailableExerciseVideoList[i].ExerciseThumnail)</a>
+                                        </span>
+                                    </div>
+                                    <div class="row-colum">
+                                        <b>Alternate Name of Exercise @icount:</b>
+                                        @Html.DisplayFor(m => m.AvailableExerciseVideoList[i].AlternateExeciseName)
+
+                                    </div>
+
+
+                                    if (item.ExeciseSetRecords != null)
+                                    {
+                                        int exeset = 1;
+                                        foreach (var exedes in item.ExeciseSetRecords)
+                                        {
+
+                                            <fieldset title="">
+                                                <legend style="width:auto;font-size:small;">Set @exeset</legend>
+                                                <b>Description:</b>
+                                                @Html.DisplayFor(m => exedes.Description, new { @class = "preExeciseDescs" })
+                                                <br />
+                                                <b> Set Reps:</b>
+                                                @Html.DisplayFor(m => exedes.SetReps, new { @class = "preExeciseDescs" })
+                                                <br />
+                                                <b>Set Result:</b>
+                                                @Html.DisplayFor(m => exedes.SetResult, new { @class = "preExeciseDescs" })
+                                                <br />
+                                                <b> Rest Time:</b>
+                                                @Html.DisplayFor(m => exedes.RestTime, new { @class = "preExeciseDescs" })
+                                                <br />
+                                                <b> AutoCountDown:</b>
+                                                @Html.DisplayFor(m => exedes.AutoCountDown, new { @class = "preExeciseDescs" })
+
+
+                                            </fieldset>
+                                            exeset = exeset + 1;
+                                        }
+                                    }
+                                    i = i + 1;
+                                    icount = icount + 1;
+
+
+                                }
+                            }
+                        </div>
+                                }
+                                else
+                                {
+
+                                    <div class="step-des step-des-new">
+                                        <div class="row-colum">
+                                            <b>Name of Exercise 1:</b>
+                                            @Html.DisplayFor(m => m.ExeName1)
+                                        </div>
+                                        <div class="row-colum">
+                                            <b>Alternate Name of Exercise:</b>
+                                            @Html.DisplayFor(m => m.FFAExeName1)
+
+                                        </div>
+                                        <div class="row-colum">
+                                            <b>Description:</b>
+                                            <pre>
+                                @Html.DisplayFor(m => m.ExeDesc1, new { @class = "preExeciseDescs" })
+                                </pre>
+                                        </div>
+                                        <div>
+                                            <div id="reps-level">
+                                                <b># Reps</b>
+                                                @Html.DisplayFor(m => m.Reps1)
+                                            </div>
+                                            <div id="weight-level">
+                                                <b>Weight For Men (lbs)</b>
+                                                @Html.DisplayFor(m => m.WeightForMan1)
+                                                <b>Weight For Women (lbs)</b>
+                                                @Html.DisplayFor(m => m.WeightForWoman1)
+                                            </div>
+                                            <div class="clr-both"></div>
+                                        </div>
+
+                                    </div>
+                                }
+                    <!-- end step-des -->
+                </div>
+                <!-- end step -->
+                <!-- start step -->
+                <!-- end step -->
+                <!-- start step -->
+                <!-- end step -->
+                <div class="clr-both"></div>
+                <div class="page-control-btn">
+                    @Html.ActionLink("Done", "TrainerWorkouts", "Reporting", new { }, new { @class = "submit" })
+                </div>
+            </div>
+            <!-- end challenge-content -->
+        </div>
+        <!-- end create-challenge -->
+        <div class="clearfix"></div>
+    </div>
+                                }
+

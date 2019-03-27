@@ -1,0 +1,87 @@
+﻿@using System.Collections.Generic
+@{
+    Layout = "~/Views/Shared/_FitComLayout.cshtml";
+    LinksMediaCorpEntity.ChallengesData challenges = new LinksMediaCorpEntity.ChallengesData();
+    ViewBag.Title = "Workouts";
+    var message = TempData["AlertMessage"] ?? string.Empty;
+    List<LinksMediaCorpEntity.TrainerViewVM> lstTrainers = new List<LinksMediaCorpEntity.TrainerViewVM>();
+    if (ViewBag.Trainers != null)
+    {
+        lstTrainers = ViewBag.Trainers;
+        lstTrainers = lstTrainers.GroupBy(e => new
+        {
+            trainerName = e.TrainerName
+        }).Select(g => g.FirstOrDefault()).ToList();
+    }
+    <script type="text/javascript">
+
+        $('#Home_li').removeClass("active");
+        $('#Reporing_li').removeClass('active');
+        $('#chalenges_submenu').removeClass("inner-menu");
+        $('#workouts_submenu').removeClass("inner-menu");
+        $('#programs_submenu').removeClass("inner-menu");
+        $('#activities_submenu').removeClass('inner-menu');
+        $('#trainers_submenu').removeClass("inner-menu");
+        $('#users_submenu').removeClass('inner-menu');
+        $('#Reporing_li').addClass('active');
+        $('#teams_submenu').removeClass("inner-menu");
+        $('#workouts_submenu').addClass("inner-menu");
+        var message = '@message';
+        if (message)
+            alert(message);
+
+    </script>
+}
+
+@model LinksMediaCorpEntity.ChallengesData
+<div id="page-wrapper">
+    <div class="">
+        <div class="col-md-12 col-lg-12 col-xs-12  state-drop-down-listbox" style="margin-bottom:10px;">
+            <div class="select-trainer">
+                <div class="col-md-6 col-lg-6 col-xs-6 pull-left">
+                    <label>Trainer:</label>
+                    @Html.DropDownList("Trainer", new SelectList(lstTrainers, "TrainerId", "TrainerName", Model.SelectedTrainerId), "All Trainers", new { @class = "select-drop top-select" })
+
+
+                </div>
+                <div class="col-md-6 col-lg-6 col-xs-6 pull-right">@Html.TextBox("WorkoutSearchChallenge", null, new { @class = "searchinput", maxLength = "200", @placeholder = "Search By Name,Type,Difficulty" })</div>
+            </div>
+        </div>
+        @Html.Partial("_WorkoutChallenges", Model)
+    </div>
+
+    <script type="text/javascript">
+        $('#Trainer').change(function () {
+            var id = $("#Trainer :selected").val();
+            if (id == '') {
+                id = -1;
+            }
+            $.get('@Url.Action("WorkoutsByTrainerId", "Reporting")' + "/" + id, function (data) {
+                $('#workouts_1').replaceWith(data);
+                if (data) {
+                   // $("#SearchChallenge").val("");
+                }
+            });
+        });
+
+        $('#WorkoutSearchChallenge').keyup(function (e) {
+            if (this.value.length >= 2 || e.keyCode == 13 || e.which == 13 || e.keyCode == 8) {
+                var id = $("#Trainer :selected").val();
+                var searchItem = $(this).val();
+                if (id == '') {
+                    id = -1;
+                }
+                if (searchItem !== undefined && searchItem !== null) {
+                    var item = id + "~" + searchItem;
+                    $.get('@Url.Action("SearchWorkoutChallenges", "Reporting")' + "/" + item, function (data) {
+                        $('#workouts_1').replaceWith(data);
+                        if (data) {
+                        }
+                    });
+                }
+            }
+
+        });
+
+    </script>
+</div>

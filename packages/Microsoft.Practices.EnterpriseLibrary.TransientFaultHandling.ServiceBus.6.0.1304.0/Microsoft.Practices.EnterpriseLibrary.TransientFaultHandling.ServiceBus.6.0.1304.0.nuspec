@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.ServiceBus</id>
+    <version>6.0.1304.0</version>
+    <title>Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.ServiceBus</title>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <licenseUrl>about:blank</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Transient error detection strategies to use with Windows Azure Service Bus or the Service Bus for Windows Server, for the Transient Fault Handling Application Block ("Topaz").</description>
+    <summary>The Transient Fault Handling Application Block for Windows Azure ("Topaz") makes your Windows Azure application more resilient to transient failures by providing intelligent retry logic mechanisms.</summary>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright />
+    <tags>entlib entlib6 enterprise library elazure Windows Azure block cloud retry retries transient fault exception handling failure network topaz async servicebus service bus</tags>
+    <dependencies>
+      <dependency id="WindowsAzure.ServiceBus" version="1.8" />
+    </dependencies>
+  </metadata>
+</package>

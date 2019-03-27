@@ -1,0 +1,79 @@
+﻿@{
+    Layout = "~/Views/Shared/_FitComLayout.cshtml";
+    var message = TempData["AlertMessage"] ?? string.Empty;
+    <script type="text/javascript">
+        $('#Home_li').removeClass("active");
+        $('#Reporing_li').addClass('active');
+    </script>
+
+}
+
+@model LinksMediaCorpEntity.MainModel
+
+<script type="text/javascript">
+    var message = '@message';
+    if (message)
+        alert(message);
+</script>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <!-- start page-wrapper -->
+    <div id="page-wrapper">
+        <!-- start report-table -->
+        @Html.Partial("_Challenges", Model.ChallengesList)
+        <div class="reporting-table">
+            <div class="panel-heading">    
+               @Html.ActionLink("New", "CreateAdminProgram", "Reporting", new { @class = "add" })       
+                <h3 class="panel-title collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse5">Programs</h3>
+            </div>
+            <div id="collapse5" class="panel-collapse collapse">
+                @Html.Partial("_Programs", Model.ProgramList)
+            </div>
+        </div>
+        <!-- end report-table -->
+        <!-- start report-table -->
+        <div class="reporting-table">
+            <div class="panel-heading">
+                @Html.ActionLink("New", "CreateActivity", "Reporting", new { @class = "add" })
+                <h3 class="panel-title collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse2">Activities</h3>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse">
+                @Html.Partial("_Activities", Model.ActivityList)
+            </div>
+        </div>
+        <!-- end report-table -->
+        <!-- start report-table -->
+        <div class="reporting-table">
+            <div class="panel-heading">
+                @Html.ActionLink("New", "CreateTrainer", "Reporting", new { @class = "add" })
+                <h3 class="panel-title collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse3">Trainers</h3>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse">
+                @Html.Partial("_Trainers", Model.TrainerList)
+            </div>
+
+        </div>
+        <!-- end report-table -->
+        <!-- start report-table -->
+        <div class="reporting-table">
+            <div class="panel-heading">
+                @Html.ActionLink("New", "CreateUser", "Reporting", new { @class = "add" })
+                <h3 class="panel-title collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse4">Users</h3>
+            </div>
+            <div id="collapse4" class="panel-collapse collapse">
+                @Html.Partial("_Users", Model.UserList)
+            </div>
+        </div>
+        <!-- end report-table -->
+        <div class="clearfix"></div>
+    </div>
+    <!-- end page-wrapper -->
+</body>
+</html>
+

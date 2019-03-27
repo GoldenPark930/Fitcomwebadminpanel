@@ -1,0 +1,74 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>FITCOM</title>
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap-theme.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/signin.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" media="only all and (min-width: 480px)" href="~/Content/css/480.css" />
+    <link rel="stylesheet" media="only all and (min-width: 768px)" href="~/Content/css/768.css" />
+    <link rel="stylesheet" media="only all and (min-width: 992px)" href="~/Content/css/992.css" />
+    <link rel="stylesheet" media="only all and (min-width: 1200px)" href="~/Content/css/1200.css" />
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>*@
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/Common.js"></script>
+
+</head>
+
+<body>
+   
+    <!-- start header -->
+    <div class="header margin">
+        <!-- start container -->
+        <div class="container">
+            <!-- start logo -->
+            <div class="logo"><a href="#"><img src="~/Content/images/logo.png" alt="Fitcom" /></a></div>
+            <!-- end logo -->
+            <div class="header-right">
+                <!-- start user-account -->
+                <div class="user-account">                  
+                   
+                </div>
+               
+                <div class="clearfix"></div>
+               
+                <div class="clearfix"></div>
+               
+            </div>
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end header -->
+    <div class="clearfix"></div>
+    <!-- start main-wrapper -->
+    <div class="main-wrapper">
+        <!-- start nav -->
+        <nav role="navigation" class="navbar-default navbar-static-side" id="slide-panel">
+            <a href="#" id="opener"><img src="~/Content/images/opener.png" width="19" height="15" alt="opener" /></a>
+
+        </nav>
+        <!-- end nav -->
+        <!-- start page-wrapper -->
+        @RenderBody()
+        <!-- end page-wrapper -->
+        <div class="clearfix"></div>
+    </div>
+    <div class='popup_overlay' id="carrier_popup">
+        <div class='popup_innerdiv_save' id="inner_carrier" style="text-align: center; top: 20%">
+        </div>
+    </div>
+  
+</body>
+</html>
+
+

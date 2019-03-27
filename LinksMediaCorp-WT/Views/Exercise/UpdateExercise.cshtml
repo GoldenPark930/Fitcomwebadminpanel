@@ -1,0 +1,142 @@
+﻿@model LinksMediaCorpEntity.ViewExerciseVM
+@{
+    ViewBag.Title = "UpdateExercise";
+    Layout = "~/Views/Shared/_FitComLayout.cshtml";
+}
+
+<!-- start page-wrapper -->
+@using (Html.BeginForm("UpdateExercise", "Exercise", FormMethod.Post, new { id = "myform", enctype = "multipart/form-data" }))
+{  
+
+    <div id="page-wrapper">
+        <!-- Start hidden field Section -->
+        @Html.HiddenFor(m => m.ExerciseId)
+        <!-- End hidden field Section -->
+        <!-- start create-challenge -->
+        <div class="create-challenge">
+            <h3>Update Execise</h3>
+            <!-- start challenge-content -->
+            <div class="challenge-content">
+                <!-- start step -->
+                <div class="step">
+                    <h5>Exercise Videos Detail</h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <label class="col-md-2 col-lg-2 col-xs-2">Exercise Name:</label>
+                                @Html.TextBoxFor(m => m.ExerciseName, null, new { @class = "Exercise-inputbox col-md-8 col-lg-8 col-xs-8",  maxLength = "200" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left"> @Html.ValidationMessageFor(m => m.ExerciseName, "", new { @class = "error-msg" })</div>
+
+                            </div>
+                           
+                        </div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <label class="col-md-2 col-lg-2 col-xs-2">Description:</label>
+                                @Html.TextBoxFor(m => m.Description, null, new { @class = "Exercise-inputbox col-md-9 col-lg-9 col-xs-9", maxLength = "200" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left"> @Html.ValidationMessageFor(m => m.Description, "", new { @class = "error-msg" })</div>
+
+                            </div>
+
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <label class="col-md-2 col-lg-2 col-xs-2">Index:</label>
+                                @Html.TextBoxFor(m => m.Index, null, new { @class = "Exercise-inputbox col-md-9 col-lg-9 col-xs-9", maxLength = "200" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left"> @Html.ValidationMessageFor(m => m.Index, "", new { @class = "error-msg" })</div>
+
+                            </div>
+
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <label class="col-md-2 col-lg-2 col-xs-2">Trainer ID:</label>
+                                @Html.TextBoxFor(m => m.TrainerId, null, new { @class = "Exercise-inputbox col-md-9 col-lg-9 col-xs-9", maxLength = "100" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left"> @Html.ValidationMessageFor(m => m.TrainerId, "", new { @class = "error-msg" })</div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <label class="col-md-2 col-lg-2 col-xs-2">Team ID:</label>
+                                @Html.TextBoxFor(m => m.TeamId, null, new { @class = "Exercise-inputbox col-md-9 col-lg-9 col-xs-9", maxLength = "100" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left"> @Html.ValidationMessageFor(m => m.TeamId, "", new { @class = "error-msg" })</div>
+
+                            </div>
+
+                        </div>
+
+                      
+
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <span class="col-md-2 col-lg-2 col-xs-2">Exercise Video:</span>
+                            <div class="col-md-9 col-lg-9 col-xs-9" style="margin-left:30px;">                              
+                                <video width="320" height="240" controls>
+                                    <source src="@(Model.ExerciseVideoUrl)" type="video/mp4">
+                                </video>                             
+                            </div>
+                            
+                        </div>
+                        <div class="clr-both"></div>                       
+
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-2 col-lg-2 col-xs-2">
+                                <span>Upload New Exercise Videos on Sprout:</span>
+                            </div>
+                            <div class="col-md-10 col-lg-10 col-xs-10">
+                                <div class="actions">
+                                    <div class="col-md-10 ation-btn-container">
+                                        <a class="btn btn-primary file-btn col-md-4 col-lg-4 col-xs-4">
+                                            <input type="file" name="file" id="file" accept="video/mp4"><br> 
+                                        </a>
+                                        </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                       
+                        
+                </div>
+                <!-- end step-des -->
+            </div>
+            <!-- end step -->
+            <div class="bottom-button">
+                <input name="" type="submit" value="Update" class="submit" />
+                @if (Convert.ToString(@Session[LinksMediaCorpUtility.Resources.Message.PreviousUrl]).Equals(LinksMediaCorpUtility.Resources.Message.MainUrlText))
+                {
+                    @Html.ActionLink("Cancel", "Exercises", "Exercise", new { }, new { @class = "submit" })
+                }
+                else
+                {
+                    @Html.ActionLink("Cancel", "Exercises", "Exercise", new { }, new { @class = "submit" })
+                }
+            </div>
+        </div>
+        <!-- end challenge-content -->
+    </div>
+        <!-- end create-challenge -->
+    <div class="clearfix"></div>
+        </div>
+}
+
+<script src="~/Scripts/BusinessLogic/ExerciseUploadBL.js"></script>
+

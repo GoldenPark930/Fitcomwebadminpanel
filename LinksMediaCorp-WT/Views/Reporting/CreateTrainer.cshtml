@@ -1,0 +1,419 @@
+﻿@model LinksMediaCorpEntity.CreateTrainerVM
+@using MvcCheckBoxList.Model
+<script src="~/Scripts/ckeditor/ckeditor.js"></script>
+@Styles.Render("~/Content/croppie")
+@Scripts.Render("~/bundles/trainer")
+<script src="~/Scripts/BusinessLogic/CreateTrainerBL.js"></script>
+@{
+    Layout = "~/Views/Shared/_FitComLayout.cshtml";
+    ViewBag.Title = "CreateTrainer";
+    List<LinksMediaCorpEntity.State> lstStates = new List<LinksMediaCorpEntity.State>();
+    if (ViewBag.lstStates != null)
+    {
+        lstStates = ViewBag.lstStates;
+    }
+
+    List<LinksMediaCorpEntity.City> lstCities = new List<LinksMediaCorpEntity.City>();
+    if (ViewBag.lstCities != null)
+    {
+        lstCities = ViewBag.lstCities;
+    }
+    List<LinksMediaCorpEntity.DDTeams> lstTeams = new List<LinksMediaCorpEntity.DDTeams>();
+    if (ViewBag.lstTeams != null)
+    {
+        lstTeams = ViewBag.lstTeams;
+    }
+    <script type="text/javascript">
+        $('#Home_li').removeClass("active");
+        $('#Reporing_li').removeClass('active');
+        $('#chalenges_submenu').removeClass("inner-menu");
+        $('#activities_submenu').removeClass('inner-menu');
+        $('#trainers_submenu').removeClass("inner-menu");
+        $('#users_submenu').removeClass('inner-menu');
+        $('#teams_submenu').removeClass("inner-menu");
+        $('#Reporing_li').addClass('active');
+
+        $(document).ready(function () {
+            $("#trainerImage").hide();
+            $('#TrainerType').tooltip({
+                tooltipClass: "custom-tooltip-styling"
+            });
+            if ($('#CheckEmail').val() === "NotAvailable") {
+                $("#resultEmail").html("<span style='color:red'>Email already exist!</span>");
+            }
+            else {
+                $("#resultEmail").html(null);
+            }
+
+        });
+    </script>
+    if (!Convert.ToString(@Session[LinksMediaCorpUtility.Resources.Message.PreviousUrl]).Equals(LinksMediaCorpUtility.Resources.Message.MainUrlText))
+    {
+        <script type="text/javascript">
+            $('#trainers_submenu').addClass("inner-menu");
+        </script>
+    }
+}
+<!-- start page-wrapper -->
+@using (Html.BeginForm("CreateTrainer", "Reporting", FormMethod.Post, new { id = "myform", enctype = "multipart/form-data" }))
+{
+    <div id="page-wrapper">
+        @*Start Hidden Field Control*@
+        @Html.HiddenFor(model => model.PrimarySpecializationCheck)
+        @Html.HiddenFor(model => model.ImageCropWidth)
+        @Html.HiddenFor(model => model.ImageCropHeight)
+        @Html.HiddenFor(model => model.CropPointX)
+        @Html.HiddenFor(model => model.CropPointY)
+        @Html.HiddenFor(model => model.CropImageRowData)
+        @Html.HiddenFor(model => model.CropImageRowData)
+        @Html.HiddenFor(model => model.TeamId)
+
+        <!-- start create-challenge -->
+        <div class="create-challenge">
+            <h3>
+                Create a New Trainer
+                <div class="header-link-btn">
+                    <input name="" type="button" value="Submit" class="submit" id="btntopSubmit" />
+
+                    @if (Convert.ToString(@Session[LinksMediaCorpUtility.Resources.Message.PreviousUrl]).Equals(LinksMediaCorpUtility.Resources.Message.MainUrlText))
+                    {
+                        @Html.ActionLink("Cancel", "Main", "Reporting", new { }, new { @class = "submit" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Cancel", "Trainers", "Reporting", new { }, new { @class = "submit" })
+                    }
+                </div>
+            </h3>
+            <!-- start challenge-content -->
+            <div class="challenge-content">
+                <!-- start step -->
+                <div class="step">
+                    <h5>
+                        Trainer Detail
+                    </h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>First Name:</label>
+                                @Html.TextBoxFor(m => m.FirstName, null, new { @class = "input-text-right", maxLength = "20" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left"> @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "error-msg" })</div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xs-6">
+                                <label>Last Name:</label>
+                                @Html.TextBoxFor(m => m.LastName, new { @class = "input-text-right", maxLength = "20" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left"> @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "error-msg error-msg-pad200" })</div>
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Date of Birth:</label>
+                                @Html.TextBoxFor(m => m.DateOfBirth, null, new { @class = "input-text-right", placeholder = "MM/DD/YYYY" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.DateOfBirth, "", new { @class = "error-msg" })
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <div class="col-md-4 col-lg-4 col-xs-4 state-remove-pd">
+                                    <label>Gender:</label>
+                                </div>
+                                <div class="col-md-8 col-lg-8 col-xs-8 state-remove-pd">
+                                    <div class="gender-option-pd">
+                                        @Html.RadioButtonFor(m => m.Gender, "Male") Male
+                                        @Html.RadioButtonFor(m => m.Gender, "Female") Female
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Height (Inches):</label>
+                                @Html.TextBoxFor(m => m.Height, null, new { @class = "input-text-right", maxLength = "3" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.Height, "", new { @class = "error-msg" })
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Weight (lbs):</label>
+                                @Html.TextBoxFor(m => m.Weight, new { @class = "input-text-right", maxLength = "3" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.Weight, "", new { @class = "error-msg error-msg-pad200" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-2 col-lg-2 col-xs-2 mob-view-box">
+                                <label>Address:</label>
+                            </div>
+                            <div class="col-md-10 col-lg-10 col-xs-10 mob-view-box">
+                                @Html.TextBoxFor(m => m.Address, new { @class = "trainer-inputbox", maxLength = "200" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left remove-mg-desktop">  @Html.ValidationMessageFor(m => m.Address, "", new { @class = "error-msg" })</div>
+                            </div>
+                        </div>                        
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-6 col-lg-6 col-xs-6 state-drop-down-listbox ">
+                                <label>State:</label>
+                                @Html.DropDownListFor(m => m.State, new SelectList(lstStates, "StateCode", "StateName"), "--Choose State--", new { @class = "select", onchange = "onChangeId();" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.State, "", new { @class = "error-msg " })
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 state-drop-down-listbox">
+                                <label>City:</label>
+                                <span id='loadingmessage' style='display:none; padding-left:25%;'>
+                                    <img src='~/images/ajax-loader.gif' />
+                                </span>
+                                @Html.DropDownListFor(m => m.City, new SelectList(lstCities, "CityId", "CityName"), "--Choose City--", new { @class = "select" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">  @Html.ValidationMessageFor(m => m.City, "", new { @class = "error-msg " }) </div>
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Zip Code:</label>
+                                @Html.TextBoxFor(m => m.ZipCode, null, new { @class = "input-text-right", maxLength = "5" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.ZipCode, "", new { @class = "error-msg" })
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Email Id:</label>
+                                @Html.TextBoxFor(m => m.EmailId, new { @class = "input-text-right", maxLength = "50" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "error-msg error-msg-pad200" })
+                                    @Html.HiddenFor(model => model.CheckEmail)
+                                    <div class="clr-both"></div><span id="resultEmail" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input ">
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Phone:</label>
+                                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "input-text-right" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "error-msg error-msg-pad200" })
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Website:</label>
+                                @Html.TextBoxFor(m => m.Website, new { @class = "input-text-right" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.Website, "", new { @class = "error-msg error-msg-pad200" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input ">
+                            <div class="col-md-6 col-lg-6 col-xs-6 state-drop-down-listbox">
+                                <label>Trainer Type:</label>
+                                @Html.TextBoxFor(m => m.TrainerType, new { @class = "input-text-right", maxLength = "16", title = "Trainer Type should be max 16 characters in length!" })
+
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.TrainerType, "", new { @class = "error-msg" })
+                                </div>
+                            </div>
+                           
+                        </div>
+                       
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-2 col-lg-2 col-xs-2 mob-view-box">
+                                <label>About Me:</label>
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">  @Html.ValidationMessageFor(m => m.AboutMe, "", new { @class = "error-msg" })</div>
+                            </div>
+                            <div class="col-md-10 col-lg-10 col-xs-10 mob-view-box">
+                                @Html.TextAreaFor(m => m.AboutMe, new { @class = "ckeditor", maxLength = "1000", placeholder = "Max Char limit 1000" })
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-2 col-lg-2 col-xs-2 mob-view-box">
+                                <label>Assign Team:</label>
+                            </div>
+                            <div class="col-md-10 col-lg-10 col-xs-10 mob-view-box">
+                                <div style="overflow-x:auto; overflow-y:hidden;">
+                                    <fieldset class="txt-specialisation-detail" style="width:830px;">
+                                        <legend style="width:150px;">Select Team(s)</legend>
+                                        <div id="detailschkAssignTeam">
+                                            @{
+                                                var primaryTeamsListInfo = new HtmlListInfo(HtmlTag.table, 4, null, TextLayout.Default, TemplateIsUsed.No);
+                                                @Html.CheckBoxListFor(m => m.PostedTeams.TeamsID, m => m.AvailableTeams,
+m => m.TeamId, m => m.TeamName, m => m.SelecetdTeams, primaryTeamsListInfo)
+                                            }
+                                        </div>                                        
+                                    </fieldset>
+                                </div>
+                                </div>                            
+                        </div>
+                        <div class="clr-both"></div>                       
+                        <div class="row txt-lbl-input">
+                                <div class="col-md-2 col-lg-2 col-xs-2 mob-view-box">
+                                    <label>Mobile Coach Teams:</label>
+                                </div>
+                                <div class="col-md-10 col-lg-10 col-xs-10 mob-view-box">
+                                    <div style="overflow-x:auto; overflow-y:hidden;">
+                                        <fieldset class="txt-specialisation-detail" style="width:830px;">
+                                            <legend style="width:280px;">Select Mobile Coach Team(s)</legend>
+                                            <div id="detailschkCoachingTeam">
+                                                @{
+                                                    var primaryCoachTeamsListInfo = new HtmlListInfo(HtmlTag.table, 4, null, TextLayout.Default, TemplateIsUsed.No);
+                                                    @Html.CheckBoxListFor(m => m.PostedMobileCoachTeams.TeamsID, m => m.AvailableTeams,
+    m => m.TeamId, m => m.TeamName, m => m.SelecetdMobileCoachTeams, primaryCoachTeamsListInfo)
+                                                }
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-2 col-lg-2 col-xs-2 mob-view-box">
+                                <label>Password:</label>
+                            </div>
+                            <div class="col-md-10 col-lg-10 col-xs-10 mob-view-box">
+                                @Html.PasswordFor(m => m.Password, new { @class = "trainer-inputbox", maxLength = "10" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left remove-mg-desktop">
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "error-msg" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-2 col-lg-2 col-xs-2 mob-view-box">
+                                <label>Confirm Password:</label>
+                            </div>
+                            <div class="col-md-10 col-lg-10 col-xs-10 mob-view-box">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "trainer-inputbox", maxLength = "10" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left remove-mg-desktop">  @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "error-msg" })</div>
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-2 col-lg-2 col-xs-2 mob-view-box">
+                                <label>Specialization:</label>
+                            </div>
+                            <div class="col-md-10 col-lg-10 col-xs-10 mob-view-box">
+                                <div style="overflow-x:auto; overflow-y:hidden;">
+                                    <fieldset class="txt-specialisation-detail" style="width:830px;">
+                                        <legend style="width:210px;">Primary (Top Three)</legend>
+                                        <div id="detailschk1">
+                                            <div style="color:red;"> @Html.ValidationMessageFor(m => m.PrimarySpecializationCheck, "", new { })</div>
+                                            @{
+    var primaryListInfo = new HtmlListInfo(HtmlTag.table, 4, null, TextLayout.Default, TemplateIsUsed.No);
+    @Html.CheckBoxListFor(m => m.PostedSpecializations.PrimarySpecializationIDs, m => m.AvailableSpecializations,
+        m => m.SpecializationId, m => m.SpecializationName, m => m.SelectedTopthreeSpecializations, primaryListInfo)
+                                            }
+                                        </div>
+
+                                        <legend>Secondary</legend>
+                                        <div>
+                                            @{
+    var secondaryListInfo = new HtmlListInfo(HtmlTag.table, 4, null, TextLayout.Default, TemplateIsUsed.No);
+    @Html.CheckBoxListFor(m => m.PostedSpecializations.SecondarySpecializationIDs, m => m.AvailableSpecializations,
+         m => m.SpecializationId, m => m.SpecializationName, m => m.SelectedSecondarySpecializations, secondaryListInfo)
+                                            }
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div>
+                            <div class="col-md-2 col-lg-2 col-xs-2">
+                                <label style="align-items:center">Profile Photo:</label>
+                            </div>
+                            <div class="fileupload fileupload-new col-md-10">
+                                <div id="existingTrainertImgConatiner" class="fileupload-new thumbnail" style="max-height:304px;max-width:304px;">
+                                    <img id="existingTrainertImg" src='@ViewBag.TrainerProfilePhoto' alt="Photo" />
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="upload-demo">
+                                <div class="grid">
+                                    <div class="col-md-2">
+                                    </div>
+                                    <div class="col-md-10 select-img-btn">
+                                        <div class="fileupload-preview thumbnail" id="upload-demo"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-10 ation-btn-container">
+                                    <a class="btn btn-primary file-btn">
+                                        <span class="fileupload-new">Select Image</span>
+                                        <input type="file" id="upload" value="Choose a file" accept="image/*" />
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clr-both"></div>
+
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <!-- end step -->
+                <div class="clr-both"></div>
+                <div class="bottom-button">
+                    <input name="" type="button" value="Submit" class="submit" id="btnSubmit" />
+                    @if (Convert.ToString(@Session[LinksMediaCorpUtility.Resources.Message.PreviousUrl]).Equals(LinksMediaCorpUtility.Resources.Message.MainUrlText))
+                    {
+                        @Html.ActionLink("Cancel", "Main", "Reporting", new { }, new { @class = "submit" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Cancel", "Trainers", "Reporting", new { }, new { @class = "submit" })
+                    }
+                </div>
+            </div>
+            <!-- end challenge-content -->
+        </div>
+        <!-- end create-challenge -->
+        <div class="clearfix"></div>
+    </div>
+}
+
+@Scripts.Render("~/bundles/CreateTrainercroppie")
+<script>
+    CreateTrainer.init();
+
+</script>
+

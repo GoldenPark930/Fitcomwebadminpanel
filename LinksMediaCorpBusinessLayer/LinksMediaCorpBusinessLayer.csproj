@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1CD7B953-FED7-4F96-8B14-EAC1F9C49466}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LinksMediaCorpBusinessLayer</RootNamespace>
+    <AssemblyName>LinksMediaCorpBusinessLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\RuleSets\RuleSet_Fitcom.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+    <CodeAnalysisRuleSet>..\RuleSets\RuleSet_Fitcom.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>LinksMediaCorp-WT.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+    <CodeAnalysisRuleSet>..\RuleSets\RuleSet_Fitcom.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+    <CodeAnalysisRuleSet>..\RuleSets\RuleSet_Fitcom.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\LinksMediaCorp-WT\bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.1.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActivityBL.cs" />
+    <Compile Include="ChallengeApiBL.cs" />
+    <Compile Include="ChallengeMessageFeedBL.cs" />
+    <Compile Include="ChallengeOfTheDayBL.cs" />
+    <Compile Include="ChallengesBL.cs" />
+    <Compile Include="ChallengesCommonBL.cs" />
+    <Compile Include="ChallengeToFriendBL.cs" />
+    <Compile Include="ChatHistoryApiBL.cs" />
+    <Compile Include="CommonApiBL.cs" />
+    <Compile Include="CommonBL.cs" />
+    <Compile Include="CommonReportingUtility.cs" />
+    <Compile Include="CommonTrainerBL.cs" />
+    <Compile Include="CommonWebApiBL.cs" />
+    <Compile Include="ExerciseBL.cs" />
+    <Compile Include="FreeFormChallengeBL.cs" />
+    <Compile Include="GoogleSignatureVerify.cs" />
+    <Compile Include="HomeRequestBL.cs" />
+    <Compile Include="Login.cs" />
+    <Compile Include="NotificationApiBL.cs" />
+    <Compile Include="PostAndCommentBL.cs" />
+    <Compile Include="ProfileApiBL.cs" />
+    <Compile Include="ProfileBL.cs" />
+    <Compile Include="ProgramApiBL.cs" />
+    <Compile Include="ProgramBL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PushNotificationBL.cs" />
+    <Compile Include="Service References\ServiceReferenceZipCode\Reference.cs" />
+    <Compile Include="Service References\ServiceReferenceZipCode\Reference1.cs" />
+    <Compile Include="Service References\ServiceReferenceZipCode\Reference2.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="SortExtension.cs" />
+    <Compile Include="SponsorChallengeBL.cs" />
+    <Compile Include="TeamApiBL.cs" />
+    <Compile Include="TeamBL.cs" />
+    <Compile Include="TeamTalkBL.cs" />
+    <Compile Include="TrainerApiBL.cs" />
+    <Compile Include="TrainersBL.cs" />
+    <Compile Include="TrainingSessionApiBL.cs" />
+    <Compile Include="UseresBL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LinksMediaCorp-WT.pfx" />
+    <None Include="obj\App.config" />
+    <None Include="Service References\ServiceReferenceZipCode\uszip.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Service References\ServiceReferenceZipCode\configuration.svcinfo" />
+    <Content Include="Service References\ServiceReferenceZipCode\configuration91.svcinfo" />
+    <Content Include="Service References\ServiceReferenceZipCode\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference2.cs</LastGenOutput>
+    </Content>
+    <Content Include="Service References\ServiceReferenceZipCode\uszip.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LinksMediaCorpDataAccessLayer\LinksMediaCorpDataAccessLayer.csproj">
+      <Project>{81037449-e4ea-4425-aa13-f6555820ac38}</Project>
+      <Name>LinksMediaCorpDataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LinksMediaCorpEntity\LinksMediaCorpEntity.csproj">
+      <Project>{3c87be6d-6125-4ca9-be63-dfe407b06771}</Project>
+      <Name>LinksMediaCorpEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LinksMediaCorpUtility\LinksMediaCorpUtility.csproj">
+      <Project>{14e08896-e32b-46b4-9e49-461ebc0b37dc}</Project>
+      <Name>LinksMediaCorpUtility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

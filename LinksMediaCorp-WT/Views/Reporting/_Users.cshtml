@@ -1,0 +1,62 @@
+﻿@{
+    LinksMediaCorpEntity.CreateUserVM users = new LinksMediaCorpEntity.CreateUserVM();
+    var gridUser = new WebGrid(Model, canPage: true, rowsPerPage: 10, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridUserDetail1");
+    gridUser.Pager(WebGridPagerModes.NextPrevious);
+}
+<script src="~/Scripts/Common.js"></script>
+<div id="user_1" class="reporting-table">
+    @if (Model.Count > 0)
+    {
+        <div id="gridUserDetail1" class="report-table-content panel-body">
+            @gridUser.GetHtml(tableStyle: "full-table"
+                , mode: WebGridPagerModes.All,
+                firstText: "<< First",
+                previousText: "< Prev",
+                nextText: "Next >",
+                lastText: "Last >>",
+                headerStyle: "",
+                alternatingRowStyle: "alt",
+                selectedRowStyle: "select",
+                columns: gridUser.Columns(
+                new WebGridColumn
+                {
+                    Format =
+                    @<text>
+                        <div class="fleft btn-txt-user">
+
+                            @Html.ActionLink("Edit", "UpdateUser", "Reporting", new { id = item.UserId }, new { })
+                        </div><div class="fleft btn-txt-user">                          
+                            @Html.ActionLink("Delete", "Deleteuser", "Reporting", new { id = item.UserId }, new { @class = "delete-btn", onclick = "return confirm('Are you sure you want to delete this item?');" })
+                        </div>
+
+                    </text>
+                },
+
+                                                         gridUser.Column("FullName", header: "User Name"),
+                                                         gridUser.Column("MTActiveStatus", header: "MTActive"),
+                                                         gridUser.Column("PremiumMemberStatus", header: "Premium Member"),                                                         
+                                                         gridUser.Column("DateOfBirth", header: "DOB", format: (item) => ((item.DateOfBirth == null) ? null : string.Format("{0:dd-MMM-yyyy}", item.DateOfBirth))),
+                                                         gridUser.Column("Gender", header: "Gender"),
+                                                         gridUser.Column("ZipCode", header: "Zip"),
+                                                         gridUser.Column("EmailId", header: "Email Id"),
+                                                         gridUser.Column("TeamName", header: "Team Name"),
+                                                         gridUser.Column("UniqueTeamId", header: "TeamId"),
+                                                         gridUser.Column("CreatedDate", header: "Sign-Up Date", format: (item) => ((item.CreatedDate == null) ? null : string.Format("{0:dd-MMM-yyyy}", item.CreatedDate))),
+                                                         gridUser.Column("SubscriptionStatusLebel", header: "Subscription Status")
+                                                         
+                                                         ))
+            @*@if (gridUser.HasSelection)
+            {
+                users = (LinksMediaCorpEntity.CreateUserVM)gridUser.Rows[gridUser.SelectedIndex].Value;
+                <b>Id</b> @users.FullName<br />
+
+            }*@
+        </div>
+      
+    }
+    else
+    {
+        <div class="NoRecord"></div>
+    }
+   
+ </div>

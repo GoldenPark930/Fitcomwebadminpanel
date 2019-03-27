@@ -1,0 +1,62 @@
+﻿@using System.Collections.Generic
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+@{
+    Layout = "~/Views/Shared/_FitComLayout.cshtml";     
+    ViewBag.Title = "Exercises";
+    var message = TempData["AlertMessage"] ?? string.Empty;
+       <script type="text/javascript">
+        $('#Home_li').removeClass("active");
+        $('#Reporing_li').removeClass('active');
+        $('#chalenges_submenu').removeClass("inner-menu");
+        $('#programs_submenu').removeClass("inner-menu");
+        $('#activities_submenu').removeClass('inner-menu');
+        $('#trainers_submenu').removeClass("inner-menu");
+        $('#users_submenu').removeClass('inner-menu');
+        $('#teams_submenu').removeClass("inner-menu");
+        $('#Reporing_li').addClass('active');
+        $('#exerciseview_submenu').addClass("inner-menu");
+        var message = '@message';
+        if (message)
+            alert(message);
+    </script>
+}
+@model LinksMediaCorpEntity.ViewExercisesData
+<div id="page-wrapper">
+    <div class="">      
+        <div class="col-md-6 col-lg-6 col-xs-6 pull-right" style="margin-top:15px;">@Html.TextBox("SearchExercise", null, new { @class = "searchinput", maxLength = "200", @placeholder = "Search By Execise Name" })</div>
+    </div>
+    <div class="reporting-table">
+        <div class="panel-heading">
+            @Html.ActionLink("Upload New Exercise videos", "UploadExerciseVideos", "Exercise", new { @class = "add" })
+            <h3 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse10">Exercises</h3>
+        </div>
+        <div id="collapse10" class="panel-collapse collapse in">
+            @Html.Partial("_Exercises", Model)
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+$('#SearchExercise').keyup(function (e) {
+        if (this.value.length >= 2 || e.keyCode == 13 || e.which == 13 || e.keyCode == 8) {
+            var searchItem = $(this).val();
+            if (searchItem !== undefined && searchItem !== null) {
+                var item = searchItem;
+                var urlchallenge = baseUrlString + "/Exercise/SearchExercise";
+                $.get(urlchallenge + "/" + item, function (data) {
+                    $('#exercises_1').replaceWith(data);
+                    if (data) {
+                    }
+                });
+
+
+            }
+        }
+    });
+    </script>
+   
+
+
+
+
+

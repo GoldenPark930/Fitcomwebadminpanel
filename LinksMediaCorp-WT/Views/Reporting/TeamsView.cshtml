@@ -1,0 +1,85 @@
+﻿@using System.Collections.Generic
+@Scripts.Render("~/bundles/ui")
+@Styles.Render("~/Content/challenge")
+@Scripts.Render("~/bundles/TeamView")
+@{
+    Layout = "~/Views/Shared/_FitComLayout.cshtml";
+    LinksMediaCorpEntity.ViewChallenes challenges = new LinksMediaCorpEntity.ViewChallenes();
+    ViewBag.Title = "TeamsView";
+    List<LinksMediaCorpEntity.DDTeams> lstPrimaryTeams = new List<LinksMediaCorpEntity.DDTeams>();
+    if (ViewBag.PrimaryTeams != null)
+    {
+        lstPrimaryTeams = ViewBag.PrimaryTeams;
+        lstPrimaryTeams = lstPrimaryTeams.GroupBy(e => new
+        {
+            TeamName = e.TeamName
+        }).Select(g => g.FirstOrDefault()).ToList();
+    }
+    List<LinksMediaCorpEntity.CommisionMonth> lstCommissionMonth = new List<LinksMediaCorpEntity.CommisionMonth>();
+    if (ViewBag.CommisionMonth != null)
+    {
+        lstCommissionMonth = ViewBag.CommisionMonth;
+    }
+    List<LinksMediaCorpEntity.CommisionYear> lstCommissionYear = new List<LinksMediaCorpEntity.CommisionYear>();
+    if (ViewBag.CommissionYear != null)
+    {
+        lstCommissionYear = ViewBag.CommissionYear;
+    }
+    <script type="text/javascript">
+        $('#Home_li').removeClass("active");
+        $('#Reporing_li').removeClass('active');
+        $('#chalenges_submenu').removeClass("inner-menu");
+        $('#programs_submenu').removeClass("inner-menu");
+        $('#activities_submenu').removeClass('inner-menu');
+        $('#trainers_submenu').removeClass("inner-menu");
+        $('#users_submenu').removeClass('inner-menu');
+        $('#teams_submenu').removeClass("inner-menu");
+        $('#Reporing_li').addClass('active');
+        $('#teamview_submenu').addClass("inner-menu");
+    </script>
+}
+@model LinksMediaCorpEntity.TeamViewData
+@Html.HiddenFor(m => m.IsShowCurrentMonth)
+<div id="page-wrapper">
+    <div class="create-challenge">
+        <div class="challenge-content">
+
+            <div class="step">
+                <h5>Team Commission Search</h5>
+                <!-- start step-des -->
+                @using (Html.BeginForm("TeamsView", "Reporting", FormMethod.Post, new { id = "myform", enctype = "multipart/form-data" }))
+                {
+                    <div class="step-des">
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-4 col-lg-4 col-xs-4">
+                                <span class="control-label col-sm-3"><b>Primary Teams:</b></span>
+                                @Html.DropDownList("SearchPrimaryTeam", new SelectList(lstPrimaryTeams, "TeamId", "TeamName", Model.SearchedTeamId), "--Select Primary Team--", new { @class = "select col-md-6 col-lg-6 col-xs-6", onchange = "onChangeId();" })
+                            </div>
+                            <div class="col-md-2 col-lg-2 col-xs-2">
+                                <span style="line-height:26px;" class="col-md-4 col-lg-4 col-xs-4"><b>Year:</b></span>
+                                @Html.DropDownList("SearchYear", new SelectList(lstCommissionYear, "Year", "Year", Model.SelectedYear), "Select Year", new { @class = "select col-md-8 col-lg-8 col-xs-8" })
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-xs-3">
+                                <span style="line-height:26px;" class="col-md-4 col-lg-4 col-xs-4"><b>Month:</b></span>
+                                @Html.DropDownList("SearchMonth", new SelectList(lstCommissionMonth, "Month", "Name", Model.SelectedMonth), "Select Month", new { @class = "select col-md-8 col-lg-8 col-xs-8" })
+                            </div>
+                            <button id="btnSeachTeamView" type="submit" class="add_field_button add-exercise add-LevelTeam">Search</button>
+                        </div>
+                    </div>
+                }
+            </div>
+            @if (Model != null && Model.PrimaryTeamDetail != null)
+            {
+                @Html.Partial("_TeamView", Model)
+            }
+            else
+            {
+                <div style="margin-left:40%;">
+                    <lebel> @Model.NoReportMessage</lebel>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/BusinessLogic/TeamViewBL.js"></script>
+

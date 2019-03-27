@@ -1,0 +1,48 @@
+﻿@Scripts.Render("~/bundles/sessionexpire")
+<span id="spSessionExpired" style=" color:White; display:none;">
+    The session is expired.
+</span>
+
+<div id="tbSessionExpired" style="display:none;">
+    <div class="alert-box-trprnt"></div>
+    <div class="alert-box-popup">
+        <table cellpadding="10" cellspacing="0" border="0" width="100%">
+            <tr>
+                <td class="alert-msg-txt">                  
+                        Your session will be expired after  <span id="expiredTime"></span> seconds, would you like to extend the session time?                  
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:center; padding-left:95px;">
+                    <input type="button" id="btnTimeextend" class="aler-box-css" value="Yes" onclick="SetTimeextend();" />
+                    <input type="button" id="btnTimeExpired" value="No" class="aler-box-css" onclick="SetTimeExpired();" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<span style=" clear:both;"></span>
+<script type="text/javascript" language="javascript">  
+    var popUpTime = 1;//pop up time 
+    var i;
+    var sess_intervalID;  
+    var timeOut;    
+    function SetTime() {
+        $("#expiredTime").html(i.toString());
+        if (i > 0) {
+            i--;
+        }
+        else {
+            sessLogOut()
+        }
+    }
+    function sessSetInterval() {
+        timeOut = @Session.Timeout
+          i = popUpTime * 60;
+        sess_intervalID = setInterval("TimeextendOrExpired()", (timeOut - popUpTime) * 60 * 1000);
+    }
+
+    $(document).ready(function () {       
+        sessSetInterval();      
+    });
+</script>

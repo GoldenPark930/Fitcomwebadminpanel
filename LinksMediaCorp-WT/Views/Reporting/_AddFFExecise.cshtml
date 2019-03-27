@@ -1,0 +1,92 @@
+﻿@model LinksMediaCorpEntity.AddFFExeciseVM
+@if (Model != null)
+{
+    <div id="execiseDivId@(Model.ExeciseCountID)" class="add-remove-container chose-ex-parts">
+        <div class="row-colum">
+            <div class="rmv-pd col-md-4 col-sm-12 col-xs-12">
+                <label class="pull-left" style="width: auto;margin-right:5px;">Equipments:</label>
+                <select class="select" data-val="true" data-val-number="The field Equipments must be a number." id="FFdrpdownEquipments@(Model.ExeciseCountID)" name="FFdrpdownEquipments@(Model.ExeciseCountID)">
+                    <option value="0">--Choose Equipments--</option>
+                </select>
+            </div>
+            <div class="rmv-pd col-md-4 col-sm-12 col-xs-12">
+                <label class="pull-left" style="width: auto;margin-right:5px;">Training Zones:</label>
+                <select class="select" data-val="true" data-val-number="The field Training Zones must be a number." id="FFdrpdownTrainingZones@(Model.ExeciseCountID)" name="FFdrpdownTrainingZones@(Model.ExeciseCountID)">
+                    <option value="0">--Choose Training Zones--</option>
+                </select>
+            </div>
+            <div class="rmv-pd col-md-4 col-sm-12 col-xs-12">
+                <label class="pull-left" style="width: auto;margin-right:5px;">Exercise Types:</label>
+                <select class="select" data-val="true" data-val-number="The field Exercise Types: must be a number." id="FFdrpdownExerciseTypes@(Model.ExeciseCountID)" name="FFdrpdownExerciseTypes@(Model.ExeciseCountID)">
+                    <option value="0">--Choose Exercise Types--</option>
+                </select>
+            </div>
+        </div>
+        <div class="row-colum padding-topbtm5 add-step">
+            <a id="FFRemoveExeName@(Model.ExeciseCountID)" href="#" class="remove_field remove_execiseset second">X</a>
+            <div class="clearfix">
+            </div>
+            <label id="FFlblExeName@(Model.ExeciseCountID)">Name of Exercise @(Model.ExeciseCountID):</label>
+            <input class="freeforminput FreeFormExerciseVideos col-md-10 col-sm-10 col-xs-10  ui-autocomplete-input ui-corner-all" id="FFExeName@(Model.ExeciseCountID)" name="FFExeName@(Model.ExeciseCountID)" type="text" value="" autocomplete="off">
+            <div class="row-colum col-md-12 col-sm-12 col-xs-12">
+                <input type="hidden" id="ExerciseSetCount@(Model.ExeciseCountID)" value="1">
+                <input type="hidden" id="ExerciseId@(Model.ExeciseCountID)" value="0">                 
+                <input type="hidden" id="IsNewAddedExercise@(Model.ExeciseCountID)" value="1">
+                <input type="hidden" id="CEARocordId@(Model.ExeciseCountID)" value="0">
+                <span id="FFExeVideoLink@(Model.ExeciseCountID)">
+                    <a id="FFExeVideoLinkUrl@(Model.ExeciseCountID)" href="#" target="_blank"></a>
+                </span><span id="FFlblExe@(Model.ExeciseCountID)" class="error-msg secondary-err-msg"></span><span class="field-validation-valid error-msg" data-valmsg-for="FFExeName@(Model.ExeciseCountID)" data-valmsg-replace="true"></span>
+            </div><div class="row-colum col-md-12 col-lg-12 col-xs-12">
+                <label><span class="active-new-chckbox pull-left">Alternate Name:</span> <input id="IsFFAExeName@(Model.ExeciseCountID)" name="IsFFAExeName@(Model.ExeciseCountID)" type="checkbox" class="IsChangedExeciseName checkbox-btn" /></label>
+                <input class="freeforminput FreeFormExerciseVideos1 col-md-10 col-sm-10 col-xs-10" id="FFAExeName@(Model.ExeciseCountID)" name="FFAExeName@(Model.ExeciseCountID)" type="text" value="" style="display: none;" /><span class="field-validation-valid error-msg" data-valmsg-for="FFAExeName@(Model.ExeciseCountID)" data-valmsg-replace="true" id="spnFFAExeName@(Model.ExeciseCountID)"></span>
+            </div>
+            <div class="row-colum col-md-12 col-sm-12 col-xs-12">
+                <label><span class="active-new-chckbox pull-left">Set As First Exercise:</span> <input id="IsSetFirstExecise@(Model.ExeciseCountID)" name="IsSetFirstExecise" type="checkbox" class="checkbox-btn"></label>
+
+            </div>
+        </div>
+        <div class="row-colum">
+            <div id="execeMainsetId@(Model.ExeciseCountID)" class="Main-set main-bg-set">
+                <div id=@(Model.ExeciseCountID)>
+                    <div class="set-heading">
+                        <span id="exesetTittle1"> Set 1</span>
+                    </div><label>How Many Reps:</label>
+                    <input class="freeforminput FreeFormExerciseVideos1 col-md-10 col-sm-10 col-xs-10 ui-autocomplete-input ui-corner-all" id="ExecSetRep1" name="ExecSetRep1" type="text" value="" autocomplete="off">
+                    <div class="or-section"><span>OR</span></div><label>How Much Time:</label>
+                    <label style="width:47px;margin-right:2px;" class="lbl-txt">Hour(s)</label>
+                    <input class="input " data-val="true" data-val-range="Please enter valid Hour(s)." data-val-range-max="24" data-val-range-min="0" id="SetTimeHours1" maxlength="2" name="SetTimeHours1" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;" type="text" value="00">
+                    <label style="width:55px;margin-right:5px;" class="lbl-txt">Minute(s)</label>
+                    <input class="input" data-val="true" data-val-range="Please enter valid Minute(s)." data-val-range-max="60" data-val-range-min="0" id="SetTimeMinute1" maxlength="2" name="SetTimeMinute1" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;" type="text" value="00">
+                    <label style="width:58px;margin-right:5px;" class="lbl-txt">Second(s)</label>
+                    <input class="input " data-val="true" data-val-range="Please enter valid Second(s)." data-val-range-max="60" data-val-range-min="0" id="SetTimeSecond1" maxlength="2" name="SetTimeSecond1" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;" type="text" value="00">
+                    <label style="width:30px;margin-right:5px;" class="lbl-txt">HS(s)</label>
+                    <input class="input" data-val="true" data-val-range="Please enter valid HS(s)." data-val-range-max="99" data-val-range-min="0" id="SetTimeHS1" maxlength="2" name="SetTimeHS1" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;height:32px;" type="text" value="00">
+                    <span class="active-new-chckbox pull-left" style="line-height:31px;">Auto Count Down:</span>
+
+                    <div class="gender-option-pd">
+                        <input id="IsSetAutoCountDown1" name="IsSetAutoCountDown1" type="checkbox" checked="checked" class="IsChangedExeciseName checkbox-autcountbtn" />
+                    </div>
+                    <div class="clr-both">
+                    </div>
+                    <label>Description:</label><textarea class="freeformtextarea col-md-10 col-sm-10 col-xs-9" cols="20" id="ExecSetDescription1" maxlength="500" name="ExecSetDescription1" placeholder="Max Char limit 500" rows="2"></textarea>
+                    <div class="clr-both">
+                    </div>
+                    <label>How Much Rest Time:</label><label style="width:47px;margin-right:2px;" class="lbl-txt">Hour(s)</label>
+                    <input class="input" data-val="true" data-val-range="Please enter valid Hour(s)." data-val-range-max="24" data-val-range-min="0" id="RestTimeHours1" maxlength="2" name="RestTimeHours1" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;" type="text" value="00">
+                    <label style="width:55px;margin-right:5px;" class="lbl-txt">Minute(s)</label>
+                    <input class="input " data-val="true" data-val-range="Please enter valid Minute(s)." data-val-range-max="60" data-val-range-min="0" id="RestTimeMinute1" maxlength="2" name="RestTimeMinute1" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;" type="text" value="00">
+                    <label style="width:58px;margin-right:5px;" class="lbl-txt">Second(s)</label>
+                    <input class="input " data-val="true" data-val-range="Please enter valid Second(s)." data-val-range-max="60" data-val-range-min="0" id="RestTimeSecond1" maxlength="2" name="RestTimeSecond1" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;" type="text" value="00">
+                    <label style="width:30px;margin-right:5px;" class="lbl-txt">HS(s)</label>
+                    <input class="input" data-val="true" data-val-range="Please enter valid HS(s)." data-val-range-max="99" data-val-range-min="0" id="RestTimeHS1" maxlength="2" name="RestTimeHS1" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;" type="text" value="00">
+                    <div class="clr-both"></div>
+                    <input type="hidden" id="IsNewAddedSet1" value="1">
+                </div>
+            </div>
+            <div class="add-set"><button id="btnAddExeciseSet@(Model.ExeciseCountID)" class="add_set_button marginBot10">Add Set</button></div>
+            <div class="btn-add-new">
+                <button id="InsertExecise@(Model.ExeciseCountID)" class="add_field_button add-exercise">Add Exercise</button>
+            </div>
+        </div>
+    </div>
+}

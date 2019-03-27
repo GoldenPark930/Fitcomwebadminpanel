@@ -1,0 +1,107 @@
+﻿@{
+    Layout = "~/Views/Shared/_FitComLayout.cshtml";
+    ViewBag.Title = "Users";
+    LinksMediaCorpEntity.CreateUserVM users = new LinksMediaCorpEntity.CreateUserVM();
+    List<LinksMediaCorpEntity.ViewTeams> lstTeams = new List<LinksMediaCorpEntity.ViewTeams>();
+    if (ViewBag.Teams != null) 
+    {
+        lstTeams = ViewBag.Teams;
+        lstTeams = lstTeams.GroupBy(e => new
+        {
+            TeamName = e.TeamName 
+        }).Select(g => g.FirstOrDefault()).ToList();
+    }
+    <script type="text/javascript">
+        $('#Home_li').removeClass("active");
+        $('#Reporing_li').addClass('active');
+    </script>
+}
+@{
+    var message = TempData["AlertMessage"] ?? string.Empty;
+    <script type="text/javascript">
+        $('#Home_li').removeClass("active");
+        $('#Reporing_li').removeClass('active');
+        $('#chalenges_submenu').removeClass("inner-menu");
+        $('#activities_submenu').removeClass('inner-menu');
+        $('#trainers_submenu').removeClass("inner-menu");
+        $('#users_submenu').removeClass('inner-menu');
+        $('#teams_submenu').removeClass("inner-menu");
+        $('#Reporing_li').addClass('active');
+        $('#users_submenu').addClass("inner-menu");
+    </script>
+}
+
+<script type="text/javascript">
+    var message = '@message';
+    if (message)
+        alert(message);
+</script>
+@model IEnumerable<LinksMediaCorpEntity.CreateUserVM>
+<div id="page-wrapper">
+    <div class="">
+        <div class="col-md-12 col-lg-12 col-xs-12  state-drop-down-listbox" style="margin-bottom:10px;">
+            <div class="select-trainer">
+                <div class="col-md-6 col-lg-6 col-xs-6 pull-left">
+                    <label>Trainer:</label>
+                    @Html.DropDownList("Team", new SelectList(lstTeams, "TeamId", "TeamName"), "All Teams", new { @class = "select-drop top-select" })
+                </div>
+                <div class="col-md-6 col-lg-6 col-xs-6 pull-right">@Html.TextBox("SearchUser", null, new { @class = "searchinput", maxLength = "200", @placeholder = "Search By Team Name,User Name" })
+                    
+                </div>
+            </div>          
+
+        </div>       
+    </div>
+    <div class="reporting-table">
+        <div class="panel-heading">           
+                @Html.ActionLink(" ", "ExportUserExcelData", "Reporting", null, new { @class = "ExcelExport" })
+                @Html.ActionLink(" ", "ExportUserCSVData", "Reporting", null, new { @class = "CSVExport" })                
+                @Html.ActionLink("New", "CreateUser", "Reporting", new { @class = "add" })
+               
+            <h3 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse4">Users</h3>
+        </div>
+        <div class="clr-both"></div>
+        <div id="collapse4" class="panel-collapse collapse in">                      
+            @Html.Partial("_Users", Model)
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+        $('#Team').change(function () {
+            var id = $("#Team :selected").val();
+            if (id == '') {
+                id = 0;
+            }
+            $.get('@Url.Action("UsersByTeamId", "Reporting")' + "/" + id, function (data) {
+                $('#user_1').replaceWith(data);
+                if (data) {
+                    $("#SearchChallenge").val("");
+                }
+            });
+
+        });
+
+        $('#SearchUser').keyup(function (e) {
+            if (this.value.length >= 2 || e.keyCode == 13 || e.which == 13 || e.keyCode == 8) {
+                var id = $("#Team :selected").val();
+                var searchItem = $(this).val();
+                if (id == '') {
+                    id = 0;
+                }
+                if (searchItem !== undefined && searchItem !== null) {
+                    var item = id + "~" + searchItem;
+                    $.get('@Url.Action("SearchUser", "Reporting")' + "/" + item, function (data) {
+                        $('#user_1').replaceWith(data);
+                        if (data) {
+                        }
+                    });
+                }
+            }
+
+        });
+            
+
+    </script>
+ 
+</div>
+

@@ -1,0 +1,15 @@
+.navbar-static-side{margin-left:0;}
+#page-wrapper{margin-left:200px;}
+#opener{display:none;}
+.activity-table{
+	margin:20px 2%;
+}
+.header-right{width:70%;}
+.queue-table-content{height:165px;}
+.create-challenge{margin-top:20px;}
+.reporting-table{margin-top:20px; margin-bottom:0px;}
+
+#divChangePwd  .form-inner{ width:36%;}
+#divChangePwd  .form-inner input { width:60%;}
+#divChangePwd .form-inner .btn { width:47%;}
+

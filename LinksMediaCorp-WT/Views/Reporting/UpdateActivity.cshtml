@@ -1,0 +1,231 @@
+﻿@model LinksMediaCorpEntity.ActivityVM
+@Scripts.Render("~/bundles/ui")
+@Styles.Render("~/Content/challenge")
+@Scripts.Render("~/bundles/activity")
+@{
+    ViewBag.Title = "UpdateActivity";
+    Layout = "~/Views/Shared/_FitComLayout.cshtml";
+
+    List<LinksMediaCorpEntity.State> lstStates = new List<LinksMediaCorpEntity.State>();
+    if (ViewBag.lstStates != null)
+    {
+        lstStates = ViewBag.lstStates;
+    }
+
+    List<LinksMediaCorpEntity.City> lstCities = new List<LinksMediaCorpEntity.City>();
+    if (ViewBag.lstCities != null)
+    {
+        lstCities = ViewBag.lstCities;
+    }
+
+    List<LinksMediaCorpEntity.TrainerViewVM> lstTrainers = new List<LinksMediaCorpEntity.TrainerViewVM>();
+    if (ViewBag.Trainers != null)
+    {
+        lstTrainers = ViewBag.Trainers;
+        lstTrainers = lstTrainers.GroupBy(e => new
+        {
+            trainerName = e.TrainerName
+        }).Select(g => g.FirstOrDefault()).ToList();
+    }
+
+    <script type="text/javascript">
+        $('#Home_li').removeClass("active");
+        $('#Reporing_li').removeClass('active');
+        $('#chalenges_submenu').removeClass("inner-menu");
+        $('#activities_submenu').removeClass('inner-menu');
+        $('#trainers_submenu').removeClass("inner-menu");
+        $('#users_submenu').removeClass('inner-menu');
+        $('#teams_submenu').removeClass("inner-menu");
+        $('#Reporing_li').addClass('active');
+    </script>
+    if (!Convert.ToString(@Session[LinksMediaCorpUtility.Resources.Message.PreviousUrl]).Equals(LinksMediaCorpUtility.Resources.Message.MainUrlText))
+    {
+        <script type="text/javascript">
+            $('#activities_submenu').addClass("inner-menu");
+        </script>
+    }
+}
+
+<!-- start page-wrapper -->
+@using (Html.BeginForm("UpdateActivity", "Reporting", FormMethod.Post,
+                                      new { id = "myform", enctype = "multipart/form-data" }))
+{
+        <!-- start page-wrapper -->
+    <div id="page-wrapper">
+        <!-- Start hidden field Section -->
+        @Html.HiddenFor(model => model.ActivityId)
+        @Html.HiddenFor(model => model.CreatedBy)
+        @Html.HiddenFor(model => model.CreatedDate)
+        <!-- End hidden field Section -->
+        <!-- start create-challenge -->
+        <div class="create-challenge">
+            <h3>
+                Update an Activity
+                <div class="header-link-btn">
+                    <input name="" type="submit" value="Update" class="submit" />
+                    @if (Convert.ToString(@Session[LinksMediaCorpUtility.Resources.Message.PreviousUrl]).Equals(LinksMediaCorpUtility.Resources.Message.MainUrlText))
+                    {
+                        @Html.ActionLink("Cancel", "Main", "Reporting", new { }, new { @class = "submit" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Cancel", "Activities", "Reporting", new { }, new { @class = "submit" })
+                    }
+                </div>
+                <div class="clr-both"></div>
+            </h3>
+            <!-- start challenge-content -->
+            <div class="challenge-content">
+                @*<h4>FAQ - How to Create a User</h4>*@
+                <div class="step">
+                    <h5>Set To Featured Activity Queue </h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Start Date:</label>
+                                @Html.TextBoxFor(m => m.StartDate, "{0:MM/dd/yyyy}", new { @class = "input-text-right", @readonly = true })
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>End Date:</label>
+                                @Html.TextBoxFor(m => m.EndDate, "{0:MM/dd/yyyy}", new { @class = "input-text-right", @readonly = true })
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <!-- start step -->
+                <div class="step">
+                    <h5>Activity Detail</h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Activity Name:</label>
+                                @Html.TextBoxFor(m => m.NameOfActivity, null, new { @class = "input-text-right", maxLength = "100" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.NameOfActivity, "", new { @class = "error-msg" })
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 state-drop-down-listbox ">
+                                <label>Trainer:</label>
+                                @Html.DropDownListFor(m => m.TrainerId, new SelectList(lstTrainers, "TrainerId", "TrainerName"), "--Choose Trainer--", new { @class = "select-drop" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left"> @Html.ValidationMessageFor(m => m.TrainerId, "", new { @class = "error-msg error-msg-pad200" })</div>
+
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Date of Event:</label>
+                                @Html.TextBoxFor(m => m.DateOfEvent, "{0:MM/dd/yyyy}", new { @class = "input-text-right", placeholder = "MM/DD/YYYY" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.DateOfEvent, "", new { @class = "error-msg" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Address:</label>
+                                @Html.TextBoxFor(m => m.AddressLine1, new { @class = "input-text-right", maxLength = "200" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.AddressLine1, "", new { @class = "error-msg error-msg-pad200" })
+                                    <div class="clr-both"></div><span id="resultEmail" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-6 col-lg-6 col-xs-6 state-drop-down-listbox">
+                                <label>State:</label>
+                                @Html.DropDownListFor(m => m.State, new SelectList(lstStates, "StateCode", "StateName"), "--Choose State--", new { @class = "select", onchange = "onChangeId();" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">  @Html.ValidationMessageFor(m => m.State, "", new { @class = "error-msg" })</div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 state-drop-down-listbox">
+                                <label>City:</label>
+                                <span id='loadingmessage' style='display:none; padding-left:25%;'>
+                                    <img src='~/images/ajax-loader.gif' />
+                                </span>
+                                @Html.DropDownListFor(m => m.City, new SelectList(lstCities, "CityId", "CityName"), "--Choose City--", new { @class = "select" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left"> @Html.ValidationMessageFor(m => m.City, "", new { @class = "error-msg error-msg-pad200" })</div>
+
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-6 col-lg-6 col-xs-6">
+                                <label>Zip Code:</label>
+                                @Html.TextBoxFor(m => m.Zip, null, new { @class = "input-text-right", maxLength = "5" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.Zip, "", new { @class = "error-msg" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-6 col-xs-6">
+                                <label>Learn More:</label>
+                                @Html.TextBoxFor(m => m.LearnMore, new { @class = "input-text-right", placeholder = "URL app connects too", maxLength = "200" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.LearnMore, "", new { @class = "error-msg error-msg-pad200" })
+                                    <div class="clr-both"></div><span id="resultEmail" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Promotion Text:</label>
+                                @Html.TextBoxFor(m => m.PromotionText, null, new { @class = "input-text-right", maxLength = "50" })
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-2 col-lg-2 col-xs-2 mob-view-box">
+                                <label>Description:</label>
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">  @Html.ValidationMessageFor(m => m.Description, "", new { @class = "error-msg" })</div>
+                            </div>
+                            <div class="col-md-10 col-lg-10 col-xs-10 mob-view-box">
+                                @Html.TextAreaFor(m => m.Description, new { @class = "ckeditor", maxLength = "500", placeholder = "Max Char limit 500" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <!-- end step -->
+                <div class="clr-both"></div>
+                <div class="bottom-button">
+                    <input name="" type="submit" value="Update" class="submit" />
+                    @if (Convert.ToString(@Session[LinksMediaCorpUtility.Resources.Message.PreviousUrl]).Equals(LinksMediaCorpUtility.Resources.Message.MainUrlText))
+                    {
+                        @Html.ActionLink("Cancel", "Main", "Reporting", new { }, new { @class = "submit" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Cancel", "Activities", "Reporting", new { }, new { @class = "submit" })
+                    }
+                </div>
+            </div>
+            <!-- end challenge-content -->
+        </div>
+        <!-- end create-challenge -->
+        <div class="clearfix"></div>
+    </div>
+}

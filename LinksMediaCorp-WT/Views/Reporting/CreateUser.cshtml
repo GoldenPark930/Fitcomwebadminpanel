@@ -1,0 +1,185 @@
+﻿@model LinksMediaCorpEntity.CreateUserVM
+
+@{
+    Layout = "~/Views/Shared/_FitComLayout.cshtml";
+    ViewBag.Title = "CreateUser";
+
+    <script type="text/javascript">
+        $('#Home_li').removeClass("active");
+        $('#Reporing_li').removeClass('active');
+        $('#chalenges_submenu').removeClass("inner-menu");
+        $('#activities_submenu').removeClass('inner-menu');
+        $('#trainers_submenu').removeClass("inner-menu");
+        $('#users_submenu').removeClass('inner-menu');
+        $('#teams_submenu').removeClass("inner-menu");
+        $('#Reporing_li').addClass('active');
+        //alert('hi');
+        $(document).ready(function () {
+            if ($('#CheckEmail').val() === "NotAvailable") {
+                $("#resultEmail").html("<span style='color:red'>Email already exist!</span>");
+                $("#emailValidation").html(null);
+            }
+            else {
+                $("#resultEmail").html(null);
+            }
+            if ($('#CheckUser').val() === "NotPresent") {
+                $("#resultUser").html("<span style='color:red'>User already exist!</span>");
+            }
+            else {
+                $("#resultUser").html(null);
+            }
+
+
+        });
+    </script>
+
+    if (!Convert.ToString(@Session[LinksMediaCorpUtility.Resources.Message.PreviousUrl]).Equals(LinksMediaCorpUtility.Resources.Message.MainUrlText))
+    {
+        <script type="text/javascript">
+            $('#users_submenu').addClass("inner-menu");
+        </script>
+    }
+}
+
+<script src="~/Scripts/BusinessLogic/UserBL.js"></script>
+<!-- start page-wrapper -->
+@using (Html.BeginForm("CreateUser", "Reporting", FormMethod.Post,
+                                      new { id = "myform", enctype = "multipart/form-data" }))
+{
+    <div id="page-wrapper">
+
+        <!-- start create-challenge -->
+        <div class="create-challenge">
+            <h3>Create a New User</h3>
+            <!-- start challenge-content -->
+            <div class="challenge-content">
+
+                <!-- start step -->
+                <div class="step">
+                    <h5>User Detail</h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>First Name:</label>
+                                @Html.TextBoxFor(m => m.FirstName, null, new { @class = "input-text-right", maxLength = "20" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left"> @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "error-msg" })</div>
+
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xs-6">
+
+                                <label>Last Name:</label>
+                                @Html.TextBoxFor(m => m.LastName, new { @class = "input-text-right", maxLength = "20" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left"> @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "error-msg error-msg-pad200" })</div>
+
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Date of Birth:</label>
+                                @Html.TextBoxFor(m => m.DateOfBirth, "{0:MM/dd/yyyy}", new { @class = "input-text-right", placeholder = "MM/DD/YYYY" })
+
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.DateOfBirth, "", new { @class = "error-msg" })
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <div class="col-md-4 col-lg-4 col-xs-4 state-remove-pd">
+                                    <label>Gender:</label>
+                                </div>
+                                <div class="col-md-8 col-lg-8 col-xs-8 state-remove-pd">
+                                    <div class="gender-option-pd">
+                                        @Html.RadioButtonFor(m => m.Gender, "Male") Male
+                                        @Html.RadioButtonFor(m => m.Gender, "Female") Female
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Zip Code:</label>
+                                @Html.TextBoxFor(m => m.ZipCode, null, new { @class = "input-text-right", maxLength = "5" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.ZipCode, "", new { @class = "error-msg" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Email Id:</label>
+                                @Html.TextBoxFor(m => m.EmailId, new { @class = "input-text-right", maxLength = "50" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.EmailId, "", new { id = "emailValidation", @class = "error-msg error-msg-pad200" })
+                                    @Html.HiddenFor(model => model.CheckEmail)
+                                    <div class="clr-both"></div><span id="resultEmail" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-2 col-lg-2 col-xs-2 mob-view-box">
+                                <label>Password:</label>
+                            </div>
+                            <div class="col-md-10 col-lg-10 col-xs-10 mob-view-box">
+                                @Html.PasswordFor(m => m.Password, new { @class = "trainer-inputbox", maxLength = "10" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left remove-mg-desktop">
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "error-msg" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-2 col-lg-2 col-xs-2 mob-view-box">
+                                <label>Confirm Password:</label>
+                            </div>
+                            <div class="col-md-10 col-lg-10 col-xs-10 mob-view-box">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "trainer-inputbox", maxLength = "10" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left remove-mg-desktop">  @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "error-msg" })</div>
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-2 col-lg-2 col-xs-2 mob-view-box">
+                                <label>MTActive:</label>
+                            </div>
+                            <div class="col-md-10 col-lg-10 col-xs-10 mob-view-box">
+                                @Html.CheckBoxFor(m => m.MTActive, new { @id = "chkMTActive" })
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <!-- end step -->
+                <div class="clr-both"></div>
+                <div class="bottom-button">
+                    <input name="" type="submit" value="Submit" class="submit" />
+                    @if (Convert.ToString(@Session[LinksMediaCorpUtility.Resources.Message.PreviousUrl]).Equals(LinksMediaCorpUtility.Resources.Message.MainUrlText))
+                    {
+                        @Html.ActionLink("Cancel", "Main", "Reporting", new { }, new { @class = "submit" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Cancel", "Users", "Reporting", new { }, new { @class = "submit" })
+                    }
+                </div>
+            </div>
+            <!-- end challenge-content -->
+        </div>
+        <!-- end create-challenge -->
+        <div class="clearfix"></div>
+    </div>
+}

@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>LinksMediaCorpSSDT</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{352c759a-cdbc-4805-8118-bcf838a23e7c}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql100DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>LinksMediaSSDT</RootNamespace>
+    <AssemblyName>LinksMediaSSDT</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunSqlCodeAnalysis>False</RunSqlCodeAnalysis>
+    <SqlCodeAnalysisRules>-Microsoft.Rules.Data.SR0001;-Microsoft.Rules.Data.SR0004;-Microsoft.Rules.Data.SR0005;-Microsoft.Rules.Data.SR0006;-Microsoft.Rules.Data.SR0007;-Microsoft.Rules.Data.SR0008;-Microsoft.Rules.Data.SR0009;-Microsoft.Rules.Data.SR0010;-Microsoft.Rules.Data.SR0011;-Microsoft.Rules.Data.SR0012;-Microsoft.Rules.Data.SR0013;-Microsoft.Rules.Data.SR0014;-Microsoft.Rules.Data.SR0015;-Microsoft.Rules.Data.SR0016</SqlCodeAnalysisRules>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunSqlCodeAnalysis>False</RunSqlCodeAnalysis>
+  </PropertyGroup>
+  <!-- VS10 without SP1 will not have VisualStudioVersion set, so do that here -->
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <!-- Default to the v10.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunSqlCodeAnalysis>False</RunSqlCodeAnalysis>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunSqlCodeAnalysis>False</RunSqlCodeAnalysis>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\tblTeamTrendingAssociation.sql" />
+    <Build Include="dbo\Tables\tblChallengeofTheDayQueue.sql" />
+    <Build Include="dbo\Tables\tblChallengeTrendingAssociation.sql" />
+    <Build Include="dbo\Tables\tblChallengeCategory.sql" />
+    <Build Include="dbo\Tables\tblChallenge.sql" />
+    <Build Include="dbo\Tables\tblCESAssociation.sql" />
+    <Build Include="dbo\Tables\tblChallengeCategoryAssociation.sql" />
+    <Build Include="dbo\Tables\tblCEquipmentAssociation.sql" />
+    <Build Include="dbo\Tables\tblCEAssociation.sql" />
+    <Build Include="dbo\Tables\tblBoom.sql" />
+    <Build Include="dbo\Tables\tblBodyPart.sql" />
+    <Build Include="dbo\Tables\tblActivity.sql" />
+    <Build Include="dbo\Tables\__MigrationHistory.sql" />
+    <Build Include="dbo\Tables\tblResultBoom.sql" />
+    <Build Include="dbo\Tables\tblPWWorkoutsAssociation.sql" />
+    <Build Include="dbo\Tables\tblPWAssociation.sql" />
+    <Build Include="dbo\Tables\tblPieceofEquipment.sql" />
+    <Build Include="dbo\Tables\tblPic.sql" />
+    <Build Include="dbo\Tables\tblNotesExecise.sql" />
+    <Build Include="dbo\Tables\tblMessageStreamVideo.sql" />
+    <Build Include="dbo\Tables\tblMessageStreamPic.sql" />
+    <Build Include="dbo\Tables\tblMessageStream.sql" />
+    <Build Include="dbo\Tables\tblHypeVideo.sql" />
+    <Build Include="dbo\Tables\tblFollowings.sql" />
+    <Build Include="dbo\Tables\tblFeaturedActivityQueue.sql" />
+    <Build Include="dbo\Tables\tblExerciseType.sql" />
+    <Build Include="dbo\Tables\tblExercise.sql" />
+    <Build Include="dbo\Tables\tblETCAssociation.sql" />
+    <Build Include="dbo\Tables\tblUserAssignmentByTrainer.sql" />
+    <Build Include="dbo\Tables\tblEquipment.sql" />
+    <Build Include="dbo\Tables\tblUSerActivities.sql" />
+    <Build Include="dbo\Tables\tblDifficulty.sql" />
+    <Build Include="dbo\Tables\tblUserActivePrograms.sql" />
+    <Build Include="dbo\Tables\tblCredentials.sql" />
+    <Build Include="dbo\Tables\tblUserAcceptedProgramWorkouts.sql" />
+    <Build Include="dbo\Tables\tblComment.sql" />
+    <Build Include="dbo\Tables\tblUserAcceptedProgramWeek.sql" />
+    <Build Include="dbo\Tables\tblUserChallenges.sql" />
+    <Build Include="dbo\Tables\tblUser.sql" />
+    <Build Include="dbo\Tables\tblUsedSessionNote.sql" />
+    <Build Include="dbo\Tables\tblResultComment.sql" />
+    <Build Include="dbo\Tables\tblUsedSession.sql" />
+    <Build Include="dbo\Tables\tblTrainingZoneCAssociation.sql" />
+    <Build Include="dbo\Tables\tblTrainingType.sql" />
+    <Build Include="dbo\Tables\tblTrainerType.sql" />
+    <Build Include="dbo\Tables\tblTrainerTeamMembers.sql" />
+    <Build Include="dbo\Tables\tblTrainerSpecialization.sql" />
+    <Build Include="dbo\Tables\tblTrainer.sql" />
+    <Build Include="dbo\Tables\tblTeam.sql" />
+    <Build Include="dbo\Tables\tblState.sql" />
+    <Build Include="dbo\Tables\tblSponsorChallengeQueue.sql" />
+    <Build Include="dbo\Tables\tblSpecialization.sql" />
+    <Build Include="dbo\Tables\tblSessionPurchaseHistory.sql" />
+    <Build Include="dbo\Tables\tblSessionNotesExeciseSet.sql" />
+    <Build Include="dbo\Tables\tblVideo.sql" />
+    <Build Include="dbo\Tables\tblUserToken.sql" />
+    <Build Include="dbo\Tables\tblUserSessionDetail.sql" />
+    <Build Include="dbo\Tables\tblUserNotificationSetting.sql" />
+    <Build Include="dbo\Tables\tblUserNotifications.sql" />
+    <Build Include="dbo\Tables\tblCity.sql" />
+    <Build Include="dbo\Tables\tblNoTrainerChallengeTeam.sql" />
+    <Build Include="dbo\Tables\tblChatHistory.sql" />
+    <Build Include="dbo\Tables\tblChallengeType.sql" />
+    <Build Include="dbo\Tables\tblTrendingCategory.sql" />
+    <Build Include="dbo\Tables\tblChallengeToFriend.sql" />
+  </ItemGroup>
+</Project>

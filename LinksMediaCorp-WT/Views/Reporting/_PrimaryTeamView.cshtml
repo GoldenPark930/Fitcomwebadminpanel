@@ -1,0 +1,30 @@
+﻿@model IEnumerable<LinksMediaCorpEntity.LevelTeamVM>
+
+<table id="tblLevel2Team" class="reporting-table">
+    <thead>
+        <tr>
+            <th>Team</th>
+
+            <th>Email Id</th>
+
+            <th>Phone</th>
+
+            <th>Users</th>
+
+            <th>Premium</th>          
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model )     
+        {
+            <tr>
+                @Html.HiddenFor(m => item.LevelTeamId)
+                <td>@Html.DisplayFor(m => item.TeamName)</td>
+                <td>@Html.DisplayFor(m => item.EmailId)</td>
+                <td>@Html.DisplayFor(m => item.PhoneNumber)</td>
+                <td>@Html.DisplayFor(m => item.Users)</td>
+                <td>@Html.DisplayFor(m => item.Premium)</td>                
+            </tr>
+        }
+    </tbody>
+</table>

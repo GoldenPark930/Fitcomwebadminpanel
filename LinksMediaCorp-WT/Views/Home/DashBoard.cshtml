@@ -1,0 +1,93 @@
+﻿@model LinksMediaCorpEntity.DashBoard
+@{
+    Layout = "~/Views/Shared/_FitComLayout.cshtml";
+    var message = TempData["AlertMessage"] ?? string.Empty;
+    <script type="text/javascript">
+        $('#Home_li').addClass("active");
+        $('#Reporing_li').removeClass('active');
+    </script>
+}
+    <script type="text/javascript">
+    var message = '@message';
+    if(message)
+        alert(message);
+</script>
+    <div id="page-wrapper">           
+            <!-- start activity-table -->
+           <div class="activity-table">
+                <h3>Activity</h3>
+                <table width="100%" border="0">
+                   
+                    <tr>
+                        <td>User Count</td>
+                        <td>@Model.DashBoardActivity.UserCount</td>
+                    </tr>
+                    <tr>
+                        <td>Premium User Count</td>
+                        <td>@Model.DashBoardActivity.PremiumUserCount</td>
+                    </tr>
+                    <tr>
+                        <td>Trainer Count</td>
+                        <td>@Model.DashBoardActivity.TrainerCount</td>
+                    </tr>
+                    <tr>
+                        <td>Team Count</td>
+                        <td>@Model.DashBoardActivity.TeamCount</td>
+                    </tr>
+                    <tr>
+                        <td>Fitness Test Count</td>
+                        <td>@Model.DashBoardActivity.FitnessTestCount</td>
+                    </tr>
+                    <tr>
+                        <td>Active Fitness Test Count</td>
+                        <td>@Model.DashBoardActivity.ActiveFitnessTestCount</td>
+                    </tr>
+                    <tr>
+                        <td>Workout Count</td>
+                        <td>@Model.DashBoardActivity.WorkoutCount</td>
+                    </tr>
+                    <tr>
+                        <td>Active Workout Count</td>
+                        <td>@Model.DashBoardActivity.ActiveWorkoutCount</td>
+                    </tr>
+                    <tr>
+                        <td>Program Count</td>
+                        <td>@Model.DashBoardActivity.ProgramCount</td>
+                    </tr>
+                    <tr>
+                        <td>Active Program Count</td>
+                        <td>@Model.DashBoardActivity.ActiveProgramCount</td>
+                    </tr>
+                    <tr>
+                        <td>Activity Count</td>
+                        <td>@Model.DashBoardActivity.ActivityCount</td>
+                    </tr>
+                   
+                </table>
+            </div>
+            <!-- end activity-table -->
+            <div class="border-div">
+                <h2>Queues</h2>
+                <div class="clearfix"></div>
+                <!-- start common-queue -->
+                <div class="common-queue">
+                    <h3>Challenge of The Day</h3>
+                    @Html.Partial("_ChallengeOfTheDay", Model.ChallengeOfTheDayQueue)
+                </div>
+                <!-- end common-queue -->
+                <!-- start common-queue -->
+                <div class="common-queue">
+                    <h3>Sponsor Challenge</h3>
+                    @Html.Partial("_SponsorChallenge", Model.SponsorChallengeQueue)
+                </div>
+                <!-- end common-queue -->
+                <div class="clearfix"></div>
+                <!-- start common-queue -->
+                <div class="common-queue">
+                    <h3>Featured Activity</h3>
+                    @Html.Partial("_FeaturedActivity", Model.FauturedActivityQueue)
+                </div>
+                <!-- end common-queue -->
+                <div class="clearfix"></div>
+            </div>       
+   </div>

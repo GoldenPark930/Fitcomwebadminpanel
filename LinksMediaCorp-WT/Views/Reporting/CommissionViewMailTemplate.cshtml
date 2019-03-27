@@ -1,0 +1,181 @@
+﻿@using System.Collections.Generic
+@{
+   
+    Layout = "~/Views/Shared/_CommissionViewLayout.cshtml";
+    LinksMediaCorpEntity.ViewChallenes challenges = new LinksMediaCorpEntity.ViewChallenes();   
+    List<LinksMediaCorpEntity.DDTeams> lstPrimaryTeams = new List<LinksMediaCorpEntity.DDTeams>();
+    if (ViewBag.PrimaryTeams != null)
+    {
+        lstPrimaryTeams = ViewBag.PrimaryTeams;
+        lstPrimaryTeams = lstPrimaryTeams.GroupBy(e => new
+        {
+            TeamName = e.TeamName
+        }).Select(g => g.FirstOrDefault()).ToList();
+    }   
+}
+@model LinksMediaCorpEntity.TeamViewData
+@Html.HiddenFor(m => m.IsShowCurrentMonth)
+<div>
+   <b> Hi team,
+       <br />
+    Please find below team commision report.</b>
+    <br />
+    <div style="width: 96%;margin: 40px 2% 0 2%;border: 1px solid #ccc;float: left;">
+        <div style="width: 100%;padding: 10px 2%;float: left;">          
+            <div style="background: #f5f2f2;width: 96%;margin: 0 0 15px 0;border: 1px solid #ccc;float: left;" id="TeamViewReport">
+                <div style="width: 90%;padding: 15px 2% 10px 2%;float: left;">
+                    <label><b>Primary Team Detail</b></label>
+                    <div id="PrimaryTeams">
+                        <table id="PrimaryTeamDetails" style="border: 1px solid #CCCCCC;float: left;margin: 20px 0 0 2%;width: 96%;">
+                            <thead>
+                                <tr>
+                                    <th style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;background-color: #4CAF50;color: white;font-family: 'open_sanssemibold';">Team</th>
+
+                                    <th style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;background-color: #4CAF50;color: white;font-family: 'open_sanssemibold';">Email Id</th>
+
+                                    <th style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;background-color: #4CAF50;color: white;font-family: 'open_sanssemibold';">Phone</th>
+
+                                    <th style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;background-color: #4CAF50;color: white;font-family: 'open_sanssemibold';">Users</th>
+
+                                    <th style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;background-color: #4CAF50;color: white;font-family: 'open_sanssemibold';">Premium</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    @Html.HiddenFor(m => Model.PrimaryTeamDetail.LevelTeamId)
+                                    <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color: #656565;font-family: 'open_sanssemibold';">@Html.DisplayFor(m => Model.PrimaryTeamDetail.TeamName)</td>
+                                    <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color: #656565;font-family: 'open_sanssemibold';">@Html.DisplayFor(m => Model.PrimaryTeamDetail.EmailId)</td>
+                                    <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color: #656565;font-family: 'open_sanssemibold';">@Html.DisplayFor(m => Model.PrimaryTeamDetail.PhoneNumber)</td>
+                                    <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color: #656565;font-family: 'open_sanssemibold';">@Html.DisplayFor(m => Model.PrimaryTeamDetail.Users)</td>
+                                    <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color: #656565;font-family: 'open_sanssemibold';">@Html.DisplayFor(m => Model.PrimaryTeamDetail.Premium)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="clr-both"></div>
+                    <br />
+                    <label><b>Level1 Team </b></label>
+                    <div id="PrimaryLevel1Teams">
+                        <table id="tblLevel2Team" style="border: 1px solid #CCCCCC;float: left;margin: 20px 0 0 2%;width: 96%;">
+                            <thead>
+                                <tr>
+                                    <th style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;background-color: #4CAF50;color: white;font-family: 'open_sanssemibold';">Team</th>
+
+                                    <th style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;background-color: #4CAF50;color: white;font-family: 'open_sanssemibold';">Email Id</th>
+
+                                    <th style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;background-color: #4CAF50;color: white;font-family: 'open_sanssemibold';">Phone</th>
+
+                                    <th style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;background-color: #4CAF50;color: white;font-family: 'open_sanssemibold';">Users</th>
+
+                                    <th style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;background-color: #4CAF50;color: white;font-family: 'open_sanssemibold';">Premium</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Level1TeamDetail)
+                                {
+                                    <tr>
+                                        @Html.HiddenFor(m => item.LevelTeamId)
+                                        <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color:#656565;font-family: 'open_sanssemibold';">@Html.DisplayFor(m => item.TeamName)</td>
+                                        <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color:#656565;font-family: 'open_sanssemibold';">@Html.DisplayFor(m => item.EmailId)</td>
+                                        <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color:#656565;font-family: 'open_sanssemibold';">@Html.DisplayFor(m => item.PhoneNumber)</td>
+                                        <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color:#656565;font-family: 'open_sanssemibold';">@Html.DisplayFor(m => item.Users)</td>
+                                        <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color:#656565;font-family: 'open_sanssemibold';">@Html.DisplayFor(m => item.Premium)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>                       
+                    </div>
+                    <div class="clr-both"></div>
+                    <br />
+                    <label><b>Level2 Team</b> </label>
+                    <div id="PrimaryLevel2Teams">
+                        <table id="tblLevel2Team" style="border: 1px solid #CCCCCC;float: left;margin: 20px 0 0 2%;width: 96%;">
+                            <thead>
+                                <tr>
+                                    <th style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;background-color: #4CAF50;color: white;font-family: 'open_sanssemibold';">Team</th>
+
+                                    <th style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;background-color: #4CAF50;color: white;font-family: 'open_sanssemibold';">Email Id</th>
+
+                                    <th style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;background-color: #4CAF50;color: white;font-family: 'open_sanssemibold';">Phone</th>
+
+                                    <th style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;background-color: #4CAF50;color: white;font-family: 'open_sanssemibold';">Users</th>
+
+                                    <th style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;background-color: #4CAF50;color: white;font-family: 'open_sanssemibold';">Premium</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Level2TeamDetail)
+                                {
+                                    <tr>
+                                        @Html.HiddenFor(m => item.LevelTeamId)
+                                        <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color: #656565;font-family: 'open_sanssemibold';">@Html.DisplayFor(m => item.TeamName)</td>
+                                        <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color: #656565;font-family: 'open_sanssemibold';">@Html.DisplayFor(m => item.EmailId)</td>
+                                        <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color: #656565;font-family: 'open_sanssemibold';">@Html.DisplayFor(m => item.PhoneNumber)</td>
+                                        <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color: #656565;font-family: 'open_sanssemibold';">@Html.DisplayFor(m => item.Users)</td>
+                                        <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color: #656565;font-family: 'open_sanssemibold';">@Html.DisplayFor(m => item.Premium)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>                      
+                    </div>
+                    <div class="clr-both"></div>
+                    <br />
+                    <label><b>Commissions</b></label>
+                    <table style="border: 1px solid #CCCCCC;float: left;margin: 20px 0 0 2%;width: 96%;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid #ccc;">
+                                <th style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;background-color: #4CAF50;color: white;font-family: 'open_sanssemibold';">*Projected</th>
+
+                                <th style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;background-color: #4CAF50;color: white;font-family: 'open_sanssemibold';" id="CommissionShowHide">Current Month: @String.Format("{0:y}", Model.ReportDate) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid #ccc;">
+                                <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color: #656565;font-family: 'open_sanssemibold';">
+                                <lebel><b>Primary Team</b></lebel></td>
+                                <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color: #656565;font-family: 'open_sanssemibold';">
+                                   $ @Model.PrimaryTeamCommision
+                                </td>
+
+                            </tr>
+                            <tr style="border-bottom: 1px solid #ccc;">
+                                <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color: #656565;font-family: 'open_sanssemibold';"><lebel><b>Total Level 1 Teams</b></lebel></td>
+                                <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color: #656565;font-family: 'open_sanssemibold';">$ @Model.Level1TeamsCommision</td>
+
+                            </tr>
+                            <tr style="border-bottom: 1px solid #ccc;">
+                                <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color: #656565;font-family: 'open_sanssemibold';"><lebel><b>Total Level 2 Teams</b></lebel></td>
+                                <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color: #656565;font-family: 'open_sanssemibold';">$ @Model.Level2TeamsCommision</td>
+
+                            </tr>
+                            <tr style="border-bottom: 1px solid #ccc;">
+                                <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color: #656565;font-family: 'open_sanssemibold';"><lebel><b>Total</b></lebel></td>
+                                <td style="padding: 5px 14px;line-height: 20px;text-align: center;border: 1px solid #ccc;color: #656565;font-family: 'open_sanssemibold';">$ @Model.TotalTeamCommision</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <br/>
+    <br />
+   <p>
+    Thanks,
+       <br />
+    Gary Boyd
+       <br />
+    954-346-4800
+       <br />
+    Cell: 954-298-6536
+       <br />
+    www.fitcomapp.com
+    </p>
+</div>
+
+
+
+
+

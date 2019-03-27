@@ -1,0 +1,60 @@
+﻿@model LinksMediaCorpEntity.GetFFExeciseVM
+    <div id="execiseDivId@(Model.ExeciseCountID)" class="add-remove-container chose-ex-parts">
+        <div class="row-colum">
+            <div class="rmv-pd col-md-4 col-sm-12 col-xs-12">
+                <label class="pull-left" style="width: auto;margin-right:5px;">Equipments:</label>
+                <select class="select" data-val="true" data-val-number="The field Equipments must be a number." id="FFdrpdownEquipments@(Model.ExeciseCountID)" name="FFdrpdownEquipments@(Model.ExeciseCountID)">
+                    <option value="0">--Choose Equipments--</option>
+                </select>
+            </div>
+            <div class="rmv-pd col-md-4 col-sm-12 col-xs-12">
+                <label class="pull-left" style="width: auto;margin-right:5px;">Training Zones:</label>
+                <select class="select" data-val="true" data-val-number="The field Training Zones must be a number." id="FFdrpdownTrainingZones@(Model.ExeciseCountID)" name="FFdrpdownTrainingZones@(Model.ExeciseCountID)">
+                    <option value="0">--Choose Training Zones--</option>
+                </select>
+            </div>
+            <div class="rmv-pd col-md-4 col-sm-12 col-xs-12">
+                <label class="pull-left" style="width: auto;margin-right:5px;">Exercise Types:</label>
+                <select class="select" data-val="true" data-val-number="The field Exercise Types: must be a number." id="FFdrpdownExerciseTypes@(Model.ExeciseCountID)" name="FFdrpdownExerciseTypes@(Model.ExeciseCountID)">
+                    <option value="0">--Choose Exercise Types--</option>
+                </select>
+            </div>
+        </div>
+        <div class="row-colum padding-topbtm5 add-step">
+            <a id="FFRemoveExeName@(Model.ExeciseCountID)" href="#" class="remove_field remove_execiseset second">X</a>
+            <div class="clearfix"></div>
+            <label id="FFlblExeName@(Model.ExeciseCountID)">Name of Exercise @(Model.ExeciseCountID):</label>
+            <input class="freeforminput FreeFormExerciseVideos col-md-10 col-sm-10 col-xs-10  ui-autocomplete-input ui-corner-all" id="FFExeName@(Model.ExeciseCountID)" @(Model.IsExecisedisabled) name="FFExeName@(Model.ExeciseCountID)" type="text" value="@(Model.FFExeName)" autocomplete="off" @(Model.IsExecisedisabled)>
+            <div>
+                <input type="hidden" id="ExerciseId@(Model.ExeciseCountID)" value="@(Model.ExerciseId)">
+                
+                <input type="hidden" id="ExerciseSetCount@(Model.ExeciseCountID)" value="@(Model.Exsetcount)">
+                <input type="hidden" id="IsNewAddedExercise@(Model.ExeciseCountID)" value="@(Model.IsNewAddedExercise)">
+                <input type="hidden" id="CEARocordId@(Model.ExeciseCountID)" value="@(Model.CEARocordId)">
+                <span id="FFExeVideoLink@(Model.ExeciseCountID)">
+                    <a id="FFExeVideoLinkUrl@(Model.ExeciseCountID)" href="@(Model.LinksDescription)" target="_blank">@(Model.LinksDescription)</a>
+                </span>
+                <span id="FFlblExe@(Model.ExeciseCountID)" class="error-msg secondary-err-msg"></span>
+                <span class="field-validation-valid error-msg" data-valmsg-for="FFExeName@(Model.ExeciseCountID)" data-valmsg-replace="true"></span>
+            </div>
+            <div class="row-colum col-md-12 col-lg-12 col-xs-12">
+                <label>
+                    <span class="active-new-chckbox pull-left">Alternate Name:</span>
+                    <input id="IsFFAExeName@(Model.ExeciseCountID)" @(Model.IsAlternateText) @(Model.Ischeckboxdisabled) name="IsFFAExeName@(Model.ExeciseCountID)" type="checkbox" class="IsChangedExeciseName checkbox-btn">
+                </label>
+                <input style="display: @(Model.DispalyAlternateEName);" class="freeforminput FreeFormExerciseVideos1 col-md-10 col-sm-10 col-xs-10" id="FFAExeName@(Model.ExeciseCountID)" value="@(Model.FFAExeName)" name="FFAExeName@(Model.ExeciseCountID)" type="text">
+            </div>
+            <div class="row-colum col-md-12 col-sm-12 col-xs-12">
+                <label><span class="active-new-chckbox pull-left">Set As First Exercise:</span> <input id="IsSetFirstExecise@(Model.ExeciseCountID)" @(Model.IsExeciseCountIDText) name="IsSetFirstExecise" type="checkbox" class="checkbox-btn"></label>
+            </div>
+        </div>
+        <div class="row-colum">
+            <div id="execeMainsetId@(Model.ExeciseCountID)" class="Main-set main-bg-set"> @Html.Raw(Model.ExeciseItemElement)</div>
+            <div class="add-set">
+                <button id="btnAddExeciseSet@(Model.ExeciseCountID)" class="add_set_button marginBot10">Add Set</button>
+            </div>
+            <div class="btn-add-new">
+                <button id="InsertExecise@(Model.ExeciseCountID)" class="add_field_button add-exercise">Add Exercise</button>
+            </div>
+        </div>
+    </div>

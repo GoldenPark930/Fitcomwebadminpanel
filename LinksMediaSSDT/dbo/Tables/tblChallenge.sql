@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[tblChallenge] (
+    [ChallengeId]             INT            IDENTITY (1, 1) NOT NULL,
+    [TrainerId]               INT            NOT NULL,
+    [ChallengeName]           NVARCHAR (200) NULL,
+    [ChallengeSubTypeId]      INT            NOT NULL,
+    [DifficultyLevel]         NVARCHAR (20)  NULL,
+    [IsActive]                BIT            NOT NULL,
+    [VariableValue]           NVARCHAR (MAX) NULL,
+    [ModifiedBy]              INT            NOT NULL,
+    [ModifiedDate]            DATETIME       NOT NULL,
+    [CreatedBy]               INT            CONSTRAINT [DF__tblChalle__Creat__48CFD27E] DEFAULT ((0)) NOT NULL,
+    [CreatedDate]             DATETIME       CONSTRAINT [DF__tblChalle__Creat__49C3F6B7] DEFAULT ('1900-01-01T00:00:00.000') NOT NULL,
+    [IsDraft]                 BIT            CONSTRAINT [DF__tblChalle__IsDra__4AB81AF0] DEFAULT ((0)) NOT NULL,
+    [GlobalResultFilterValue] NVARCHAR (MAX) NULL,
+    [Description]             NVARCHAR (MAX) NULL,
+    [ChallengeDetail]         NVARCHAR (MAX) NULL,
+    [IsPremium]               BIT            DEFAULT ((0)) NULL,
+    [FFChallengeDuration]     NVARCHAR (25)  NULL,
+    [ProgramImageUrl]         NVARCHAR (MAX) NULL,
+    [IsSubscription]          BIT            CONSTRAINT [DF_tblChallenge_IsSubscription] DEFAULT ((0)) NOT NULL,
+    [IsFeatured]              BIT            CONSTRAINT [DF_tblChallenge_IsFeatured] DEFAULT ((0)) NOT NULL,
+    [FeaturedImageUrl]        NVARCHAR (MAX) NULL,
+    CONSTRAINT [PK_dbo.tblChallenge] PRIMARY KEY CLUSTERED ([ChallengeId] ASC)
+);
+

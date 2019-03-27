@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Shared/_FitComLayout.cshtml";
+    ViewBag.Title = "Activities";
+    LinksMediaCorpEntity.ViewActivitiesVM activities = new LinksMediaCorpEntity.ViewActivitiesVM();
+    var message = TempData["AlertMessage"] ?? string.Empty;
+
+    <script type="text/javascript">
+        $('#Home_li').removeClass("active");
+        $('#Reporing_li').removeClass('active');
+        $('#chalenges_submenu').removeClass("inner-menu");
+        $('#programs_submenu').removeClass("inner-menu");
+        $('#activities_submenu').removeClass('inner-menu');
+        $('#trainers_submenu').removeClass("inner-menu");
+        $('#users_submenu').removeClass('inner-menu');
+        $('#teams_submenu').removeClass("inner-menu");
+        $('#Reporing_li').addClass('active');
+        $('#activities_submenu').addClass("inner-menu");
+        var message = '@message';
+        if (message)
+            alert(message);
+    </script>
+}
+@model IEnumerable<LinksMediaCorpEntity.ViewActivitiesVM>
+
+<div id="page-wrapper">
+    <div class="reporting-table">
+        <div class="panel-heading">
+            @Html.ActionLink("New", "CreateActivity", "Reporting", new { @class = "add" })
+            <h3 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse2">Activity</h3>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse in">
+            @Html.Partial("_Activities", Model)
+        </div>
+    </div>
+</div>

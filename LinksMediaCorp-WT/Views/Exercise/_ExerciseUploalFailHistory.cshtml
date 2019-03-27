@@ -1,0 +1,48 @@
+﻿@using System.Collections.Generic
+@{
+    LinksMediaCorpEntity.ViewExercisesData execises = new LinksMediaCorpEntity.ViewExercisesData();
+    var gridExecises = new WebGrid(Model.Exercises, canPage: true, rowsPerPage: 10, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridExeciseDetail", defaultSort: "ExerciseName");
+    if (gridExecises != null && Model.Exercises != null && Model.Exercises.Count > 0)
+    {
+        gridExecises.Pager(WebGridPagerModes.NextPrevious);
+        gridExecises.PageIndex = Model != null && Model.CurrentPageIndex > 0 ? Model.CurrentPageIndex - 1 : 0;
+        gridExecises.SortColumn = Model != null && Model.SortField != null ? Model.SortField : "ExerciseName";
+        gridExecises.SortDirection = Model != null && (string.IsNullOrEmpty(Model.SortDirection) || Model.SortDirection == "Ascending" || Model.SortDirection == "ASC") ? SortDirection.Ascending : SortDirection.Descending;
+    }
+}
+<script src="~/Scripts/Common.js"></script>
+<div id="exercisesFailUpload_1" class="reporting-table">
+    <div class="panel-heading">
+    </div>
+    @if (Model.Exercises != null && Model.Exercises.Count > 0)
+    {
+        <div id="collapse5" class="panel-collapse collapse in">
+            <div id="gridProgramDetail" class="report-table-content panel-body">
+                @gridExecises.GetHtml(tableStyle: "full-table"
+                , mode: WebGridPagerModes.All,
+                firstText: "<< First",
+                previousText: "< Prev",
+                nextText: "Next >",
+                lastText: "Last >>",
+                alternatingRowStyle: "alt",
+                selectedRowStyle: "select",
+                columns: gridExecises.Columns(
+                                                              gridExecises.Column("ExerciseName", header: "Name"),
+                                                                          gridExecises.Column("Index", "Index"),
+                                                                          gridExecises.Column("TrainerId", "TrainerID"),
+                                                                          gridExecises.Column("TeamId", header: "TeamID"),
+                                                                          gridExecises.Column("CreatedDate", header: "Upload DateTime")
+                                                                                ))
+
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="NoRecord"></div>
+    }
+</div>
+
+
+

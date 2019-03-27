@@ -1,0 +1,80 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_TrainerLayout.cshtml";
+    LinksMediaCorpEntity.ViewChallenes challenges = new LinksMediaCorpEntity.ViewChallenes();
+    ViewBag.Title = "TrainerWorkouts";
+    var message = TempData["AlertMessage"] ?? string.Empty;
+
+    <script type="text/javascript">
+
+        $('#Reporing_li').removeClass('active');
+        $('#chalenges_submenu').removeClass("inner-menu");
+        $('#programs_submenu').removeClass("inner-menu");
+        $('#workouts_submenu').addClass("inner-menu");
+        var message = '@message';
+        if (message)
+            alert(message);
+
+    </script>
+}
+
+@model IEnumerable<LinksMediaCorpEntity.ViewChallenes>
+<div id="page-wrapper">
+    <div id="workouts_1" class="reporting-table">
+        <div class="panel-heading">
+
+            @Html.ActionLink("New", "CreateTrainerWorkout", "Reporting", new { @class = "add" })
+            <h3 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse4"> Workouts</h3>
+        </div>
+        @if (Model.Count() > 0)
+        {
+            <div id="collapse4" class="panel-collapse collapse in">
+                <div id="gridChallengeDetail1" class="report-table-content panel-body">
+                    @{
+                        var gridChallenge = new WebGrid(Model, canPage: true, rowsPerPage: 10, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridChallengeDetail1");
+                        gridChallenge.Pager(WebGridPagerModes.NextPrevious);
+                    }
+                    @gridChallenge.GetHtml(tableStyle: "full-table",
+                    mode: WebGridPagerModes.All,
+                firstText: "<< First",
+                previousText: "< Prev",
+                nextText: "Next >",
+                lastText: "Last >>",
+                headerStyle: "",
+                alternatingRowStyle: "alt",
+                selectedRowStyle: "select",
+                columns: gridChallenge.Columns(
+                new WebGridColumn
+                {
+                    Format =
+                    @<text>
+                        <div class="fleft btn-txt-user">
+                            @if (item.IsDrafted)
+                            {
+                                @Html.ActionLink("Draft", "CreateTrainerWorkout", "Reporting", new { id = item.ChallengeId }, new { })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("View", "ViewTrainerChallenge", "Reporting", new { id = item.ChallengeId }, new { })
+                            }
+
+                        </div>
+                    </text>
+                },
+
+                                             gridChallenge.Column("Type", header: "Type"),
+                                             gridChallenge.Column("ChallengeName", header: "Name"),
+                                             gridChallenge.Column("ResultUnit", "Result"),
+                                             gridChallenge.Column("Strength", header: "Acceptors"),
+                                             gridChallenge.Column("IsActive", header: "Active")
+                                             ))
+                </div>
+            </div>
+                        }
+                        else
+                        {
+                            <div class="NoRecord"></div>
+                        }
+    </div>
+</div>
+

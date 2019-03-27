@@ -1,0 +1,60 @@
+﻿@model LinksMediaCorpEntity.AddProgramWeekVM
+@{
+    ViewBag.Title = "_AddWeek";
+}
+@if(Model != null)
+{
+    <div id="@(Model.WeekCountID)" class=" add-remove-container chose-ex-parts">
+        <div class="program-row-colum">
+            <div class="rmv-pd col-md-4 col-sm-12 col-xs-12">
+                <label class="pull-left">Trainer:</label>
+                <select class="select" data-val="true" data-val-number="The field Trainer  must be a number." id="WorkoutTrainerId@(Model.WeekCountID)" name="WorkoutTrainerId@(Model.WeekCountID)">
+                    <option value="0">--Choose Trainer--</option>
+                </select>
+
+            </div>
+            <div class="rmv-pd col-md-4 col-sm-12 col-xs-12">
+                <label class="pull-left">Training Zones:</label>
+                <select class="select" data-val="true" data-val-number="The field Training Zones must be a number." id="WorkoutTraingZoneId@(Model.WeekCountID)" name="WorkoutTraingZoneId@(Model.WeekCountID)">
+                    <option value="0">--Choose Training Zones--</option>
+                </select>
+            </div>
+            <div class="rmv-pd col-md-4 col-sm-12 col-xs-12">
+                <label class="pull-left">Difficulty Level:</label>
+                <select class="select" data-val="true" data-val-number="The field Difficulty Level must be a number." id="WorkoutDifficultyLevelId@(Model.WeekCountID)" name="WorkoutDifficultyLevelId@(Model.WeekCountID)">
+                    <option value="0">--Choose Difficulty Level--</option>
+                </select>
+            </div>
+        </div>
+        <div class="row-colum padding-topbtm5 add-step">
+            <a id="RemoveProgramWeek@(Model.WeekCountID)" href="#" class="remove_field remove_execiseset second">X</a>
+            @*<div class="clearfix">
+                </div>*@
+            <div class="row-colum">
+                <label id="lblweek@(Model.WeekCountID)">Week @(Model.WeekCountID):</label>
+                <div class="clearfix"></div>
+                <div id="weekMainWorkoutId@(Model.WeekCountID)" class="Main-Programworkout main-bg-set">
+                    <div id=@(Model.WeekCountID) class="Main-Programworkout">
+                        <label class="pull-left">Workout 1:</label>
+                        @*<a id="RemoveProgramWeekWorkout1" href="#" class="remove_field remove_execiseset second">X</a>*@
+                        <input class="freeforminput FreeFormExerciseVideos col-md-10 col-sm-10 col-xs-10  ui-autocomplete-input ui-corner-all" id="ProgramWeekWorkout1" name="ProgramWeekWorkout1" type="text" value="" autocomplete="off">
+                        <div class="row-colum col-md-12 col-sm-12 col-xs-12">
+                            <label style="line-height:20px;">&nbsp;</label>
+                            <span id="ProgramWorkoutLink1" class="rmv-pd col-md-10 col-sm-10 col-xs-10">
+                            </span>
+                        </div>
+                        <input type="hidden" id="ProgramWeekHidenWorkout1" value="0">
+                        <input type="hidden" id="IsProgramNewWeekWorkout1" value="0">
+                    </div>
+
+                </div>
+                <div class="add-set">
+                    <input type="hidden" id="ProgramWorkoutsCount@(Model.WeekCountID)" value="1">
+                    <input type="hidden" id="IsProgramNewWeek@(Model.WeekCountID)" value="0">
+                    <button id="btnAddProgramWprkout@(Model.WeekCountID)" class="add_workouts_button marginBot10">Add Workout</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}

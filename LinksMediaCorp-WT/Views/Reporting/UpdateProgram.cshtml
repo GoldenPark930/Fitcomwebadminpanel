@@ -1,0 +1,478 @@
+﻿@model LinksMediaCorpEntity.CreateAdminProgram
+@using MvcCheckBoxList.Model
+@using LinksMediaCorpUtility.Resources
+<script src="~/Scripts/ckeditor/ckeditor.js"></script>
+@Scripts.Render("~/Content/stylesheet")
+@Styles.Render("~/Content/challenge")
+@Styles.Render("~/Content/croppie")
+@Scripts.Render("~/bundles/ui")
+@Scripts.Render("~/bundles/Programchallenge")
+@{
+    Layout = "~/Views/Shared/_FitComLayout.cshtml";
+    ViewBag.Title = "UpdateAdminProgram";
+    List<LinksMediaCorpEntity.ChallengeTypes> lstChallangeType = new List<LinksMediaCorpEntity.ChallengeTypes>();
+    if (ViewBag.ChallengeTypeList != null)
+    {
+        lstChallangeType = ViewBag.ChallengeTypeList;
+        lstChallangeType = lstChallangeType.GroupBy(e => new
+        {
+            empLoc = e.ChallengeType
+        }).Select(g => g.FirstOrDefault()).ToList();
+    }
+    List<LinksMediaCorpEntity.ViewTrainers> lstTrainers = new List<LinksMediaCorpEntity.ViewTrainers>();
+    if (ViewBag.TrainerList != null)
+    {
+        lstTrainers = ViewBag.TrainerList;
+    }
+
+    /*Code for radio button list of target training Zone*/
+    List<LinksMediaCorpEntity.BodyPart> lstBodyPart = new List<LinksMediaCorpEntity.BodyPart>();
+    if (ViewBag.ListBodyPartList != null)
+    {
+        lstBodyPart = ViewBag.ListBodyPartList;
+    }
+
+
+    /*Code for radio button list of Equipment*/
+    List<LinksMediaCorpEntity.Difficulties> lstDifficulty = new List<LinksMediaCorpEntity.Difficulties>();
+    if (ViewBag.ListDifficulty != null)
+    {
+        lstDifficulty = ViewBag.ListDifficulty;
+    }
+    var selectedChallengeTypeId = 0;
+    if (ViewBag.SelectedChallengeTypeId != null)
+    {
+
+        selectedChallengeTypeId = ViewBag.SelectedChallengeTypeId;
+    }
+    //var selectedProgramCategoryId = 0;
+    //selectedProgramCategoryId = Model.SelectedProgramCategoryId;
+    //List<LinksMediaCorpEntity.ChallengeCategory> lstChallangeCategory = new List<LinksMediaCorpEntity.ChallengeCategory>();
+    //if (ViewBag.ChallengeCategoryList != null)
+    //{
+    //    lstChallangeCategory = ViewBag.ChallengeCategoryList;
+    //    lstChallangeCategory = lstChallangeCategory.GroupBy(e => new
+    //    {
+    //        empLoc = e.ChallengeCategoryName
+    //    }).Select(g => g.FirstOrDefault()).ToList();
+    //}
+    //List<LinksMediaCorpEntity.TrendingCategory> lstTrendingCategory = new List<LinksMediaCorpEntity.TrendingCategory>();
+    //if (ViewBag.TrendingCategoryList != null)
+    //{
+    //    lstTrendingCategory = ViewBag.TrendingCategoryList;
+    //}
+    <script type="text/javascript">
+        $('#Home_li').removeClass("active");
+        $('#Reporing_li').removeClass('active');
+        $('#chalenges_submenu').removeClass("inner-menu");
+        $('#programs_submenu').removeClass("inner-menu");
+        $('#activities_submenu').removeClass('inner-menu');
+        $('#trainers_submenu').removeClass("inner-menu");
+        $('#users_submenu').removeClass('inner-menu');
+        $('#teams_submenu').removeClass("inner-menu");
+        $('#Reporing_li').addClass('active');
+    </script>
+
+    if (!Convert.ToString(@Session[LinksMediaCorpUtility.Resources.Message.PreviousUrl]).Equals(LinksMediaCorpUtility.Resources.Message.MainUrlText))
+    {
+        <script type="text/javascript">
+            $('#programs_submenu').addClass("inner-menu");
+        </script>
+    }
+
+}
+
+<!-- start page-wrapper -->
+@using (Html.BeginForm("UpdateProgram", "Reporting", FormMethod.Post, new { id = "myform", enctype = "multipart/form-data" }))
+{
+    <div id="page-wrapper">
+        <!-- Start hidden field Section -->
+        @Html.HiddenFor(model => model.ChallengeId)
+        @Html.HiddenFor(m => m.ProgramWeekWorkoutList)
+        @Html.HiddenFor(m => m.SelectedAllIndex)
+        @Html.HiddenFor(m => m.ProgramWorkouts)
+        @Html.HiddenFor(model => model.CropImageRowData)
+        @Html.HiddenFor(model => model.RemovedWeekWorkouts)
+        @Html.HiddenFor(model => model.IsProgramNewWeek1)
+        @Html.HiddenFor(model => model.TrainerId)
+        @Html.HiddenFor(model => model.FeaturedImageRowData)
+        @Html.HiddenFor(model => model.FeaturedImageUrl)
+        @Html.HiddenFor(model => model.SelectedChallengeCategoryCheck)
+
+        <!-- End hidden field Section -->
+        <!-- start create-challenge -->
+        <div class="create-challenge">
+            <h3>
+                @Html.DisplayFor(m => m.ProgramName)
+                <div class="header-link-btn">
+                    <input name="" type="button" id="btnTopAdminUpdateProgram" value="Update" class="submit" />
+                    @if (Convert.ToString(@Session[LinksMediaCorpUtility.Resources.Message.PreviousUrl]).Equals(LinksMediaCorpUtility.Resources.Message.MainUrlText))
+                    {
+                        @Html.ActionLink("Cancel", "Main", "Reporting", new { }, new { @class = "submit" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Cancel", "Programs", "Reporting", new { }, new { @class = "submit" })
+                    }
+                </div>
+                <div class="clr-both"></div>
+            </h3>
+            <!-- start challenge-content -->
+            <div class="challenge-content">
+                <div class="step">
+                    <h5>Manage Queue: </h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <label><span class="active-new-chckbox pull-left">Active Program:</span>@Html.CheckBox("IsActive", new { @class = "checkbox-btn" })</label>
+                                &nbsp; &nbsp; &nbsp; &nbsp;
+
+                                <label id="divchkPremium"><span class="active-new-chckbox pull-left">Premium Program:</span>@Html.CheckBox("IsPremium", new { @class = "checkbox-btn" })</label>
+                                &nbsp; &nbsp; &nbsp; &nbsp;
+                                <label id="divchkSubscription"><span class="active-new-chckbox pull-left">Subscription Program:</span>@Html.CheckBox("IsSubscription", new { @class = "checkbox-btn" })</label>
+                                &nbsp; &nbsp; &nbsp; &nbsp;
+                                <label id="divchkFeatured"><span class="active-new-chckbox pull-left">Featured Challenge:</span>@Html.CheckBox("IsFeatured", new { @class = "checkbox-btn" })</label>
+
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div id="FeaturedUploadSection" class="row txt-lbl-input">
+                            <div class="col-md-2 col-lg-2 col-xs-2 mob-view-box">
+                                <label>Featured Photo :</label>
+                            </div>
+                            <div class="col-md-10 col-lg-10 col-xs-10 mob-view-box">
+                                <div class="fileupload fileupload-new col-md-10">
+                                    <div id="existingFeaturedImgConatiner" class="fileupload-new thumbnail" style="max-height:304px;max-width:304px;">
+                                        <img id="existingFeaturedImg" src='@ViewBag.FeaturedPhoto' alt="Photo" />
+
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="upload-FeaturedImage">
+                                    <div class="grid">
+
+                                        <div class="col-md-10 select-img-btn">
+                                            <div class="fileupload-preview thumbnail" id="upload-FeaturedImage"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="actions">
+                                    <div class="col-md-10 ation-btn-container">
+                                        <a class="btn btn-primary file-btn">
+                                            <span class="fileupload-new">Select Image</span>
+                                            <input type="file" id="FeaturedUpload" value="Choose a file" accept="image/*" />
+                                        </a>
+                                        @Html.ValidationMessageFor(m => m.FeaturedImageRowData, "", new { @class = "error-msg none error-btm" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <!-- start step -->
+                <div class="step">
+                    <h5>Select Program Type: </h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+                        @Html.DropDownListFor(m => m.ProgramType, new SelectList(lstChallangeType, "ChallengeSubTypeId", "ChallengeSubType", selectedChallengeTypeId), "--Choose Program Type--", new { @class = "select" })
+                        <div class="clearfix"></div>
+                        @Html.ValidationMessageFor(m => m.ProgramType, "", new { id = "spnProgramType", @class = "error-msg pad0" })
+                    </div>
+
+                    <!-- end step-des -->
+                </div>
+                <div class="clr-both"></div>
+
+                <!-- end step -->
+                <!-- start step -->
+                <div class="step" id="CreateChangeDifficultyLevel">
+                    <h5>Select Difficulty Level:</h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+
+                        @{
+                    int i = 0;
+                    foreach (var item in lstDifficulty)
+                    {
+                        <div class="seq-input-lbl">
+                            @if (i == 0)
+                            {
+                                @Html.RadioButtonFor(m => m.DifficultyLevel, item.Difficulty, new { @class = "radio", @checked = true })
+                                i = i + 1;
+                            }
+                            else
+                            {
+                                @Html.RadioButtonFor(m => m.DifficultyLevel, item.Difficulty, new { @class = "radio" })
+                            }
+                            @Html.LabelFor(m => m.DifficultyLevel, item.Difficulty, new { @class = "label" })
+                        </div>
+                    }
+                        }
+
+
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <!-- end step -->
+                <div id="ProgramDescriptionHeaderSection" class="step">
+                    <h5 id="ProgramDescriptionHeader">Describe Your Program:</h5>
+                    <!-- start step-des -->
+                    <div class="row txt-lbl-input">
+                        <div class="col-md-12 col-lg-12 col-xs-12 mob-view-box">
+                            <div class="clr-both"></div>
+                            <div class="col-md-12 col-lg-12 col-xs-12"></div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">  @Html.ValidationMessageFor(m => m.Description, "", new { id = "spnDescribechallenge", @class = "error-msg" })</div>
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-xs-12 mob-view-box">
+                            @Html.TextAreaFor(m => m.Description, new { @class = "ckeditor", maxLength = "1000", placeholder = "Max Char limit 1000" })
+                        </div>
+                    </div>
+
+                    <!-- end step-des -->
+                </div>
+                <!-- start step -->
+
+                <div class="step" id="ProgramChooseSection">
+                    <h5 id="AdminProgramSection">Choose Workout(s):</h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+                        <div class="program-row-colum">
+                            <div class="rmv-pd col-md-4 col-sm-12 col-xs-12">
+                                <label class="pull-left">Trainer:</label>
+                                @Html.DropDownListFor(m => m.WorkoutTrainerId1, new SelectList(lstTrainers, "TrainerId", "TrainerName"), "--Choose Trainer--", new { @class = "programworkoutselect" })
+                            </div>
+                            <div class="rmv-pd col-md-4 col-sm-12 col-xs-12">
+                                <label class="pull-left">Training Zones:</label>
+                                @Html.DropDownListFor(m => m.WorkoutTraingZoneId1, new SelectList(lstBodyPart, "PartId", "PartName"), "--Choose Training Zones--", new { @class = "programworkoutselect" })
+                            </div>
+                            <div class="rmv-pd col-md-4 col-sm-12 col-xs-12">
+                                <label class="pull-left">Difficulty Level:</label>
+                                @Html.DropDownListFor(m => m.WorkoutDifficultyLevelId1, new SelectList(lstDifficulty, "DifficultyId", "Difficulty"), "--Choose Difficulty Level--", new { @class = "programworkoutselect" })
+                            </div>
+                        </div>
+                        <div>
+                            <div class="row-colum add-step">
+                                <label>Week 1:</label>
+                                <div class="clearfix"></div>
+                                <div class="row-colum">
+                                    <div id="weekMainWorkoutId1" class="Main-Programworkout main-bg-set">
+                                        <div id="1" class="Main-Programworkout">
+                                            <label id="weekworkoutTittle1" class="pull-left">Workout 1:</label>
+                                            @Html.TextBoxFor(m => m.ProgramWeekWorkout1, null, new { @class = "freeforminput FreeFormExerciseVideos1 col-md-10 col-sm-10 col-xs-10" })
+                                            <div class="row-colum col-md-12 col-sm-12 col-xs-12">
+                                                <label style="line-height:20px;">&nbsp;</label>
+                                                <span id="ProgramWorkoutLink1" class="rmv-pd col-md-10 col-sm-10 col-xs-10">
+                                                    <a href=@Html.DisplayFor(m => m.ProgramWorkoutLink1) target="_blank">@Html.DisplayFor(m => m.ProgramWorkoutLink1)</a>
+                                                </span>
+                                            </div>
+                                            <input type="hidden" id="ProgramWeekHidenWorkout1" value="0">
+                                            <input type="hidden" id="IsProgramNewWeekWorkout1" value="@Model.IsProgramNewWeekWorkout1">
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="add-set">
+                                        <button id="btnAddProgramWprkout1" class="add_workouts_button marginBot10">Add Workout</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clr-both chose-ex-parts"></div>
+                            <input type="hidden" id="ProgramWorkoutsCount1" value="1">
+
+                            <div id="programWeekWorkouttoggalediv">
+                            </div>
+                            <div class="btn-add-new">
+                                <button id="btnAddProgramWeek" class="add_week_button add-exercise">Add Week</button>
+                            </div>
+                        </div>
+                        <!-- end step-des -->
+                    </div>
+                </div>
+                <!-- end step -->
+                <!-- start step -->
+
+                <div class="step" id="ProgramDurationSection">
+                    <h5 id="ProgramDurationHeader"> Duration:</h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+                        <div class="row-colum">
+                            @Html.TextBoxFor(m => m.Duration, null, new { @class = "input", @readonly = "true", maxLength = "50" })
+                            @Html.ValidationMessageFor(m => m.Duration, "", new { @class = "error-msg none error-btm" })
+                        </div>
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <!-- end step -->
+                <!-- start step -->
+                <div class="step">
+                    <h5 id="AdminStepProgramName"> Workouts:</h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+                        <div class="row-colum">
+                            @Html.TextBoxFor(m => m.Workouts, null, new { @class = "input", @readonly = "true", maxLength = "50" })
+                            @Html.ValidationMessageFor(m => m.Workouts, "", new { id = "spnChallengeNameerror-msg", @class = "error-msg none error-btm" })
+                        </div>
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <!-- end step -->
+                <!-- start step -->
+                <div class="step">
+                    <h5 id="AdminStepProgramName"> Enter Program Name:</h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+                        <div class="row-colum">
+                            @Html.TextBoxFor(m => m.ProgramName, null, new { @class = "input", maxLength = "200" })
+                            @Html.ValidationMessageFor(m => m.ProgramName, "", new { id = "spnProgramNameerror-msg", @class = "error-msg none error-btm" })
+                        </div>
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <!-- end step -->
+                <div class="step" id="divProgramCategorySection">
+                    <h5 id="ProgramCategoryHeader"> Select Your Category: </h5>
+                    <!-- start step-des -->
+
+                    <div class="col-xs-12 col-md-12 col-lg-12 mob-view-box">
+                        <div style="overflow-x:auto; overflow-y:hidden;">
+                            <fieldset class="txt-specialisation-detail margin-top" style="width: 1018px;">
+                                <div id="chkAllChallengeCategory">
+                                    <div style="color:red;"> @Html.ValidationMessageFor(m => m.SelectedChallengeCategoryCheck, "", new { })</div>
+                                    @{
+    var primaryChallengeCategoryListInfo = new HtmlListInfo(HtmlTag.table, 5, null, TextLayout.Default, TemplateIsUsed.No);
+    @Html.CheckBoxListFor(m => m.PostedChallengeCategory.ChallengeCategoryId, m => m.AvailableChallengeCategory,
+m => m.ChallengeCategoryId, m => m.ChallengeCategoryName, m => m.SelecetdChallengeCategory, primaryChallengeCategoryListInfo)
+                                    }
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <!-- start step -->
+                <div class="step" id="ProgramTrainer">
+                    <h5 id="AdminStepProgramTrainerName"> Choose Trainer:</h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+                        <div class="row-colum">
+                            @Html.DropDownListFor(m => m.TrainerCredId, new SelectList(lstTrainers, "TrainerId", "TrainerName"), "No Trainer", new { @class = "select" })
+                        </div>
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <!-- end step -->
+
+                <div class="step" id="challengeNoTrainerTeam">
+                    <h5 id="AdminStepNoTrainerTeam">Choose No Trainer Program Teams:</h5>
+                    <div class="col-xs-12 col-md-12 col-lg-12 mob-view-box">
+                        <div style="overflow-x:auto; overflow-y:hidden;">
+                            <fieldset class="txt-specialisation-detail margin-top" style="width:96%;">
+                                <legend style="width: 70px;font-size: 12px;">Select All: @Html.CheckBox("SelectAllTeam", false)</legend>
+                                <div id="chkAllNoTrainetWorkoutTeam">
+                                    @{
+    var primaryTeamsListInfo = new HtmlListInfo(HtmlTag.table, 4, null, TextLayout.Default, TemplateIsUsed.No);
+    @Html.CheckBoxListFor(m => m.PostedTeams.TeamsID, m => m.AvailableTeams,
+m => m.TeamId, m => m.TeamName, m => m.SelecetdTeams, primaryTeamsListInfo)
+                                    }
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div class="clr-both"></div>
+                <div class="step">
+                    <h5>Select Your Trending Category: </h5>
+                    <!-- start step-des -->
+
+                    <div class="col-xs-12 col-md-12 col-lg-12 mob-view-box">
+                        <div style="overflow-x:auto; overflow-y:hidden;">
+                            <fieldset class="txt-specialisation-detail margin-top" style="width:96%;">
+                                <legend style="width: 70px;font-size: 12px;">Select All: @Html.CheckBox("SelectAllTrendingCategory", false)</legend>
+                                <div id="chkAllTrendingCategory">
+                                    @{
+                                        var primaryTrendingCategoryListInfo = new HtmlListInfo(HtmlTag.table, 4, null, TextLayout.Default, TemplateIsUsed.No);
+                                        @Html.CheckBoxListFor(m => m.PostedTrendingCategory.TrendingCategoryID, m => m.AvailableTrendingCategory,
+m => m.TrendingCategoryId, m => m.TrendingCategoryName, m => m.SelecetdTrendingCategory, primaryTrendingCategoryListInfo)
+                                    }
+                                </div>
+                                <legend>Sports Trending Category(s) </legend>
+                                @{
+                                    var secondaryTrendingCategoryListInfo = new HtmlListInfo(HtmlTag.table, 4, null, TextLayout.Default, TemplateIsUsed.No);
+                                    @Html.CheckBoxListFor(m => m.PostedSecondaryTrendingCategory.TrendingCategoryID, m => m.AvailableSecondaryTrendingCategory,
+m => m.TrendingCategoryId, m => m.TrendingCategoryName, m => m.SelecetdSecondaryTrendingCategory, secondaryTrendingCategoryListInfo)
+                                }
+                            </fieldset>
+                        </div>
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <div class="clr-both"></div>
+
+                <div class="row txt-lbl-input">
+                    <div class="col-md-2 col-lg-2 col-xs-2 mob-view-box">
+                        <label>Program Photo:</label>
+                    </div>
+                    @*<div class="col-md-10 col-lg-10 col-xs-10 mob-view-box">*@
+                    <div class="fileupload fileupload-new col-md-10">
+                        <div id="existingProfileImgConatiner" class="fileupload-new thumbnail" style="max-height:304px;max-width:304px;">
+                            <img id="existingProfileImg" src='@ViewBag.TrainerProfilePhoto' alt="Photo" />
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="upload-demo">
+                        <div class="grid">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-10 select-img-btn">
+                                <div class="fileupload-preview thumbnail" id="upload-demo"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-10 ation-btn-container">
+                            <a class="btn btn-primary file-btn">
+                                <span class="fileupload-new">Select Image</span>
+                                <input type="file" id="upload" value="Choose a file" accept="image/*" />
+                            </a>
+                            <span id="trainerImage">
+                                <a href="" id="cropTrainerbtn"><img src="~/Content/images/cropimages.png" alt="crop Image" style="background: #ede9e4;width:50px;height:50px;" /></a>
+                            </span>
+                        </div>
+                    </div>
+                    @*</div>*@
+                </div>
+                <div class="clr-both"></div>
+                <div class="bottom-button">
+                    <input id="btnBottomAdminUpdateProgram" name="" type="button" value="Update" class="submit" />
+                    @if (Convert.ToString(@Session[LinksMediaCorpUtility.Resources.Message.PreviousUrl]).Equals(LinksMediaCorpUtility.Resources.Message.MainUrlText))
+                    {
+                        @Html.ActionLink("Cancel", "Main", "Reporting", new { }, new { @class = "submit" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Cancel", "Programs", "Reporting", new { }, new { @class = "submit" })
+                    }
+                </div>
+
+            </div>
+            <!-- end challenge-content -->
+        </div>
+        <!-- end create-challenge -->
+        <div class="clearfix"></div>
+    </div>
+}
+<script src="~/Scripts/BusinessLogic/UpdateProgramBL.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var imagesrc = $("#existingProfileImg").attr("src");
+        if (imagesrc != undefined) {
+            $("#trainerImage").show();
+
+        } else {
+            $("#trainerImage").hide();
+        }
+    });
+</script>

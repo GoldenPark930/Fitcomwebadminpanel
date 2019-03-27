@@ -1,0 +1,19 @@
+﻿@model LinksMediaCorpEntity.AddProgramWeekVM
+@if (Model != null)
+{
+    <div id=@(Model.WeekCountID) class="Main-Programworkout">
+        <span class="remove-set">
+            <button id="btnWorkoutRemove@(Model.WeekWorkoutCountID)" class="remove_execiseset">X</button>
+        </span>
+        @*<br/>*@
+        <label id="weekworkoutTittle@(Model.WeekWorkoutCountID)" class="pull-left">Workout @(Model.WeekWorkoutCountID):</label>
+        <input class="freeforminput FreeFormExerciseVideos col-md-9 col-sm-9 col-xs-9  ui-autocomplete-input ui-corner-all" id="ProgramWeekWorkout@(Model.WeekWorkoutCountID)" name="ProgramWeekWorkout@(Model.WeekWorkoutCountID)" type="text" value="" autocomplete="off">
+        <div class="row-colum col-md-12 col-sm-12 col-xs-12">
+            <label style="line-height:20px;">&nbsp;</label>
+            <span id="ProgramWorkoutLink@(Model.WeekWorkoutCountID)" class="rmv-pd col-md-10 col-sm-10 col-xs-10">
+            </span>
+        </div>
+        <input type="hidden" id="ProgramWeekHidenWorkout@(Model.WeekWorkoutCountID)" value="0">
+        <input type="hidden" id="IsProgramNewWeekWorkout@(Model.WeekWorkoutCountID)" value="0">
+    </div>
+}

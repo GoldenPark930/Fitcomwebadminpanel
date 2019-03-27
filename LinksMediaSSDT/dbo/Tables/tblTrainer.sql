@@ -1,0 +1,27 @@
+﻿CREATE TABLE [dbo].[tblTrainer] (
+    [TrainerId]        INT            IDENTITY (1, 1) NOT NULL,
+    [FirstName]        NVARCHAR (MAX) NULL,
+    [LastName]         NVARCHAR (MAX) NULL,
+    [DateOfBirth]      DATETIME       NULL,
+    [Gender]           NVARCHAR (MAX) NULL,
+    [Height]           NVARCHAR (MAX) NULL,
+    [Weight]           NVARCHAR (MAX) NULL,
+    [ZipCode]          NVARCHAR (MAX) NULL,
+    [EmailId]          NVARCHAR (MAX) NULL,
+    [AboutMe]          NVARCHAR (MAX) NULL,
+    [TrainerImageUrl]  NVARCHAR (MAX) NULL,
+    [ActivityId]       NVARCHAR (MAX) NULL,
+    [LoggedIn]         BIT            NULL,
+    [CreatedBy]        INT            NOT NULL,
+    [CreatedDate]      DATETIME       NULL,
+    [TeamName]         NVARCHAR (MAX) NULL,
+    [State]            NVARCHAR (MAX) NULL,
+    [City]             INT            DEFAULT ((0)) NOT NULL,
+    [ModifiedBy]       INT            DEFAULT ((0)) NOT NULL,
+    [ModifiedDate]     DATETIME       NULL,
+    [TrainerType]      NVARCHAR (30)  NULL,
+    [TeamId]           INT            NULL,
+    [EnteredTrainerID] INT            CONSTRAINT [DF_tblTrainer_EnteredTrainerID] DEFAULT ((0)) NULL,
+    CONSTRAINT [PK_dbo.tblTrainer] PRIMARY KEY CLUSTERED ([TrainerId] ASC)
+);
+

@@ -1,0 +1,58 @@
+﻿@model LinksMediaCorpEntity.Credentials
+
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>FITCOM</title>
+    <!-- Bootstrap core CSS -->
+    <link href="Content/css/bootstrap.css" rel="stylesheet">
+    <link href="Content/css/bootstrap-theme.css" rel="stylesheet" type="text/css" />
+    <link href="Content/css/bootstrap-glyphicons.css" rel="stylesheet" type="text/css" />
+    <link href="Content/css/signin.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap core CSS -->
+    <link href="Content/css/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" media="only all and (min-width: 480px)" href="Content/css/480.css">
+    <link rel="stylesheet" media="only all and (min-width: 768px)" href="Content/css/768.css">
+    <link rel="stylesheet" media="only all and (min-width: 992px)" href="Content/css/992.css">
+    <link rel="stylesheet" media="only all and (min-width: 1200px)" href="Content/css/1200.css">
+</head>
+
+<body>
+@using (Html.BeginForm("Login", "Login",new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+{
+    <!-- start header -->
+        <div class="header">
+            <!-- start container -->
+            <div class="container">
+                <!-- start logo -->
+                <div class="logo"><a href="#"><img src="~/Content/images/logo.png" width="291" height="48" alt="Fitcom" /></a></div>
+                <!-- end logo -->
+            </div>
+            <!-- end container -->
+        </div>
+    <!-- end header -->
+        <div class="clearfix"></div>
+    <!-- start form-signin -->
+        <div class="form-signin">
+            <h2 class="form-signin-heading">LOGIN</h2>
+            <div class="clearfix"></div>
+            <h5 style="text-align:center"><span style="color:red;font:bold;">@ViewBag.Message</span></h5>         
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control",  maxmaxlength = 2, maxLength = "50", placeholder = "Email Address" })
+            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "login-error" })           
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control password", maxLength = "16", placeholder = "Password" })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "login-error" })
+            <button class="btn btn-lg btn-info btn-block" type="submit">LOGIN</button>           
+            <div class="clearfix"></div>           
+            <div class="block"><a href="#"></a></div>
+        </div>
+    <!-- end form-signin -->
+}
+   
+</body>
+
+</html>

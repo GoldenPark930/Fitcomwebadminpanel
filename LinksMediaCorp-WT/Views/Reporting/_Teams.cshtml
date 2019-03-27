@@ -1,0 +1,63 @@
+﻿@{
+    LinksMediaCorpEntity.ViewTeams teams = new LinksMediaCorpEntity.ViewTeams();
+
+    var gridTeams = new WebGrid(Model, canPage: true, rowsPerPage: 10, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridTrainerDetail1");
+    gridTeams.Pager(WebGridPagerModes.NextPrevious);
+}
+<div id="Team_1"  class="reporting-table">
+    @if (Model.Count > 0)
+    {
+        <div id="gridTeamsDetail1" class="report-table-content panel-body">
+            @gridTeams.GetHtml(tableStyle: "full-table"
+                , mode: WebGridPagerModes.All,
+                firstText: "<< First",
+                previousText: "< Prev",
+                nextText: "Next >",
+                lastText: "Last >>",
+                headerStyle: "",
+                alternatingRowStyle: "alt",
+                selectedRowStyle: "select",
+                 columns: gridTeams.Columns(
+                new WebGridColumn
+                {
+                    Format =
+        @<text>
+            <div class="fleft btn-txt-user">
+
+                @Html.ActionLink("Edit", "UpdateTeam", "Reporting", new { id = item.TeamId }, new { })
+            </div><div class="fleft btn-txt-user">
+                @if (item.IsDefaultTeam)
+                            {
+        @Html.ActionLink("Delete", "DeleteTeam", "Reporting", new { id = item.TeamId }, new { @class = "btn-disabled", @disabled = "disabled", onclick = "return false" })
+                            }
+                            else
+                            {
+        @Html.ActionLink("Delete", "DeleteTeam", "Reporting", new { id = item.TeamId }, new { @class = "delete-btn", onclick = "return confirm('Are you sure you want to delete this item?');" })
+                            }
+            </div>
+
+        </text>
+                },
+
+                                                                                                                                                                                                      gridTeams.Column("TeamName", header: "Team Name"),
+                                                                                                                                                                         gridTeams.Column("Email", header: "Email Id"),
+                                                                                                                                                                         gridTeams.Column("PhoneNumber", header: "Phone"),
+                                                                                                                                                                         gridTeams.Column("UniqueTeamId", header: "TeamId"),
+                                                                                                                                                                         gridTeams.Column("TeamCount", header: "Team Count"),
+                                                                                                                                                                        gridTeams.Column("CreatedDate", header: "Sign-Up Date", format: (item) => ((item.CreatedDate == null) ? null : string.Format("{0:dd-MMM-yyyy}", item.CreatedDate)))
+
+
+                                                                                                                                                     ))
+            @if (gridTeams.HasSelection)
+        {
+            teams = (LinksMediaCorpEntity.ViewTeams)gridTeams.Rows[gridTeams.SelectedIndex].Value;
+        <b>Id</b> @teams.TeamName<br />
+
+        }
+        </div>
+    }
+    else
+    {
+        <div class="NoRecord">No Records</div>
+    }
+</div>

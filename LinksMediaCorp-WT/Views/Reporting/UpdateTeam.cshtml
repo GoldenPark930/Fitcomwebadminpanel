@@ -1,0 +1,789 @@
+﻿@model LinksMediaCorpEntity.CreateTeamVM
+@using MvcCheckBoxList.Model
+@Styles.Render("~/Content/croppie")
+@Styles.Render("~/Content/challenge")
+@Scripts.Render("~/bundles/ui")
+@Scripts.Render("~/Content/stylesheet")
+<link href="~/Content/croppie.css" rel="stylesheet" />
+@{
+    Layout = "~/Views/Shared/_FitComLayout.cshtml";
+    ViewBag.Title = "UpdateTrainer";
+
+    List<LinksMediaCorpEntity.State> lstStates = new List<LinksMediaCorpEntity.State>();
+    if (ViewBag.lstStates != null)
+    {
+        lstStates = ViewBag.lstStates;
+    }
+
+    List<LinksMediaCorpEntity.City> lstCities = new List<LinksMediaCorpEntity.City>();
+    if (ViewBag.lstCities != null)
+    {
+        lstCities = ViewBag.lstCities;
+    }
+
+    <script type="text/javascript">
+        $(function () {
+            if ($('#IsChangePassword').attr('checked')) {
+                $('#divChangePassword').show();
+            }
+
+        });
+
+        $('#Home_li').removeClass("active");
+        $('#Reporing_li').removeClass('active');
+        $('#chalenges_submenu').removeClass("inner-menu");
+        $('#activities_submenu').removeClass('inner-menu');
+        $('#trainers_submenu').removeClass("inner-menu");
+        $('#users_submenu').removeClass('inner-menu');
+        $('#teams_submenu').removeClass("inner-menu");
+        $('#Reporing_li').addClass('active');
+
+        $(document).ready(function () {
+            if ($('#CheckEmail').val() === "NotAvailable") {
+                $("#resultEmail").html("<span style='color:red'>Email already exist!</span>");
+            }
+            else {
+                $("#resultEmail").html(null);
+            }
+            if ($('#CheckUser').val() === "NotAvailable") {
+                $("#resultUser").html("<span style='color:red'>User Name already exist!</span>");
+            }
+            else {
+                $("#resultUser").html(null);
+            }
+            if ($('#CheckTeam').val() === "NotAvailable") {
+                $("#resultTeam").html("<span style='color:red'>Team already exist!</span>");
+            }
+            else {
+                $("#resultTeam").html(null);
+            }
+
+        });
+    </script>
+    if (!Convert.ToString(@Session[LinksMediaCorpUtility.Resources.Message.PreviousUrl]).Equals(LinksMediaCorpUtility.Resources.Message.MainUrlText))
+    {
+        <script type="text/javascript">
+            $('#teams_submenu').addClass("inner-menu");
+        </script>
+    }
+}
+
+<!-- start page-wrapper -->
+@using (Html.BeginForm("UpdateTeam", "Reporting", FormMethod.Post, new { id = "myform", enctype = "multipart/form-data" }))
+{
+    <div id="page-wrapper">
+
+        <!-- Start hidden field Section -->
+        @Html.HiddenFor(model => model.TeamId)
+        @Html.HiddenFor(model => model.CreatedBy)
+        @Html.HiddenFor(model => model.CreatedDate)
+        @Html.HiddenFor(model => model.ProfileImageUrl)
+        @Html.HiddenFor(model => model.PremiumImageUrl)
+        @Html.HiddenFor(model => model.CropProfileImageRowData)
+        @Html.HiddenFor(model => model.CropPremiumImageRowData)
+        @Html.HiddenFor(model => model.IsDefaultTeam)
+        @Html.HiddenFor(model => model.UniqueTeamId)
+        @Html.HiddenFor(model => model.BeginnerProgramId)
+        @Html.HiddenFor(model => model.AdvIntProgramId1)
+        @Html.HiddenFor(model => model.AdvIntProgramId2)
+        @Html.HiddenFor(model => model.AdvIntProgramId3)
+        @Html.HiddenFor(model => model.FitcomtestChallengeId1)
+        @Html.HiddenFor(model => model.FitcomtestChallengeId2)
+        @Html.HiddenFor(model => model.OnboardingExeciseVideoId)
+        @Html.HiddenFor(model => model.Nutrition1ImageUrl)
+        @Html.HiddenFor(model => model.Nutrition2ImageUrl)
+        @Html.HiddenFor(model => model.CropNutrition1ImageRowData)
+        @Html.HiddenFor(model => model.CropNutrition2ImageRowData)
+        @Html.HiddenFor(model => model.LevelTeamId1)
+        @Html.HiddenFor(model => model.LevelTeamId2)
+        
+        <!-- End hidden field Section -->
+        <!-- start create-challenge -->
+        <div class="create-challenge">
+            <h3>
+                Update Team
+                <div class="header-link-btn">
+                    <input name="" type="submit" value="Update" class="submit" />
+                    @if (Convert.ToString(@Session[LinksMediaCorpUtility.Resources.Message.PreviousUrl]).Equals(LinksMediaCorpUtility.Resources.Message.MainUrlText))
+                    {
+                        @Html.ActionLink("Cancel", "Main", "Reporting", new { }, new { @class = "submit" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Cancel", "Teams", "Reporting", new { }, new { @class = "submit" })
+                    }
+                </div>
+                <div class="clr-both"></div>
+            </h3>
+            <!-- start challenge-content -->
+            <div class="challenge-content">
+
+                <!-- start step -->
+                <div class="step">
+                    <h5>Team Detail</h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+
+                                <label>Team Name:</label>
+                                @Html.TextBoxFor(m => m.TeamName, null, new { @class = "input-text-right", maxLength = "255" })
+
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.TeamName, "", new { @class = "error-msg" })
+                                    @Html.HiddenFor(model => model.CheckTeam)
+                                    <span id="resultTeam" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Address:</label>
+                                @Html.TextBoxFor(m => m.Address, new { @class = "input-text-right", maxLength = "500" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">@Html.ValidationMessageFor(m => m.Address, "", new { @class = "error-msg error-msg-pad200" })</div>
+                            </div>
+                        </div>
+
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-6 col-lg-6 col-xs-6 state-drop-down-listbox ">
+                                <label>State:</label>
+                                @Html.DropDownListFor(m => m.State, new SelectList(lstStates, "StateCode", "StateName"), "--Choose State--", new { @class = "select", onchange = "onChangeId();" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.State, "", new { @class = "error-msg " })
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 state-drop-down-listbox ">
+                                <label>City:</label>
+                                <span id='loadingmessage' style='display:none; padding-left:25%;'>
+                                    <img src='~/images/ajax-loader.gif' />
+                                </span>
+                                @Html.DropDownListFor(m => m.City, new SelectList(lstCities, "CityId", "CityName"), "--Choose City--", new { @class = "select" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left"> @Html.ValidationMessageFor(m => m.City, "", new { @class = "error-msg error-msg-pad200" })</div>
+
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Zip Code:</label>
+                                @Html.TextBoxFor(m => m.ZipCode, null, new { @class = "input-text-right", maxLength = "5" })
+
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left"> @Html.ValidationMessageFor(m => m.ZipCode, "", new { @class = "error-msg" })</div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Email Id:</label>
+                                @Html.TextBoxFor(m => m.EmailId, new { @class = "input-text-right", maxLength = "50" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "error-msg error-msg-pad200" })
+                                    @Html.HiddenFor(model => model.CheckEmail)
+                                    <span id="resultEmail" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input ">
+                            <div class="col-md-6 col-lg-6 col-xs-6 state-drop-down-listbox">
+                                <label>Phone:</label>
+                                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "input-text-right", maxLength = "15", minLength = "3" })
+                                @*@Html.DropDownListFor(m => m.TrainerType, new SelectList(lstTrainerTypes, "TrainerTypeName", "TrainerTypeName"), "--Choose Trainer Type--", new { @class = "select" })*@
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "error-msg" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Team Id:</label>
+                                @Html.TextBoxFor(m => m.UniqueTeamId, new { @class = "input-text-right", @readonly = true })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                            </div>
+
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-6 col-lg-6 col-xs-6">
+                                <span>Show No Trainer Workouts & Programs:</span>
+                                @Html.CheckBoxFor(m => m.IsShownNoTrainerWorkoutPrograms, new { @id = "chkIsShownNoTrainerWorkoutPrograms", style = "margin-Left:4px;" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.IsShownNoTrainerWorkoutPrograms, "", new { @class = "error-msg error-msg-pad200" })
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <span>Show No Trainer Fitness Tests:</span>
+                                @Html.CheckBoxFor(m => m.IsShownNoTrainerFitnessTests, new { @id = "chkIsShownNoTrainerFitnessTests", style = "margin-Left:4px;" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.IsShownNoTrainerFitnessTests, "", new { @class = "error-msg error-msg-pad200" })
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Sign Up Date:</label>
+                                @Html.TextBoxFor(m => m.CreatedDate, "{0:MM/dd/yyyy}", new { @class = "input-text-right", placeholder = "MM/DD/YYYY" })
+
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left"> @Html.ValidationMessageFor(m => m.CreatedDate, "", new { @class = "error-msg" })</div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>WebSite:</label>
+                                @Html.TextBoxFor(m => m.Website, new { @class = "input-text-right" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                            </div>
+                        </div>
+
+                        <div class="clr-both"></div>
+                       
+                        
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-2 col-lg-2 col-sm-2 col-xs-6 res-360px"><label><span class="active-txt active-txt-new">Change Password:</span></label></div>
+                            <div class="col-md-2 col-lg-2 col-sm-2 col-xs-6 chkbx">@Html.CheckBox("IsChangePassword", new { @class = "active-new-chckbox" })</div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div id="divChangePassword" style="display:none;">
+                            <div class="row txt-lbl-input">
+                                <div class="col-md-2 col-lg-2 col-xs-2 mob-view-box">
+                                    <label>Password:</label>
+                                </div>
+                                <div class="col-md-10 col-lg-10 col-xs-10 mob-view-box">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "trainer-inputbox", maxLength = "10" })
+                                    <div class="clr-both"></div>
+                                    <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left remove-mg-desktop">
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "error-msg" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clr-both"></div>
+                            <div class="row txt-lbl-input">
+                                <div class="col-md-2 col-lg-2 col-xs-2 mob-view-box">
+                                    <label>Confirm Password:</label>
+                                </div>
+                                <div class="col-md-10 col-lg-10 col-xs-10 mob-view-box">
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "trainer-inputbox", maxLength = "10" })
+                                    <div class="clr-both"></div>
+                                    <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left remove-mg-desktop">  @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "error-msg" })</div>
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                           
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Primary Commission Rate:</label>
+                                @Html.TextBoxFor(m => m.PrimaryCommissionRate, new { @class = "input-text-right", maxLength = "8" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.PrimaryCommissionRate, "", new { @class = "error-msg error-msg-pad200" })
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Level1 Team Commission :</label>
+                                @Html.TextBoxFor(m => m.Level1CommissionRate, new { @class = "input-text-right", maxLength = "8" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "error-msg error-msg-pad200" })
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                <label>Level2 Team Commission:</label>
+                                @Html.TextBoxFor(m => m.Level2CommissionRate, new { @class = "input-text-right", maxLength = "8" })
+                                <div class="clr-both"></div>
+                                <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "error-msg error-msg-pad200" })
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="clr-both"></div>
+                        <div class="row-colum">
+                            <label class="pull-left remove-margin-left"> Add Level 1 Team :</label>
+                            <div class="col-md-10 col-lg-10 col-xs-10">
+                                <span id="spnLevelTeam1" class="error-msg secondary-err-msg"></span>
+                                @Html.TextBox("SeachLevelTeam1", null, new { @class = "freeforminput FreeFormExerciseVideos1 col-md-9 col-sm-9 col-xs-9", @placeholder = "Select Level 1 Team" })
+                                <button id="AddLevel1Team" class="add_field_button add-exercise add-LevelTeam ">Add Level1 Team</button>
+                                <div id="Level1TeamPlaceholder" class="reporting-table">
+                                    <table id="tblLevel1Team">
+                                        <thead>
+                                            <tr>
+                                                <th>Team</th>
+
+                                                <th>Email Id</th>
+
+                                                <th>Phone</th>
+
+                                                <th>Users</th>
+
+                                                <th>Premium</th>
+
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row-colum">
+                            <label class="pull-left remove-margin-left"> Add Level 2 Team :</label>
+                            <div class="col-md-10 col-lg-10 col-xs-10">
+                                <span id="spnLevelTeam2" class="error-msg secondary-err-msg"></span>
+                                @Html.TextBox("SeachLevelTeam2", null, new { @class = "freeforminput FreeFormExerciseVideos1 col-md-9 col-sm-9 col-xs-9", @placeholder = "Select Level 2 Team" })
+                                <button id="AddLevel2Team" class="add_field_button add-exercise add-LevelTeam">Add Level2 Team</button>
+                                <div id="Level2TeamPlaceholder" class="reporting-table">
+
+                                    <table id="tblLevel2Team">
+                                        <thead>
+                                            <tr>
+                                                <th>Team</th>
+
+                                                <th>Email Id</th>
+
+                                                <th>Phone</th>
+
+                                                <th>Users</th>
+
+                                                <th>Premium</th>
+
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row-colum">
+                            <label class="pull-left remove-margin-left"> Onboarding video:</label>
+                            <div class="col-md-10 col-lg-10 col-xs-10">
+                                <span id="lblOnboardingVideo" class="error-msg secondary-err-msg"></span>
+                                @Html.TextBoxFor(m => m.OnboardingVideo, null, new { @class = "freeforminput FreeFormExerciseVideos1 col-md-12 col-sm-12 col-xs-12", @placeholder = "Select onboarding video only" })
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <span id="SpnOnboardingVideoLink" class="rmv-pd col-md-10 col-sm-10 col-xs-10">
+                                        <a id="OnboardingVideoUrl" href=@Html.DisplayFor(m => m.OnboardingVideoUrl) target="_blank">
+                                            @Html.DisplayFor(m => m.OnboardingVideoLink)
+                                        </a>
+                                    </span>
+                                    @Html.ValidationMessageFor(m => m.OnboardingVideo, "", new { id = "ErrorOnboardingVideo", @class = "error-msg" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row-colum">
+                            <label class="pull-left remove-margin-left"> Fitness Test 1:</label>
+                            <div class="col-md-10 col-lg-10 col-xs-10">
+                                <span id="lblUniqueFitnessTest1" class="error-msg secondary-err-msg"></span>
+                                @Html.TextBoxFor(m => m.FitnessTest1, null, new { @class = "freeforminput FreeFormExerciseVideos1 col-md-12 col-sm-12 col-xs-12", @placeholder = "Select Fitness Test only" })
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <span id="SpnFitnessTestLink1" class="rmv-pd col-md-10 col-sm-10 col-xs-10">
+                                        <a id="FitnessTestUrl1" href=@Html.DisplayFor(m => m.FitnessTestUrl1) target="_blank">
+                                            @Html.DisplayFor(m => m.FitnessTestLink1)
+                                        </a>
+                                    </span>
+                                    <span id="lblFitnessTest1" class="error-msg secondary-err-msg"></span>
+                                    @*@Html.ValidationMessageFor(m => m.FitnessTest1, "", new { id = "ErrorFitnessTest1", @class = "error-msg" })*@
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="clr-both"></div>
+                        <div class="row-colum">
+                            <label class="pull-left remove-margin-left"> Fitness Test 2:</label>
+                            <div class="col-md-10 col-lg-10 col-xs-10">
+                                <span id="lblUniqueFitnessTest2" class="error-msg secondary-err-msg"></span>
+                                @Html.TextBoxFor(m => m.FitnessTest2, null, new { @class = "freeforminput FreeFormExerciseVideos1 col-md-12 col-sm-12 col-xs-12", @placeholder = "Select Fitness Test only" })
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <span id="SpnFitnessTestLink2" class="rmv-pd col-md-10 col-sm-10 col-xs-10">
+                                        <a id="FitnessTestUrl2" href=@Html.DisplayFor(m => m.FitnessTestUrl2) target="_blank">
+                                            @Html.DisplayFor(m => m.FitnessTestLink2)
+                                        </a>
+                                    </span>
+                                    <span id="lblFitnessTest2" class="error-msg secondary-err-msg"></span>
+                                    @*@Html.ValidationMessageFor(m => m.FitnessTest2, "", new { id = "ErrorFitnessTest2", @class = "error-msg" })*@
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="clr-both"></div>
+
+                        <div class="row-colum">
+                            <label class="pull-left remove-margin-left"> Beginner Program:</label>
+                            <div class="col-md-10 col-lg-10 col-xs-10">
+                                @Html.TextBoxFor(m => m.BeginnerProgram, null, new { @class = "freeforminput FreeFormExerciseVideos1 col-md-12 col-sm-12 col-xs-12", @placeholder = "Select Beginner Program only" })
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <span id="SpnBeginnerProgramUrlLink" class="rmv-pd col-md-10 col-sm-10 col-xs-10">
+                                        <a id="BeginnerProgramUrl" href=@Html.DisplayFor(m => m.BeginnerProgramUrl) target="_blank">
+                                            @Html.DisplayFor(m => m.BeginnerProgramLink)
+                                        </a>
+                                    </span>
+                                    <span id="lblExe1" class="error-msg secondary-err-msg"></span>
+                                    @*@Html.ValidationMessageFor(m => m.BeginnerProgram, "", new { id = "ErrorBeginnerProgram", @class = "error-msg" })*@
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="clr-both"></div>
+                        <div class="row-colum">
+                            <label class="pull-left remove-margin-left"> Adv/Int Program 1:</label>
+                            <div class="col-md-10 col-lg-10 col-xs-10">
+                                <span id="lblAdvIntProgramError1" class="error-msg secondary-err-msg"></span>
+                                @Html.TextBoxFor(m => m.AdvIntProgram1, null, new { @class = "freeforminput FreeFormExerciseVideos1 col-md-12 col-sm-12 col-xs-12", @placeholder = "Select Advanced/Intermediate Program only" })
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <span id="SpnAdvIntProgramLink1" class="rmv-pd col-md-10 col-sm-10 col-xs-10">
+                                        <a id="AdvIntProgramUrl1" href=@Html.DisplayFor(m => m.AdvIntProgramUrl1) target="_blank">
+                                            @Html.DisplayFor(m => m.AdvIntProgramLink1)
+                                        </a>
+                                    </span>
+                                    <span id="lblAdvIntProgram1" class="error-msg secondary-err-msg"></span>
+                                    @*@Html.ValidationMessageFor(m => m.AdvIntProgram1, "", new { id = "ErrorAdvIntProgram1", @class = "error-msg" })*@
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="clr-both"></div>
+                        <div class="row-colum">
+                            <label class="pull-left remove-margin-left"> Adv/Int Program 2:</label>
+                            <div class="col-md-10 col-lg-10 col-xs-10">
+                                <span id="lblAdvIntProgramError2" class="error-msg secondary-err-msg"></span>
+                                @Html.TextBoxFor(m => m.AdvIntProgram2, null, new { @class = "freeforminput FreeFormExerciseVideos1 col-md-12 col-sm-12 col-xs-12", @placeholder = "Select Advanced/Intermediate Program only" })
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <span id="SpnAdvIntProgramLink2" class="rmv-pd col-md-10 col-sm-10 col-xs-10">
+                                        <a id="AdvIntProgramUrl12" href=@Html.DisplayFor(m => m.AdvIntProgramUrl2) target="_blank">
+                                            @Html.DisplayFor(m => m.AdvIntProgramLink2)
+                                        </a>
+                                    </span>
+                                    <span id="lblAdvIntProgram2" class="error-msg secondary-err-msg"></span>
+                                    @*@Html.ValidationMessageFor(m => m.AdvIntProgram2, "", new { id = "ErrorAdvIntProgram2", @class = "error-msg" })*@
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="clr-both"></div>
+                        <div class="row-colum">
+                            <label class="pull-left remove-margin-left"> Adv/Int Program 3:</label>
+                            <div class="col-md-10 col-lg-10 col-xs-10">
+                                <span id="lblAdvIntProgramError3" class="error-msg secondary-err-msg"></span>
+                                @Html.TextBoxFor(m => m.AdvIntProgram3, null, new { @class = "freeforminput FreeFormExerciseVideos1 col-md-12 col-sm-12 col-xs-12", @placeholder = "Select Advanced/Intermediate Program only" })
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <span id="SpnAdvIntProgramLink3" class="rmv-pd col-md-10 col-sm-10 col-xs-10">
+                                        <a id="AdvIntProgramUrl3" href=@Html.DisplayFor(m => m.AdvIntProgramUrl3) target="_blank">
+                                            @Html.DisplayFor(m => m.AdvIntProgramLink3)
+                                        </a>
+                                    </span>
+                                    <span id="lblAdvIntProgram3" class="error-msg secondary-err-msg"></span>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input1">
+                            <div class="col-md-2 col-lg-2 col-xs-2 mob-view-box">
+                                <span> Workout Trending Category:</span>
+                            </div>
+                            <div class="col-md-10 col-lg-10 col-xs-10 mob-view-box">
+                                <div style="overflow-x:auto; overflow-y:hidden;">
+                                    <fieldset class="txt-specialisation-detail" style="width: 96%;">
+                                        <legend style="width: 200px;font-size: 12px;">Select All Trending Category(s): @Html.CheckBox("SelectWorkoutAllTrendingCategory", false)</legend>
+                                        <div id="detailschkAssignWorkoutTrendingCategory">
+                                            @{
+    var primaryWorkoutListInfo = new HtmlListInfo(HtmlTag.table, 3, null, TextLayout.Default, TemplateIsUsed.No);
+    @Html.CheckBoxListFor(m => m.PostedWorkoutTrendingCategory.TrendingCategoryID, m => m.AvailableWorkoutTrendingCategory,
+m => m.TrendingCategoryId, m => m.TrendingCategoryName, m => m.SelecetdWorkoutTrendingCategory, primaryWorkoutListInfo)
+                                            }
+                                        </div>
+                                        <legend>Sports Trending Category(s) </legend>
+                                        <div>
+                                           @{
+                                               var secondaryWorkoutListInfo = new HtmlListInfo(HtmlTag.table, 3, null, TextLayout.Default, TemplateIsUsed.No);
+                                            @Html.CheckBoxListFor(m => m.PostedSecondaryWorkoutTrendingCategory.TrendingCategoryID, m => m.AvailableSecondaryWorkoutTrendingCategory,
+m => m.TrendingCategoryId, m => m.TrendingCategoryName, m => m.SelecetdSecondaryWorkoutTrendingCategory, secondaryWorkoutListInfo)
+                                        }
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input1">
+                            <div class="col-md-2 col-lg-2 col-xs-2 mob-view-box">
+                                <span>Program Trending Category:</span>
+                            </div>
+                            <div class="col-md-10 col-lg-10 col-xs-10 mob-view-box">
+                                <div style="overflow-x:auto; overflow-y:hidden;">
+                                    <fieldset class="txt-specialisation-detail" style="width: 96%; ">
+                                        <legend style="width: 200px;font-size: 12px;">Select All Trending Category(s): @Html.CheckBox("SelectAllProgramTrendingCategory", false)</legend>
+                                       <div id="detailschkAssignProgramTrendingCategory">
+                                            @{
+    var primaryProgramListInfo = new HtmlListInfo(HtmlTag.table, 3, null, TextLayout.Default, TemplateIsUsed.No);
+    @Html.CheckBoxListFor(m => m.PostedProgramTrendingCategory.TrendingCategoryID, m => m.AvailableProgramTrendingCategory,
+m => m.TrendingCategoryId, m => m.TrendingCategoryName, m => m.SelecetdProgramTrendingCategory, primaryProgramListInfo)
+                                            }
+                                        </div>
+                                        <legend>Sports Trending Category(s) </legend>
+                                        @{
+                                            var secondaryProgramListInfo = new HtmlListInfo(HtmlTag.table, 3, null, TextLayout.Default, TemplateIsUsed.No);
+                                            @Html.CheckBoxListFor(m => m.PostedSecondaryProgramTrendingCategory.TrendingCategoryID, m => m.AvailableSecondaryProgramTrendingCategory,
+m => m.TrendingCategoryId, m => m.TrendingCategoryName, m => m.SelecetdSecondaryProgramTrendingCategory, secondaryProgramListInfo)
+                                        }
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input1">
+                            <div class="col-md-2 col-lg-2 col-xs-2 mob-view-box">
+                                <span>Fitness Test Trending Category:</span>
+                            </div>
+                            <div class="col-md-10 col-lg-10 col-xs-10 mob-view-box">
+                                <div style="overflow-x:auto; overflow-y:hidden;">
+                                    <fieldset class="txt-specialisation-detail" style="width:96%;">
+                                        <legend style="width: 200px;font-size: 12px;">Select All Trending Category(s): @Html.CheckBox("SelectAllFittnestTrendingCategory", false)</legend>
+                                        <div id="detailschkAssignFitnessTestTrendingCategory">
+                                            @{
+    var primaryFitnessTestsListInfo = new HtmlListInfo(HtmlTag.table, 3, null, TextLayout.Default, TemplateIsUsed.No);
+    @Html.CheckBoxListFor(m => m.PostedFitnessTestTrendingCategory.TrendingCategoryID, m => m.AvailableFitnessTestTrendingCategory,
+m => m.TrendingCategoryId, m => m.TrendingCategoryName, m => m.SelecetdFitnessTestTrendingCategory, primaryFitnessTestsListInfo)
+                                            }
+                                        </div>
+                                        <legend>Sports Trending Category(s) </legend>
+                                        @{
+                                            var secondaryFitnessTestsListInfo = new HtmlListInfo(HtmlTag.table, 3, null, TextLayout.Default, TemplateIsUsed.No);
+                                            @Html.CheckBoxListFor(m => m.PostedSecondaryFitnessTestTrendingCategory.TrendingCategoryID, m => m.AvailableSecondaryFitnessTestTrendingCategory,
+m => m.TrendingCategoryId, m => m.TrendingCategoryName, m => m.SelecetdSecondaryFitnessTestTrendingCategory, secondaryFitnessTestsListInfo)
+                                        }
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input" style="margin-top:10px;">
+                            <div class="col-md-2 col-lg-2 col-xs-2">
+                                <label style="align-items:center">Profile Pic:</label>
+                            </div>
+                            <div class="fileupload fileupload-new col-md-10" data-provides="fileupload">
+                                <div id="existingProfileImgConatiner" class="fileupload-new thumbnail" style="max-height:304px;max-width:304px;">
+                                    <img id="existingProfileImg" src='@ViewBag.TeamProfileImageUrl' alt="Photo" />
+
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <div class="uploadprofilephoto">
+                                <div class="grid">
+                                    <div class="col-md-2">
+                                    </div>
+                                    <div class="col-md-10 select-img-btn">
+                                        <div class="fileupload-preview thumbnail" id="uploadprofilephoto"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-10 ation-btn-container">
+                                    <a class="btn btn-primary file-btn">
+                                        <span class="fileupload-new">Select Image</span>
+                                        <input type="file" id="profileupload" value="Choose a file" accept="image/*" />
+                                    </a>
+                                    <span id="ProfileImage">
+                                        <a href="" id="cropProfilePicbtn"><img src="~/Content/images/cropimages.png" alt="crop Image" style="background: #ede9e4;width:50px;height:50px;" /></a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-2 col-lg-2 col-xs-2">
+                                <label style="align-items:center">Premium Channel Pic:</label>
+                            </div>
+                            <div class="fileupload fileupload-new col-md-10" data-provides="fileupload">
+                                <div id="existingPremiumImgConatiner" class="fileupload-new thumbnail" style="max-height:304px;max-width:304px;">
+                                    <img id="existingPremiumImg" src='@ViewBag.TeamPremiumImageUrl' alt="Photo" />
+
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <div class="uploadPremiumphoto">
+                                <div class="grid">
+                                    <div class="col-md-2">
+                                    </div>
+                                    <div class="col-md-10 select-img-btn">
+                                        <div class="fileupload-preview thumbnail" id="uploadPremiumphoto"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-10 ation-btn-container">
+                                    <a class="btn btn-primary file-btn">
+                                        <span class="fileupload-new">Select Image</span>
+                                        <input type="file" id="premiumphotoupload" value="Choose a file" accept="image/*" />
+                                    </a>
+                                    <span id="PrimuimtrainerImage">
+                                        <a href="" id="cropTeamPremiumbtn"><img src="~/Content/images/cropimages.png" alt="crop Image" style="background: #ede9e4;width:50px;height:50px;" /></a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-2 col-lg-2 col-xs-2">
+                                <label style="align-items:center">Nutrition1 Pic:</label>
+                            </div>
+                            <div class="fileupload fileupload-new col-md-10" data-provides="fileupload">
+                                <div id="existingNutrition1ImgConatiner" class="fileupload-new thumbnail" style="max-height:304px;max-width:304px;">
+                                    <img id="existingNutrition1Img" src='@ViewBag.TeamNutrition1ImageUrl' alt="Photo" />
+
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <div class="uploadNutrition1photo">
+                                <div class="grid">
+                                    <div class="col-md-2">
+                                    </div>
+                                    <div class="col-md-10 select-img-btn">
+                                        <div class="fileupload-preview thumbnail" id="uploadNutrition1photo"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-10 ation-btn-container">
+                                    <a class="btn btn-primary file-btn">
+                                        <span class="fileupload-new">Select Image</span>
+                                        <input type="file" id="Nutrition1photoupload" value="Choose a file" accept="image/*" />
+                                    </a>
+                                    <span id="Nutrition1CropImage">
+                                        <a href="" id="cropTeamNutrition1btn"><img src="~/Content/images/cropimages.png" alt="crop Image" style="background: #ede9e4;width:50px;height:50px;" /></a>
+                                    </span>
+                                    <div class="clr-both"></div>
+                                    @Html.ValidationMessageFor(m => m.Nutrition1ImageUrl, "", new { @class = "error-msg" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row-colum">
+                            <label class="pull-left remove-margin-left"> Nutrition1 hyperlink:</label>
+                            <div class="col-md-10 col-lg-10 col-xs-10">
+                                @Html.TextBoxFor(m => m.Nutrition1HyerLink, null, new { @class = "freeforminput FreeFormExerciseVideos1 col-md-12 col-sm-12 col-xs-12", @placeholder = "Please enter Nutrition1 HyerLink" })
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    @Html.ValidationMessageFor(m => m.Nutrition1HyerLink, "", new { id = "ErrorBeginnerProgram", @class = "error-msg" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-2 col-lg-2 col-xs-2">
+                                <label style="align-items:center"> Nutrition2 Pic:</label>
+                            </div>
+                            <div class="fileupload fileupload-new col-md-10" data-provides="fileupload">
+                                <div id="existingNutrition2ImgConatiner" class="fileupload-new thumbnail" style="max-height:304px;max-width:304px;">
+                                    <img id="existingNutrition2Img" src='@ViewBag.TeamNutrition2ImageUrl' alt="Photo" />
+
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <div class="uploadNutrition2photo">
+                                <div class="grid">
+                                    <div class="col-md-2">
+                                    </div>
+                                    <div class="col-md-10 select-img-btn">
+                                        <div class="fileupload-preview thumbnail" id="uploadNutrition2photo"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-10 ation-btn-container">
+                                    <a class="btn btn-primary file-btn">
+                                        <span class="fileupload-new">Select Image</span>
+                                        <input type="file" id="Nutrition2photoupload" value="Choose a file" accept="image/*" />
+                                    </a>
+                                    <span id="Nutrition2CropImage">
+                                        <a href="" id="cropTeamNutrition2btn"><img src="~/Content/images/cropimages.png" alt="crop Image" style="background: #ede9e4;width:50px;height:50px;" /></a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clr-both"></div>
+                        <div class="row-colum">
+                            <label class="pull-left remove-margin-left"> Nutrition2 hyperlink:</label>
+                            <div class="col-md-10 col-lg-10 col-xs-10">
+                                @Html.TextBoxFor(m => m.Nutrition2HyerLink, null, new { @class = "freeforminput FreeFormExerciseVideos1 col-md-12 col-sm-12 col-xs-12", @placeholder = "Please enter Nutrition2 HyerLink" })
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    @Html.ValidationMessageFor(m => m.Nutrition2HyerLink, "", new { id = "ErrorBeginnerProgram", @class = "error-msg" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <!-- end step -->
+
+                <div class="clr-both"></div>
+                <div class="bottom-button">
+                    <input name="" type="button" value="Update" class="submit" id="btnSubmit" />
+                    @if (Convert.ToString(@Session[LinksMediaCorpUtility.Resources.Message.PreviousUrl]).Equals(LinksMediaCorpUtility.Resources.Message.MainUrlText))
+                    {
+                        @Html.ActionLink("Cancel", "Main", "Reporting", new { }, new { @class = "submit" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Cancel", "Teams", "Reporting", new { }, new { @class = "submit" })
+                    }
+                </div>
+            </div>
+            <!-- end challenge-content -->
+        </div>
+        <!-- end create-challenge -->
+        <div class="clearfix"></div>
+    </div>
+}
+@Scripts.Render("~/bundles/UpdateTeamcroppie")
+<script>
+    UpdateTeam.init();
+</script>
+

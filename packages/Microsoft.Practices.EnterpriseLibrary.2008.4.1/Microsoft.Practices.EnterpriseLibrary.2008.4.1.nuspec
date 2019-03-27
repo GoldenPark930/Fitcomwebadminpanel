@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.Practices.EnterpriseLibrary.2008</id>
+    <version>4.1</version>
+    <title>Microsoft.Practices.EnterpriseLibrary.2008</title>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <iconUrl>http://nuget.org/Media/Default/Packages/Unity/2.0/entlib_new_icon_100x100.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Microsoft Enterprise Library is a collection of reusable application blocks designed to assist software developers with common enterprise development challenges. This release includes: Caching, Cryptography, Data Access, Exception Handling, Logging, Policy Injection, Security, Validation, and Unity.</description>
+    <summary>Enterprise Library 4.1-October 2008</summary>
+    <releaseNotes>This original MS https://www.microsoft.com/en-us/download/details.aspx?id=6228 library nuget</releaseNotes>
+    <tags>Microsoft Enterprise Library entlib EntLib4</tags>
+  </metadata>
+</package>

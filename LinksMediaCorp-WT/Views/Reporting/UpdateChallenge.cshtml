@@ -1,0 +1,871 @@
+﻿@model LinksMediaCorpEntity.CreateChallengeVM
+<script src="~/Scripts/ckeditor/ckeditor.js"></script>
+@using MvcCheckBoxList.Model
+@using LinksMediaCorpUtility.Resources
+@Scripts.Render("~/Content/stylesheet")
+@Styles.Render("~/Content/croppie")
+@Styles.Render("~/Content/challenge")
+@Scripts.Render("~/bundles/ui")
+@Scripts.Render("~/bundles/challenge")
+@Scripts.Render("~/bundles/FeatureImageUpload")
+@Scripts.Render("~/bundles/queue")
+
+@{
+    Layout = "~/Views/Shared/_FitComLayout.cshtml";
+    ViewBag.Title = "EditChallenge";
+
+    List<LinksMediaCorpEntity.ChallengeTypes> lstChallangeType = new List<LinksMediaCorpEntity.ChallengeTypes>();
+    if (ViewBag.ChallengeTypeList != null)
+    {
+        lstChallangeType = ViewBag.ChallengeTypeList;
+        lstChallangeType = lstChallangeType.GroupBy(e => new
+        {
+            empLoc = e.ChallengeType
+        }).Select(g => g.FirstOrDefault()).ToList();
+    }
+
+    List<LinksMediaCorpEntity.ChallengeTypes> lstChallangeSubType = new List<LinksMediaCorpEntity.ChallengeTypes>();
+    if (ViewBag.ChallengeTypeSubList != null)
+    {
+        lstChallangeSubType = ViewBag.ChallengeTypeSubList;
+    }
+
+    List<LinksMediaCorpEntity.TrainerViewVM> lstTrainers = new List<LinksMediaCorpEntity.TrainerViewVM>();
+    if (ViewBag.Trainers != null)
+    {
+        lstTrainers = ViewBag.Trainers;
+        lstTrainers = lstTrainers.GroupBy(e => new
+        {
+            trainerName = e.TrainerName
+        }).Select(g => g.FirstOrDefault()).ToList();
+    }
+
+    List<LinksMediaCorpEntity.ExerciseType> lstExerciseType = new List<LinksMediaCorpEntity.ExerciseType>();
+    if (ViewBag.ExerciseTypeList != null)
+    {
+        lstExerciseType = ViewBag.ExerciseTypeList;
+    }
+
+    List<LinksMediaCorpEntity.CreateUserVM> lstUsers = new List<LinksMediaCorpEntity.CreateUserVM>();
+    if (ViewBag.Users != null)
+    {
+        lstUsers = ViewBag.Users;
+        lstUsers = lstUsers.GroupBy(e => new
+        {
+            userName = e.UserName
+        }).Select(g => g.FirstOrDefault()).ToList();
+    }
+
+    List<LinksMediaCorpEntity.UserResult> lstTrainerResult = new List<LinksMediaCorpEntity.UserResult>();
+    if (ViewBag.TrainerResult != null)
+    {
+        lstTrainerResult = ViewBag.TrainerResult;
+    }
+
+    List<LinksMediaCorpEntity.UserResult> lstUserResult = new List<LinksMediaCorpEntity.UserResult>();
+    if (ViewBag.UserResult != null)
+    {
+        lstUserResult = ViewBag.UserResult;
+    }
+
+    List<LinksMediaCorpEntity.ViewTrainers> lstallTrainers = new List<LinksMediaCorpEntity.ViewTrainers>();
+    if (ViewBag.TrainerList != null)
+    {
+        lstallTrainers = ViewBag.TrainerList;
+    }
+
+    List<System.Web.WebPages.Html.SelectListItem> lstFractionList = new List<System.Web.WebPages.Html.SelectListItem>();
+    if (ViewBag.FractionLIst != null)
+    {
+        lstFractionList = ViewBag.FractionLIst;
+    }
+    else
+    {
+        <script type="text/javascript">
+            $(function () {
+                $('#ResultFrection').hide();
+            });
+        </script>
+
+    }
+
+    /*Code for radio button list*/
+    List<LinksMediaCorpEntity.BodyPart> lstBodyPart = new List<LinksMediaCorpEntity.BodyPart>();
+    if (ViewBag.ListBodyPartList != null)
+    {
+        lstBodyPart = ViewBag.ListBodyPartList;
+    }
+
+    /*Code for radio button list of Equipment*/
+    List<LinksMediaCorpEntity.Equipments> lstEquipment = new List<LinksMediaCorpEntity.Equipments>();
+    if (ViewBag.ListEquipment != null)
+    {
+        lstEquipment = ViewBag.ListEquipment;
+    }
+
+    /*Code for radio button list of Equipment*/
+    List<LinksMediaCorpEntity.Difficulties> lstDifficulty = new List<LinksMediaCorpEntity.Difficulties>();
+    if (ViewBag.ListDifficulty != null)
+    {
+        lstDifficulty = ViewBag.ListDifficulty;
+    }
+
+    <script type="text/javascript">
+        $('#Home_li').removeClass("active");
+        $('#Reporing_li').removeClass('active');
+        $('#chalenges_submenu').removeClass("inner-menu");
+        $('#activities_submenu').removeClass('inner-menu');
+        $('#trainers_submenu').removeClass("inner-menu");
+        $('#users_submenu').removeClass('inner-menu');
+        $('#teams_submenu').removeClass("inner-menu");
+        $('#Reporing_li').addClass('active');
+
+    </script>
+    if (!Convert.ToString(@Session[LinksMediaCorpUtility.Resources.Message.PreviousUrl]).Equals(LinksMediaCorpUtility.Resources.Message.MainUrlText))
+    {
+        <script type="text/javascript">
+            $('#chalenges_submenu').addClass("inner-menu");
+        </script>
+    }
+}
+
+<!-- start page-wrapper -->
+@using (Html.BeginForm("UpdateChallenge", "Reporting", FormMethod.Post,
+                                                  new { id = "myform", enctype = "multipart/form-data" }))
+{
+    <div id="page-wrapper">
+        <!-- Start hidden field Section -->
+        @Html.HiddenFor(m => m.VariableLimit)
+        @Html.HiddenFor(model => model.ChallengeId)
+        @Html.HiddenFor(model => model.CreatedBy)
+        @Html.HiddenFor(model => model.CreatedDate)
+        @Html.HiddenFor(m => m.IsMoreThenOne)
+        @Html.HiddenFor(m => m.VariableUnit)
+        @Html.HiddenFor(m => m.ResultUnitType)
+        @Html.HiddenFor(m => m.ExeIndexLink1)
+        @Html.HiddenFor(m => m.FreeFormExerciseNameDescriptionList)
+        @Html.HiddenFor(m => m.SelectedAllIndex)
+        @Html.HiddenFor(m => m.ExerciseId)
+        @Html.HiddenFor(m => m.ExerciseId1)
+        @Html.HiddenFor(m => m.FFExeDesc1)
+        @Html.HiddenFor(m => m.SelectedChallengeTypeId)
+        @Html.HiddenFor(model => model.SelectedEquipmentCheck)
+        @Html.HiddenFor(m => m.Page)
+        @Html.HiddenFor(m => m.SortField)
+        @Html.HiddenFor(model => model.Sortdir)
+        @Html.HiddenFor(model => model.CEARocordId1)
+        @Html.HiddenFor(model => model.CropImageRowData)
+        @Html.HiddenFor(model => model.FeaturedImageUrl)
+        @Html.HiddenFor(model => model.SelectedChallengeCategoryCheck)
+        <!-- End hidden field Section -->
+        <!-- start create-challenge -->
+        <div class="create-challenge">
+            <h3>
+                @Html.DisplayFor(m => m.ChallengeName)
+                <div class="header-link-btn">
+                    <input name="" type="button" id="btnTopAdminUpdateChallange" value="Update" class="submit" />
+                    @if (Convert.ToString(@Session[LinksMediaCorpUtility.Resources.Message.PreviousUrl]).Equals(LinksMediaCorpUtility.Resources.Message.MainUrlText))
+                    {
+                        @Html.ActionLink("Cancel", "Main", "Reporting", new { }, new { @class = "submit" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Cancel", "Challenges", "Reporting", new { page = Model.Page, sort = Model.SortField, sortdir = Model.Sortdir }, new { @class = "submit" })
+                    }
+                </div>
+                <div class="clr-both"></div>
+            </h3>
+            <!-- start challenge-content -->
+            <div class="challenge-content">
+                <div class="step">
+                    <h5>Manage Queue: </h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+                        <div class="clr-both"></div>
+                        <div class="row txt-lbl-input">
+                            <div class="col-md-12 col-lg-12 col-xs-12">
+                                <label><span class="active-new-chckbox pull-left">Active Challenge:</span>@Html.CheckBox("IsActive", new { @class = "checkbox-btn" })</label>
+                                &nbsp; &nbsp; &nbsp; &nbsp;
+                                <label id="divchkPremium"><span class="active-new-chckbox pull-left">Premium Challenge:</span>@Html.CheckBox("IsPremium", new { @class = "checkbox-btn" })</label>
+                                &nbsp; &nbsp; &nbsp; &nbsp;
+                                <label id="divchkFreeFitnessTest"><span class="active-new-chckbox pull-left">Free Fitness Tests:</span>@Html.CheckBox("IsFreeFitnessTest", new { @class = "checkbox-btn" })</label>
+                                &nbsp; &nbsp; &nbsp; &nbsp;
+                                <label id="divchkSubscription"><span class="active-new-chckbox pull-left">Subscription Challenge:</span>@Html.CheckBox("IsSubscription", new { @class = "checkbox-btn" })</label>
+                                &nbsp; &nbsp; &nbsp; &nbsp;
+                                <label id="divchkFeatured"><span class="active-new-chckbox pull-left">Featured Challenge:</span>@Html.CheckBox("IsFeatured", new { @class = "checkbox-btn" })</label>
+
+                            </div>
+
+                        </div>
+                        <div class="clr-both"></div>
+                        <div id="divqueue">
+                            <div class="date-time-picker-box"><b>Set to COD Queue:</b> @Html.CheckBox("IsSetToCOD")</div>
+                            <div id="divCOD" style="display:none;">
+                                <div class="clr-both"></div>
+                                <div class="row txt-lbl-input">
+                                    <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                        <label>Start Date:</label>
+                                        @Html.TextBoxFor(m => m.CODStartDate, "{0:MM/dd/yyyy}", new { @class = "input-text-right" })
+                                        <div class="clr-both"></div>
+                                        <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                        <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                            @Html.ValidationMessageFor(m => m.CODStartDate, "", new { @class = "error-msg" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                        <label>End Date:</label>
+                                        @Html.TextBoxFor(m => m.CODEndDate, "{0:MM/dd/yyyy}", new { @class = "input-text-right" })
+                                        <div class="clr-both"></div>
+                                        <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                        <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                            @Html.ValidationMessageFor(m => m.CODEndDate, "", new { @class = "error-msg" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clr-both"></div>
+                                <div class="row txt-lbl-input">
+                                    <div class="col-md-6 col-lg-6 col-xs-6 state-drop-down-listbox ">
+                                        <label>User Full Name:</label>
+                                        @Html.DropDownListFor(m => m.EndUserNameId, new SelectList(lstUsers, "UserId", "UserName"), "--Choose User--", new { @class = "select-drop" })
+                                        <div class="clr-both"></div>
+                                        <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                        <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                            @Html.ValidationMessageFor(m => m.EndUserNameId, "", new { @class = "error-msg" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 col-xs-6 state-drop-down-listbox ">
+                                        <label>Best Result:</label>
+                                        <span id='loadingUserResult' style='display:none;'>
+                                            <img src='~/images/ajax-loader.gif' />
+                                        </span>
+                                        @Html.DropDownListFor(m => m.UserResultId, new SelectList(lstUserResult, "Id", "Result"), "--Choose Result--", new { @class = "select-drop" })
+                                        <div class="clr-both"></div>
+                                        <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                        <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                            @Html.ValidationMessageFor(m => m.UserResultId, "", new { @class = "error-msg" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clr-both"></div>
+                                <div class="row txt-lbl-input">
+                                    <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                        <label>Video Link:</label>
+                                        @Html.TextBoxFor(m => m.UserVideoLink, new { @class = "input-text-right", maxLength = "200" })
+                                        <div class="clr-both"></div>
+                                        <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                        <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                            @Html.ValidationMessageFor(m => m.UserVideoLink, "", new { @class = "error-msg" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><div class="clr-both"></div>
+                            <div class="date-time-picker-box"><b>Set to Sponsor Challenge Queue:</b> @Html.CheckBox("IsSetToSponsorChallenge")</div>
+                            <div id="divSC" style="display:none;">
+                                <div class="clr-both"></div>
+                                <div class="row txt-lbl-input">
+                                    <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                        <label>Start Date:</label>
+                                        @Html.TextBoxFor(m => m.TCStartDate, "{0:MM/dd/yyyy}", new { @class = "input-text-right" })
+                                        <div class="clr-both"></div>
+                                        <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                        <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                            @Html.ValidationMessageFor(m => m.TCStartDate, "", new { @class = "error-msg" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                        <label>End Date:</label>
+                                        @Html.TextBoxFor(m => m.TCEndDate, "{0:MM/dd/yyyy}", new { @class = "input-text-right" })
+                                        <div class="clr-both"></div>
+                                        <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                        <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                            @Html.ValidationMessageFor(m => m.TCEndDate, "", new { @class = "error-msg" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clr-both"></div>
+                                <div class="row txt-lbl-input">
+                                    <div class="col-md-6 col-lg-6 col-xs-6  state-drop-down-listbox">
+                                        <label>Trainer Name:</label>
+                                        @Html.DropDownListFor(m => m.TrainerId, new SelectList(lstTrainers, "TrainerId", "TrainerName"), "--Choose Trainer--", new { @class = "select-drop" })
+                                        <div class="clr-both"></div>
+                                        <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                        <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                            @Html.ValidationMessageFor(m => m.TrainerId, "", new { @class = "error-msg" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 col-xs-6  state-drop-down-listbox">
+                                        <label>Best Result:</label>
+                                        <span id='loadingTrainerResult' style='display:none;'>
+                                            <img src='~/images/ajax-loader.gif' />
+                                        </span>
+                                        @Html.DropDownListFor(m => m.ResultId, new SelectList(lstTrainerResult, "Id", "Result"), "--Choose Result--", new { @class = "select-drop" })
+                                        <div class="clr-both"></div>
+                                        <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                        <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                            @Html.ValidationMessageFor(m => m.ResultId, "", new { @class = "error-msg" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clr-both"></div>
+                                <div class="row txt-lbl-input">
+                                    <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                        <label>Video Link:</label>
+                                        @Html.TextBoxFor(m => m.TrainerVideoLink, new { @class = "input-text-right", maxLength = "200" })
+                                        <div class="clr-both"></div>
+                                        <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                        <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                            @Html.ValidationMessageFor(m => m.TrainerVideoLink, "", new { @class = "error-msg" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 col-xs-6 ">
+                                        <label>Sponsor Name:</label>
+                                        @Html.TextBoxFor(m => m.SponsorName, null, new { @class = "input-text-right", maxLength = "100" })
+                                        <div class="clr-both"></div>
+                                        <div class="col-md-4 col-lg-4 col-xs-4"></div>
+                                        <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">
+                                            @Html.ValidationMessageFor(m => m.SponsorName, "", new { @class = "error-msg" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clr-both"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+
+
+                        <div id="FeaturedUploadSection" class="row txt-lbl-input">
+                            <div class="col-md-2 col-lg-2 col-xs-2 mob-view-box">
+                                <label>Featured Photo :</label>
+                            </div>
+                            <div class="col-md-10 col-lg-10 col-xs-10 mob-view-box">
+                                <div class="fileupload fileupload-new col-md-10">
+                                    <div id="existingFeaturedImgConatiner" class="fileupload-new thumbnail" style="max-height:260px;max-width:320px;">
+                                        <img id="existingFeaturedImg" src='@ViewBag.FeaturedPhoto' alt="Photo" />
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="upload-FeaturedImage">
+                                    <div class="grid">
+
+                                        <div class="col-md-10 select-img-btn">
+                                            <div class="fileupload-preview thumbnail" id="upload-FeaturedImage"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="actions">
+                                    <div class="col-md-10 ation-btn-container">
+                                        <a class="btn btn-primary file-btn">
+                                            <span class="fileupload-new">Select Image</span>
+                                            <input type="file" id="FeaturedUpload" value="Choose a file" accept="image/*" />
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <!-- start step -->
+                <div class="step">
+                    <h5>Select Challenge Type: </h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+                        @Html.DropDownListFor(m => m.ChallengeType, new SelectList(lstChallangeType, "ChallengeSubTypeId", "ChallengeType", Model.SelectedChallengeTypeId), "--Choose Challenge Type--", new { @class = "select", onchange = "onChangeId();" })
+                        <div class="clearfix"></div>
+                        @Html.ValidationMessageFor(m => m.ChallengeType, "", new { @class = "error-msg pad0" })
+                    </div>
+                    <div class="step-des">
+                        @Html.DropDownListFor(m => m.ChallengeSubTypeId, new SelectList(lstChallangeSubType, "ChallengeSubTypeId", "ChallengeSubType", Model.ChallengeSubTypeId), "--Choose Challenge Sub-Type--", new { onchange = "onChangeId();", @class = "select" })
+                        <span id='loadingChallengeSubType' style='display:none;'>
+                            <img src='~/images/ajax-loader.gif' />
+                        </span>
+                        <div class="clearfix"></div>
+                        @Html.ValidationMessageFor(m => m.ChallengeSubTypeId, "", new { @class = "error-msg pad0" })
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <div class="step" id="divChallengeCategorySection">
+                    <h5>Select Your Category: </h5>
+                    <!-- start step-des -->
+                    <div class="col-xs-12 col-md-12 col-lg-12 mob-view-box">
+                        <div style="overflow-x:auto; overflow-y:hidden;">
+                            <fieldset class="txt-specialisation-detail margin-top" style="width:96%;">
+                                <div id="chkAllChallengeCategory">
+                                    <div style="color:red;"> @Html.ValidationMessageFor(m => m.SelectedChallengeCategoryCheck, "", new { })</div>
+                                    @{
+                                        var primaryChallengeCategoryListInfo = new HtmlListInfo(HtmlTag.table, 5, null, TextLayout.Default, TemplateIsUsed.No);
+                                        @Html.CheckBoxListFor(m => m.PostedChallengeCategory.ChallengeCategoryId, m => m.AvailableChallengeCategory,
+m => m.ChallengeCategoryId, m => m.ChallengeCategoryName, m => m.SelecetdChallengeCategory, primaryChallengeCategoryListInfo)
+                                    }
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <!-- end step-des -->
+                </div>
+
+                <!-- end step -->
+                <!-- start step -->
+                <div class="step" id="CreateChangeDifficultyLevel">
+                    <h5>Select Difficulty Level:</h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+
+                        @{
+                            int i = 0;
+                            foreach (var item in lstDifficulty)
+                            {
+                                <div class="seq-input-lbl">
+                                    @if (i == 0)
+                                    {
+                                        @Html.RadioButtonFor(m => m.DifficultyLevel, item.Difficulty, new { @class = "radio", @checked = true })
+                                        i = i + 1;
+                                    }
+                                    else
+                                    {
+                                        @Html.RadioButtonFor(m => m.DifficultyLevel, item.Difficulty, new { @class = "radio" })
+                                    }
+                                    @Html.LabelFor(m => m.DifficultyLevel, item.Difficulty, new { @class = "label" })
+                                </div>
+                            }
+                        }
+
+
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <!-- end step -->
+                <div id="FreeFormChallegeDescriptionHeaderSection" class="step">
+                    <h5 id="ChallegeDescriptionHeader">Describe Your Challenge: </h5>
+                    <!-- start step-des -->
+                    <div class="row txt-lbl-input">
+                        <div class="col-md-12 col-lg-12 col-xs-12 mob-view-box">
+                            <div class="clr-both"></div>
+                            <div class="col-md-12 col-lg-12 col-xs-12"></div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">  @Html.ValidationMessageFor(m => m.Description, "", new { @class = "error-msg" })</div>
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-xs-12 mob-view-box">
+                            @Html.TextAreaFor(m => m.Description, new { @class = "ckeditor", maxLength = "1000", placeholder = "Max Char limit 1000" })
+                        </div>
+                    </div>
+
+                    <!-- end step-des -->
+                </div>
+                <div id="FreeFormChallegeDetailsSection" class="step">
+                    <h5 id="ChallegeDescriptionHeader">Challenge Details:</h5>
+                    <!-- start step-des -->
+                    <div class="row txt-lbl-input">
+                        <div class="col-md-12 col-lg-12 col-xs-12 mob-view-box">
+                            <div class="clr-both"></div>
+                            <div class="col-md-12 col-lg-12 col-xs-12"></div>
+                            <div class="col-md-6 col-lg-6 col-xs-6 remove-margin-left">  @Html.ValidationMessageFor(m => m.ChallengeDetail, "", new { id = "spnChallengeDetails", @class = "error-msg" })</div>
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-xs-12 mob-view-box">
+                            @Html.TextAreaFor(m => m.ChallengeDetail, new { @class = "ckeditor", maxLength = "1000", placeholder = "Max Char limit 1000" })
+                        </div>
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <div class="step" id="FreeFormChallegeDurationSection">
+                    <h5>How long is Workout:</h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+                        <div class="row-colum">
+                            @Html.TextBoxFor(m => m.FFChallengeDuration, null, new { @class = "input", maxLength = "200" })
+                            @Html.ValidationMessageFor(m => m.FFChallengeDuration, "", new { @class = "error-msg none error-btm" })
+                        </div>
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <!-- start step -->
+                <div class="step" id="FitcomChallengeExeciseSection">
+                    <h5>Choose Exercise(s):</h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+                        <div class="row-colum">
+                            <div>
+                                <label class="pull-left" style="width: auto; margin-right: 5px; margin-left: 50px; padding: 5px 1%; line-height: 25px;">Equipments:</label>
+                                @*<select id="chkSearchEquipment" multiple="multiple" title="Equipment" style="width:180px;"></select>*@
+                                @Html.DropDownListFor(m => m.SelectedFitcomEquipment1, new SelectList(lstEquipment, "EquipmentId", "Equipment"), "--Choose Equipments--", new { @class = "select" })
+
+                            </div>
+                            <div>
+                                <label class="pull-left" style="width: auto; margin-right: 5px; margin-left: 10px; padding: 5px 1%; line-height: 25px;">Training Zones:</label>
+                                @*<select id="chkTrainingZone" multiple="multiple" title="Training Zone" style="width:180px;"></select>*@
+                                @Html.DropDownListFor(m => m.SelectedFitcomTrainingZone1, new SelectList(lstBodyPart, "PartId", "PartName"), "--Choose Training Zones--", new { @class = "select" })
+                            </div>
+                            <div>
+                                <label class="pull-left" style="width: auto; margin-right: 5px; margin-left: 10px; padding: 5px 1%; line-height: 25px;">Exercise Types:</label>
+                                @*<select id="chkSearchExerciseType" multiple="multiple" title="Exercise Type" style="width:180px;"></select>*@
+                                @Html.DropDownListFor(m => m.SelectedFitcomExeciseType1, new SelectList(lstExerciseType, "ExerciseTypeId", "ExerciseName"), "--Choose Exercise Types--", new { @class = "select" })
+                            </div>
+                        </div>
+                        <div class="row-colum">
+                            <label>Name of Exercise 1:</label>
+                            @Html.TextBoxFor(m => m.ExeName1, null, new { @class = "input" })
+                            <span id="ExeVideoLink1">
+                                <a href=@Html.DisplayFor(m => m.ExeVideoUrl1) target="_blank">@Html.DisplayFor(m => m.ExeVideoLink1)</a>
+                            </span>
+                            <span id="lblExe1" class="error-msg secondary-err-msg"></span>
+                            @Html.ValidationMessageFor(m => m.ExeName1, "", new { @class = "error-msg" })
+
+                        </div>
+                        <div class="row-colum">
+                            <label>Description:</label>
+                            @Html.TextAreaFor(m => m.ExeDesc1, new { @class = "textarea", maxLength = "500", placeholder = "Max Char limit 500" })
+
+                        </div>
+
+                        <div class="reps-in-box">
+                            <div class="rmv-pd col-md-4 col-sm-12 col-xs-12" id="reps-level">
+                                <label class="lbl-txt col-md-5  col-sm-12 col-xs-12 reps-wdth-box"># Reps</label>
+                                @Html.TextBoxFor(m => m.Reps1, null, new { @class = "input in-textbox col-md-6 col-sm-12 col-xs-12 cc-input-box", maxLength = "3" })
+
+                            </div>
+                            <div class="rmv-pd col-md-4 col-sm-12 col-xs-12">
+                                <label class="lbl-txt col-md-5 col-sm-12 col-xs-12 reps-wdth-box">Weight For Men (lbs)</label>
+                                @Html.TextBoxFor(m => m.WeightForMan1, null, new { @class = "input in-textbox col-md-6 col-sm-12 col-xs-12", maxLength = "3" })
+                            </div>
+                            <div class="rmv-pd col-md-4 col-sm-12 col-xs-12">
+                                <label class="lbl-txt col-md-6 col-sm-12 col-xs-12">Weight For Women (lbs)</label>
+                                @Html.TextBoxFor(m => m.WeightForWoman1, null, new { @class = "input in-textbox col-md-6 col-sm-12 col-xs-12", maxLength = "3" })
+                            </div>
+                            <div class="clr-both"></div>
+                        </div>
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <div class="step" id="FreeFormChallengeExeciseSection">
+                    <h5 id="AdminFreefromExeciseSection"> Choose Exercise(s):</h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+                        <br />
+                        <div>
+                            <div class="rmv-pd col-md-4 col-sm-12 col-xs-12 exer-sec">
+                                <label class="pull-left" style="width: auto; margin-right: 5px; padding: 5px 1%;">Equipments:</label>
+                                @Html.DropDownListFor(m => m.SelectedEquipment1, new SelectList(lstEquipment, "EquipmentId", "Equipment"), "--Choose Equipments--", new { id = "FFdrpdownEquipments1", @class = "select" })
+                            </div>
+                            <div class="rmv-pd col-md-4 col-sm-12 col-xs-12 exer-sec">
+                                <label class="pull-left" style="width: auto; margin-right: 5px; padding: 5px 1%;">Training Zones:</label>
+                                @Html.DropDownListFor(m => m.SelectedTrainingZone1, new SelectList(lstBodyPart, "PartId", "PartName"), "--Choose Training Zones--", new { id = "FFdrpdownTrainingZones1", @class = "select" })
+                            </div>
+                            <div class="rmv-pd col-md-4 col-sm-12 col-xs-12 exer-sec">
+                                <label class="pull-left" style="width: auto; margin-right: 5px; padding: 5px 1%;">Exercise Types:</label>
+                                @Html.DropDownListFor(m => m.SelectedExeciseType1, new SelectList(lstExerciseType, "ExerciseTypeId", "ExerciseName"), "--Choose Exercise Types--", new { id = "FFdrpdownExerciseTypes1", @class = "select" })
+                            </div>
+                        </div>
+                        <div class="row-colum add-step">
+                            <div class="clr-both"></div>
+                            <input type="hidden" id="IsNewAddedExercise1" value="0">
+                            <label>Name of Exercise 1:</label>
+                            @Html.TextBoxFor(m => m.FFExeName1, null, new { @class = "freeforminput FreeFormExerciseVideos1 col-md-10 col-sm-10 col-xs-10" })
+                            <div class="row-colum col-md-12 col-sm-12 col-xs-12">
+                                <label>&nbsp;</label>
+                                <span id="FFExeVideoLink1">
+                                    <a href=@Html.DisplayFor(m => m.FFExeVideoUrl1) target="_blank">@Html.DisplayFor(m => m.FFExeVideoLink1)</a>
+                                </span>
+                                <span id="lblExe1" class="error-msg secondary-err-msg"></span>
+                                @Html.ValidationMessageFor(m => m.FFExeName1, "", new { @class = "error-msg" })
+                            </div>
+                            <div class="row-colum col-md-12 col-sm-12 col-xs-12 input-group">
+                                <label><span class="active-new-chckbox pull-left">Alternate Name:</span>@Html.CheckBoxFor(m => m.IsFFAExeName1, new { @class = "checkbox-btn" })</label>
+                                @Html.TextBoxFor(m => m.FFAExeName1, null, new { @class = "freeforminput col-md-10 col-sm-10 col-xs-10 pull-right" })
+                            </div>
+                            <div class="row-colum col-md-12 col-sm-12 col-xs-12">
+                                <label><span class="active-new-chckbox pull-left">Set As First Exercise:</span>@Html.CheckBoxFor(m => m.IsSetFirstExecise, new { id = "IsSetFirstExecise1", @class = "checkbox-btn" })</label>
+
+                            </div>
+                        </div>
+                        <div class="row-colum">
+                            <div id="execeMainsetId1" class="Main-set main-bg-set">
+                                <div id=1>
+                                    <div class="set-heading">
+                                        <span id="exesetTittle1"> Set 1</span>
+                                    </div><label>How Many Reps:</label>
+                                    <input class="freeforminput FreeFormExerciseVideos1 col-md-10 col-sm-10 col-xs-10 ui-autocomplete-input ui-corner-all" id="ExecSetRep1" name="ExecSetRep1" type="text" value="" autocomplete="off">
+                                    <div class="or-section"><span>OR</span></div><label>How Much Time:</label>
+                                    <label style="width:47px;margin-right:2px;" class="lbl-txt">Hour(s)</label>
+                                    <input class="input " data-val="true" data-val-range="Please enter valid Hour(s)." data-val-range-max="24" data-val-range-min="0" id="SetTimeHours1" maxlength="2" name="SetTimeHours1" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;" type="text" value="00">
+                                    <label style="width:55px;margin-right:5px;" class="lbl-txt">Minute(s)</label>
+                                    <input class="input" data-val="true" data-val-range="Please enter valid Minute(s)." data-val-range-max="60" data-val-range-min="0" id="SetTimeMinute1" maxlength="2" name="SetTimeMinute1" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;" type="text" value="00">
+                                    <label style="width:58px;margin-right:5px;" class="lbl-txt">Second(s)</label>
+                                    <input class="input " data-val="true" data-val-range="Please enter valid Second(s)." data-val-range-max="60" data-val-range-min="0" id="SetTimeSecond1" maxlength="2" name="SetTimeSecond1" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;" type="text" value="00">
+                                    <label style="width:30px;margin-right:5px;" class="lbl-txt">HS(s)</label>
+                                    <input class="input" data-val="true" data-val-range="Please enter valid HS(s)." data-val-range-max="99" data-val-range-min="0" id="SetTimeHS1" maxlength="2" name="SetTimeHS1" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;height:32px;" type="text" value="00">
+                                    <span class="active-new-chckbox pull-left" style="line-height:31px;">Auto Count Down:</span>
+
+                                    <div class="gender-option-pd">
+                                        <input id="IsSetAutoCountDown1" name="IsSetAutoCountDown1" type="checkbox" checked="checked" class="IsChangedExeciseName checkbox-autcountbtn" />
+                                    </div>
+                                    <div class="clr-both">
+                                    </div>
+                                    <label>Description:</label><textarea class="freeformtextarea col-md-10 col-sm-10 col-xs-9" cols="20" id="ExecSetDescription1" maxlength="500" name="ExecSetDescription1" placeholder="Max Char limit 500" rows="2"></textarea>
+                                    <div class="clr-both">
+                                    </div>
+                                    <label>How Much Rest Time:</label><label style="width:47px;margin-right:2px;" class="lbl-txt">Hour(s)</label>
+                                    <input class="input" data-val="true" data-val-range="Please enter valid Hour(s)." data-val-range-max="24" data-val-range-min="0" id="RestTimeHours1" maxlength="2" name="RestTimeHours1" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;" type="text" value="00">
+                                    <label style="width:55px;margin-right:5px;" class="lbl-txt">Minute(s)</label>
+                                    <input class="input " data-val="true" data-val-range="Please enter valid Minute(s)." data-val-range-max="60" data-val-range-min="0" id="RestTimeMinute1" maxlength="2" name="RestTimeMinute1" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;" type="text" value="00">
+                                    <label style="width:58px;margin-right:5px;" class="lbl-txt">Second(s)</label>
+                                    <input class="input " data-val="true" data-val-range="Please enter valid Second(s)." data-val-range-max="60" data-val-range-min="0" id="RestTimeSecond1" maxlength="2" name="RestTimeSecond1" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;" type="text" value="00">
+                                    <label style="width:30px;margin-right:5px;" class="lbl-txt">HS(s)</label>
+                                    <input class="input" data-val="true" data-val-range="Please enter valid HS(s)." data-val-range-max="99" data-val-range-min="0" id="RestTimeHS1" maxlength="2" name="RestTimeHS1" style="width:60px;padding:5px;margin-right:5px;text-align:center;height:32px;" type="text" value="00">
+                                    <input type="hidden" id="IsNewAddedSet1" value="0">
+                                    <div class="clr-both"></div>
+                                </div>
+                            </div>
+                            <div class="add-set">
+                                <button id="btnAddExeciseSet1" class="add_set_button marginBot10">Add Set</button>
+                            </div>
+                            <div class="btn-add-new"><button id="InsertExecise1" class="add_field_button add-exercise">Add Exercise</button></div>
+                        </div>
+                        <div class="clr-both chose-ex-parts"></div>
+                        <input type="hidden" id="ExerciseSetCount1" value="1">
+                        <div id="freeformtoggalediv">
+
+                        </div>
+                        <!-- end step-des -->
+                    </div>
+                </div>
+                <!-- end step -->
+                <!-- start step -->
+                <div class="step" id="AdminChallengeVaribaleSec">
+                    <h5>Choose Variable Value (based on challenge type selected above):</h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+                        <div class="row-colum">
+                            <div id="VariblesMinute-Section" style="display:none;">
+                                <div class="row remove-data-pd">
+                                    <div><label id="lblValue" style="width: 169px;">Type 1 - # of Reps:</label> </div>
+                                    <div class="col-md-6 rmv-pd">
+                                        <div class="rmv-pd">
+                                            <label style="width:47px;margin-right:2px;" class="lbl-txt">Hour(s)</label>
+                                            @Html.TextBoxFor(m => m.VariableHours, null, new { @class = "input ", maxLength = "2", style = "width:30px;padding:5px;margin-right:5px;" })
+                                            <label style="width:55px;margin-right:5px;" class="lbl-txt">Minute(s)</label>
+                                            @Html.TextBoxFor(m => m.VariableMinute, null, new { @class = "input ", maxLength = "2", style = "width:30px;padding:5px;margin-right:5px;" })
+                                            <label style="width:58px;margin-right:5px;" class="lbl-txt">Second(s)</label>
+                                            @Html.TextBoxFor(m => m.VariableSecond, null, new { @class = "input ", maxLength = "2", style = "width:30px;padding:5px;margin-right:5px;" })
+                                            <label style="width:30px;margin-right:5px;" class="lbl-txt">HS(s)</label>
+                                            @Html.TextBoxFor(m => m.VariableMS, null, new { @class = "input ", maxLength = "2", style = "width:30px;padding:5px;margin-right:5px;" })
+                                        </div>
+                                        <div class="clr-both"></div>
+                                        <div class="rmv-pd">
+                                            @Html.ValidationMessageFor(m => m.VariableValue, "", new { @class = "error-msg", style = "padding: 0px 0 0 0px;float: left;margin-right:5px;" })
+                                            @Html.ValidationMessageFor(m => m.VariableHours, "", new { @class = "field-validation-error error-msg", style = "padding: 0px 0 0 0px;float: left;margin-right:5px;" })
+                                            @Html.ValidationMessageFor(m => m.VariableMinute, "", new { @class = "field-validation-error error-msg", style = "padding: 0px 0 0 0px;float: left;margin-right:5px;" })
+                                            @Html.ValidationMessageFor(m => m.VariableSecond, "", new { @class = "field-validation-error error-msg", style = "padding: 0px 0 0 0px;float: left;margin-right:5px;" })
+                                            @Html.ValidationMessageFor(m => m.VariableMS, "", new { @class = "field-validation-error error-msg", style = "padding: 0px 0 0 0px;float: left;margin-right:5px;" })
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="clr-both"></div>
+                            </div>
+                            <div class="row" id="otheVariableValue">
+                                <div class="col-md-2 col-sm-2 col-xs-2  rmv-pd" style="width: 169px;"><label id="lblotherValue">Type 1 - # of Reps:</label> </div>
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.VariableValue, null, new { @class = "input", maxLength = "5", autocomplete = "off" })
+                                    <span id="maxLimitValidation" class="error-msg"></span>
+
+                                </div>
+                                @Html.ValidationMessageFor(m => m.VariableValue, "", new { @class = "error-msg" })
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <!-- end step -->
+                <!-- start step -->
+
+                <div class="step" id="ChallengeGlobalResultFilter">
+                    <h5>Enter Global Result Filter(based on challenge type selected above):</h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+                        <div class="row-colum" id="inputDiv">
+                            <div id="ResultTime" style="display:none;">
+                                <div class="row remove-data-pd">
+                                    <div><label id="lblGlobalResultFilterValue">Filter Value:  </label> </div>
+                                    <div class="col-md-10  rmv-pd">
+                                        <label style="width:47px;margin-right:2px;" class="lbl-txt">Hour(s)</label>
+                                        @Html.TextBoxFor(m => m.GlobalResultFilterHours, null, new { @class = "input ", maxLength = "2", style = "width:30px;padding:5px;margin-right:5px;" })
+                                        <label style="width:57px;margin-right:2px;" class="lbl-txt">Minute(s)</label>
+                                        @Html.TextBoxFor(m => m.GlobalResultFilterMinute, null, new { @class = "input", maxLength = "2", style = "width:30px;padding:5px;margin-right:5px;" })
+                                        <label style="width:59px;margin-right:2px;" class="lbl-txt">Second(s)</label>
+                                        @Html.TextBoxFor(m => m.GlobalResultFilterSecond, null, new { @class = "input", maxLength = "2", style = "width:30px;padding:5px;margin-right:5px;" })
+                                        <label style="width:30px;margin-right:2px;" class="lbl-txt">HS(s)</label>
+                                        @Html.TextBoxFor(m => m.GlobalResultFilterMS, null, new { @class = "input", maxLength = "2", style = "width:30px;padding:5px;margin-right:5px;" })
+                                        <div class="rmv-pd">
+                                            @Html.ValidationMessageFor(m => m.GlobalResultFilterHours, "", new { @class = "field-validation-error error-msg", style = "padding: 0px 0 0 0px;float: left;margin-right:5px;" })
+                                            @Html.ValidationMessageFor(m => m.GlobalResultFilterMinute, "", new { @class = "field-validation-error error-msg", style = "padding: 0px 0 0 0px;float: left;margin-right:5px;" })
+                                            @Html.ValidationMessageFor(m => m.GlobalResultFilterSecond, "", new { @class = "field-validation-error error-msg", style = "padding: 0px 0 0 0px;float: left;margin-right:5px;" })
+                                            @Html.ValidationMessageFor(m => m.GlobalResultFilterMS, "", new { @class = "field-validation-error error-msg", style = "padding: 0px 0 0 0px;float: left;margin-right:5px;" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clr-both"></div>
+                            </div>
+                            <div class="row" id="otheGlobalResultFilterValue">
+                                <div class="col-md-2 col-sm-2 col-xs-2  rmv-pd"><label>Filter Value:  </label> </div>
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.GlobalResultFilterValue, null, new { @class = "input", maxLength = "5", autocomplete = "off" })
+                                    <span id="maxLimitValidation" class="error-msg"></span>
+                                </div>
+                                @Html.ValidationMessageFor(m => m.GlobalResultFilterValue, "", new { @class = "error-msg" })
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <!-- start step -->
+
+                <div class="step" id="CreateChallenegeEquipmentRequirement">
+                    <h5 id="ChallenegeEquipmentRequirementHeader">Select Equipment Requirements:</h5>
+                    <!-- start step-des -->
+                    <div class="col-xs-12 col-md-12 col-lg-12 mob-view-box">
+                        <div style="overflow-x:auto; overflow-y:hidden;">
+                            <fieldset class="txt-specialisation-detail margin-top" style="width: 99%;">
+                                <div id="detailsEquipmentchk1">
+                                    <div style="color:red;"> @Html.ValidationMessageFor(m => m.SelectedEquipmentCheck, "", new { })</div>
+                                    @{
+                                        var equipmentListInfo = new HtmlListInfo(HtmlTag.table, 4, null, TextLayout.Default, TemplateIsUsed.No);
+                                        @Html.CheckBoxListFor(m => m.PostedEquipments.SelectedEquipmentIDs, m => m.AvailableEquipments, m => m.EquipmentId, m => m.Equipment, m => m.SelectedEquipments, equipmentListInfo)
+                                    }
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <!-- end step -->
+                <!-- start step -->
+                <div class="step" id="CreateChallenegeTrainingZone">
+                    <h5 id="AdminStepTrainingZone">Select Target Training Zone:</h5>
+                    <!-- start step-des -->
+                    <div class="col-xs-12 col-md-12 col-lg-12 mob-view-box">
+                        <div style="overflow-x:auto; overflow-y:hidden;">
+                            <fieldset class="txt-specialisation-detail margin-top" style="width: 99%;">
+                                <div id="detailsTraiingZonechk1">
+                                    <div style="color:red;"> @Html.ValidationMessageFor(m => m.SelectedTargetZoneCheck, "", new { })</div>
+                                    @{
+                                        var trainngzoneListInfo = new HtmlListInfo(HtmlTag.table, 4, null, TextLayout.Default, TemplateIsUsed.No);
+                                        @Html.CheckBoxListFor(m => m.PostedTargetZones.SelectedTargetZoneIDs, m => m.AvailableTargetZones, m => m.PartId, m => m.PartName, m => m.SelectedTargetZones, trainngzoneListInfo)
+                                    }
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <!-- end step-des -->
+                </div>
+                <!-- end step -->
+                <div class="step" id="CreateChallenegeExerciseType">
+                    <h5 id="AdminStepExerciseType">Choose Exercise Type:</h5>
+                    <div class="col-xs-12 col-md-12 col-lg-12 mob-view-box">
+                        <div style="overflow-x:auto; overflow-y:hidden;">
+                            <fieldset class="txt-specialisation-detail margin-top" style="width: 1018px;">
+                                <div id="detailschk1">
+                                    <div style="color:red;"> @Html.ValidationMessageFor(m => m.SelectedExerciseTypeCheck, "", new { })</div>
+                                    @{
+                                        var exerciseTypeListInfo = new HtmlListInfo(HtmlTag.table, 4, null, TextLayout.Default, TemplateIsUsed.No);
+                                        @Html.CheckBoxListFor(m => m.PostedExerciseTypes.SelectedExerciseTypeIDs, m => m.AvailableExerciseTypes, m => m.ExerciseTypeId, m => m.ExerciseName, m => m.SelectedExerciseTypes, exerciseTypeListInfo)
+                                    }
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <!-- start step -->
+                <div class="step" id="CraeteChangeChallengeName">
+                    <h5 id="AdminStepChallengeName">Enter Challenge Name:</h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+                        <div class="row-colum">
+                            @Html.TextBoxFor(m => m.ChallengeName, null, new { @class = "input", maxLength = "200" })
+                            @Html.ValidationMessageFor(m => m.ChallengeName, "", new { @class = "error-msg none error-btm" })
+                        </div>
+                    </div>
+                    <!-- end step-des -->
+                </div>
+
+                <!-- end step -->
+                <div class="step" id="challengeTrainer">
+                    <h5 id="AdminStepTrainerName">Choose Trainer:</h5>
+                    <!-- start step-des -->
+                    <div class="step-des">
+                        <div class="row-colum">
+                            @Html.DropDownListFor(m => m.TrainerCredntialId, new SelectList(lstallTrainers, "TrainerId", "TrainerName"), "No Trainer", new { @class = "select" })
+                        </div>
+                    </div>
+                    <!-- end step-des -->
+                </div>
+
+                <div class="step" id="challengeNoTrainerTeam">
+                    <h5 id="AdminStepNoTrainerTeam"> Choose Teams to Assigned:</h5>
+                    <div class="col-xs-12 col-md-12 col-lg-12 mob-view-box">
+                        <div style="overflow-x:auto; overflow-y:hidden;">
+                            <fieldset class="txt-specialisation-detail margin-top" style="width: 1018px;">
+                                <legend style="width: 70px;font-size: 12px;">Select All: @Html.CheckBox("SelectAllTeam", false)</legend>
+                                <div id="chkAllNoTrainetWorkoutTeam">
+                                    @{
+                                        var primaryTeamsListInfo = new HtmlListInfo(HtmlTag.table, 4, null, TextLayout.Default, TemplateIsUsed.No);
+                                        @Html.CheckBoxListFor(m => m.PostedTeams.TeamsID, m => m.AvailableTeams,
+m => m.TeamId, m => m.TeamName, m => m.SelecetdTeams, primaryTeamsListInfo)
+                                    }
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step" id="divTrendingCategorySection">
+                    <h5>Select Your Trending Category: </h5>
+                    <!-- start step-des -->
+                    <div class="col-xs-12 col-md-12 col-lg-12 mob-view-box">
+                        <div style="overflow-x:auto; overflow-y:hidden;">
+                            <fieldset class="txt-specialisation-detail margin-top" style="width:96%;">
+                                <legend style="width: 70px;font-size: 12px;">Select All: @Html.CheckBox("SelectAllTrendingCategory", false)</legend>
+                                <div id="chkAllTrendingCategory">
+                                    @{
+                                        var primaryTrendingCategoryListInfo = new HtmlListInfo(HtmlTag.table, 5, null, TextLayout.Default, TemplateIsUsed.No);
+                                        @Html.CheckBoxListFor(m => m.PostedTrendingCategory.TrendingCategoryID, m => m.AvailableTrendingCategory,
+m => m.TrendingCategoryId, m => m.TrendingCategoryName, m => m.SelecetdTrendingCategory, primaryTrendingCategoryListInfo)
+                                    }
+                                </div>
+                                <legend>Sports Trending Category(s) </legend>
+                                @{
+                                    var secondaryTrendingCategoryListInfo = new HtmlListInfo(HtmlTag.table, 5, null, TextLayout.Default, TemplateIsUsed.No);
+                                    @Html.CheckBoxListFor(m => m.PostedSecondaryTrendingCategory.TrendingCategoryID, m => m.AvailableSecondaryTrendingCategory,
+m => m.TrendingCategoryId, m => m.TrendingCategoryName, m => m.SelecetdSecondaryTrendingCategory, secondaryTrendingCategoryListInfo)
+                                }
+                            </fieldset>
+                        </div>
+                    </div>
+
+
+
+                    <!-- end step-des -->
+                </div>
+
+                <div class="clr-both"></div>
+                <div class="page-control-btn">
+                    <input name="" type="button" id="btnbuttomadminupdatechallange" value="Update" class="submit" />
+                    @if (Convert.ToString(@Session[LinksMediaCorpUtility.Resources.Message.PreviousUrl]).Equals(LinksMediaCorpUtility.Resources.Message.MainUrlText))
+                    {
+                        @Html.ActionLink("Cancel", "Main", "Reporting", new { }, new { @class = "submit" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Cancel", "Challenges", "Reporting", new { page = Model.Page, sort = Model.SortField, sortdir = Model.Sortdir }, new { @class = "submit" })
+                    }
+                </div>
+            </div>
+            <!-- end challenge-content -->
+        </div>
+        <!-- end create-challenge -->
+        <div class="clearfix"></div>
+    </div>
+                                        }
+<script src="~/Scripts/BusinessLogic/UpdateChallenge.js"></script>

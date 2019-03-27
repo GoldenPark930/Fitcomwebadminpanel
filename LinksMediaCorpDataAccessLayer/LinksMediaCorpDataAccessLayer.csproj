@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{81037449-E4EA-4425-AA13-F6555820AC38}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LinksMediaCorpDataAccessLayer</RootNamespace>
+    <AssemblyName>LinksMediaCorpDataAccessLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\RuleSets\RuleSet_Fitcom.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+    <CodeAnalysisRuleSet>..\RuleSets\RuleSet_Fitcom.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>LinksMediaCorp-WT.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+    <CodeAnalysisRuleSet>..\RuleSets\RuleSet_Fitcom.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+    <CodeAnalysisRuleSet>..\RuleSets\RuleSet_Fitcom.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entity\tblActivity.cs" />
+    <Compile Include="Entity\tblAppSubscription.cs" />
+    <Compile Include="Entity\tblBodyPart.cs" />
+    <Compile Include="Entity\tblBoom.cs" />
+    <Compile Include="Entity\tblCEAssociation.cs" />
+    <Compile Include="Entity\tblCEquipmentAssociation.cs" />
+    <Compile Include="Entity\tblCESAssociation.cs" />
+    <Compile Include="Entity\tblChallenge.cs" />
+    <Compile Include="Entity\tblChallengeCategory.cs" />
+    <Compile Include="Entity\tblChallengeCategoryAssociation.cs" />
+    <Compile Include="Entity\tblChallengeofTheDayQueue.cs" />
+    <Compile Include="Entity\tblChallengeToFriend.cs" />
+    <Compile Include="Entity\tblChallengeTrendingAssociation.cs" />
+    <Compile Include="Entity\tblChallengeType.cs" />
+    <Compile Include="Entity\tblChatHistory.cs" />
+    <Compile Include="Entity\tblCity.cs" />
+    <Compile Include="Entity\tblComment.cs" />
+    <Compile Include="Entity\tblCredentials.cs" />
+    <Compile Include="Entity\tblDifficulty.cs" />
+    <Compile Include="Entity\tblEquipment.cs" />
+    <Compile Include="Entity\tblETCAssociation.cs" />
+    <Compile Include="Entity\tblExercise.cs" />
+    <Compile Include="Entity\tblExerciseType.cs" />
+    <Compile Include="Entity\tblExerciseUploadHistory.cs" />
+    <Compile Include="Entity\tblFeaturedActivityQueue.cs" />
+    <Compile Include="Entity\tblFollowings.cs" />
+    <Compile Include="Entity\tblHypeVideo.cs" />
+    <Compile Include="Entity\tblLevelTeam.cs" />
+    <Compile Include="Entity\tblMessageStream.cs" />
+    <Compile Include="Entity\tblMessageStreamPic.cs" />
+    <Compile Include="Entity\tblMessageStreamVideo.cs" />
+    <Compile Include="Entity\tblNotesSession.cs" />
+    <Compile Include="Entity\tblNoTrainerChallengeTeam.cs" />
+    <Compile Include="Entity\tblPic.cs" />
+    <Compile Include="Entity\tblPieceOfEquipment.cs" />
+    <Compile Include="Entity\tblPWAssociation.cs" />
+    <Compile Include="Entity\tblPWWorkoutsAssociation.cs" />
+    <Compile Include="Entity\tblResultBoom.cs" />
+    <Compile Include="Entity\tblResultComment.cs" />
+    <Compile Include="Entity\tblSessionNotesExeciseSet.cs" />
+    <Compile Include="Entity\tblSessionPurchaseHistory.cs" />
+    <Compile Include="Entity\tblSpecialization.cs" />
+    <Compile Include="Entity\tblSponsorChallengeQueue.cs" />
+    <Compile Include="Entity\tblState.cs" />
+    <Compile Include="Entity\tblTeam.cs" />
+    <Compile Include="Entity\tblTeamCommissionReport.cs" />
+    <Compile Include="Entity\tblTeamLevelCommissionReport.cs" />
+    <Compile Include="Entity\tblTeamTrendingAssociation.cs" />
+    <Compile Include="Entity\tblTrainer.cs" />
+    <Compile Include="Entity\tblTrainerMobileCoachTeam.cs" />
+    <Compile Include="Entity\tblTrainerSpecialization.cs" />
+    <Compile Include="Entity\tblTrainerTeamMembers.cs" />
+    <Compile Include="Entity\tblTrainerType.cs" />
+    <Compile Include="Entity\tblTrainingType.cs" />
+    <Compile Include="Entity\tblTrainingZoneCAssociation.cs" />
+    <Compile Include="Entity\tblTrendingCategory.cs" />
+    <Compile Include="Entity\tblUsedSession.cs" />
+    <Compile Include="Entity\tblUsedSessionNote.cs" />
+    <Compile Include="Entity\tblUser.cs" />
+    <Compile Include="Entity\tblUserAcceptedProgramWeek.cs" />
+    <Compile Include="Entity\tblUserAcceptedProgramWorkouts.cs" />
+    <Compile Include="Entity\tblUserActivePrograms.cs" />
+    <Compile Include="Entity\tblUserActivities.cs" />
+    <Compile Include="Entity\tblUserAssignmentByTrainer.cs" />
+    <Compile Include="Entity\tblUserChallenges.cs" />
+    <Compile Include="Entity\tblUserNotifications.cs" />
+    <Compile Include="Entity\tblUserNotificationSetting.cs" />
+    <Compile Include="Entity\tblUserSessionDetail.cs" />
+    <Compile Include="Entity\tblUTCPostMessage.cs" />
+    <Compile Include="Entity\tblVideo.cs" />
+    <Compile Include="Entity\UserToken.cs" />
+    <Compile Include="LinksMediaContext.cs" />
+    <Compile Include="LinksMediaCorpsInInitializer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="LinksMediaCorp-WT.pfx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
